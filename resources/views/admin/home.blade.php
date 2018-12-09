@@ -63,6 +63,30 @@
                           </div>
                         </div>
                       </div>
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="card-title"><strong>Court Dates</strong></h5>
+                            <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
+                                <p class="card-text">
+                                    <i class="fa fa-calendar-alt" style="font-size:40px;color:#2E86C1;"></i>
+                                </p>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="card-title"><strong>Expiration Dates</strong></h5>
+                            <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
+                                <p class="card-text">
+                                    <i class="fa fa-calendar-times" style="font-size:40px;color:#2E86C1;"></i>
+                                </p>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
 
                     </div>
                     
