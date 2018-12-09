@@ -57,7 +57,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Cases</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Agreements
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Hire Purchase Agreement</a>
+                                <a class="dropdown-item" href="#">Land Agreement</a>
+                                <a class="dropdown-item" href="#">Loan Agreement</a>
+                                <a class="dropdown-item" href="#">Partnership Agreement</a>
+                                <a class="dropdown-item" href="#">Copy Right Agreement</a>
+                                <a class="dropdown-item" href="#">Memorandum of Understanding</a>
+                                <a class="dropdown-item" href="#">Business Agreement</a>
+                                <a class="dropdown-item" href="#">Contract Agreement</a>
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

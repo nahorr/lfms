@@ -57,25 +57,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/admin/clients/showclients')}}">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/admin/cases/showcases')}}">Cases</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Agreements
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Hire Purchase Agreement</a>
+                                <a class="dropdown-item" href="#">Land Agreement</a>
+                                <a class="dropdown-item" href="#">Loan Agreement</a>
+                                <a class="dropdown-item" href="#">Partnership Agreement</a>
+                                <a class="dropdown-item" href="#">Copy Right Agreement</a>
+                                <a class="dropdown-item" href="#">Memorandum of Understanding</a>
+                                <a class="dropdown-item" href="#">Business Agreement</a>
+                                <a class="dropdown-item" href="#">Contract Agreement</a>
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -100,11 +102,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="{{ url('home') }}"><i class="fas fa-desktop"></i> Home</a>
-
-                                    <a class="dropdown-item" href="{{ url('profile') }}"><i class="fas fa-user"></i> My Profile</a>
                                     
                                     @if(Auth::user()->is_admin == 1)
-                                        <a class="dropdown-item" href="{{ url('admin/home') }}"><i class="fas fa-cog"></i> Administrator</a>
+                                        <a class="dropdown-item" href="{{ url('admin/home') }}"><i class="fas fa-cog"></i> Admin Home</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

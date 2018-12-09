@@ -55,7 +55,7 @@
                         <div class="card">
                           <div class="card-body text-center">
                             <h5 class="card-title"><strong>Agreements</strong></h5>
-                            <a href="{{url('/')}}">
+                            <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
                                 <p class="card-text">
                                     <i class="fa fa-file-alt" style="font-size:40px;color:#2E86C1;"></i>
                                 </p>

@@ -54,5 +54,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	//Manage cases
   	Route::get('admin/cases/showcases', 'Admin\ClientCasesController@showCases');
   	Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
+
+  	/* Agreement Types */
+  	//Manage Agreement Types
+  	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');
+  	//Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
   	
 });
