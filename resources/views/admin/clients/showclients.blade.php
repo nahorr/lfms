@@ -66,9 +66,15 @@
                           <td>{{ $client->email }}</td>
                           <td>{{ $client->phone }}</td>
                           <td>
-                            {{ $client->address }}, {{ $client->address_2 }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }}
+                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="{{ $client->address }}, {{ $client->address_2 }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }}">
+                             <i class="fas fa-caret-right" style="color: Tomato;"></i>{{ $client->state }}
+                            </a>
                           </td>
-                          <td>{{ $client->client_note }}</td>
+                          <td>
+                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="{{ $client->client_note }}"><i class="fas fa-caret-right" style="color: Tomato;"></i>
+                              {{ str_limit($client->client_note, 10) }}
+                            </a>
+                          </td>
                           <td>{{ $client->created_at->toFormatteddateString() }}</td>
                           <td>
                             <button type="button" class="btn btn-primary" id="editClient-{{$client->id}}">Edit</button>
