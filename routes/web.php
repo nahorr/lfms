@@ -58,6 +58,6 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	/* Agreement Types */
   	//Manage Agreement Types
   	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');
-  	//Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
-  	
+  	Route::post('admin/agreements/types/addagreementtype', 'Admin\AgreementTypesController@addAgreementType');
+  	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
 });
