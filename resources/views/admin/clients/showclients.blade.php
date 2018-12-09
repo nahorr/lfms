@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container">
@@ -35,7 +35,7 @@
                           <th scope="col">Phone#</th>
                           <th scope="col">Address</th>
                           <th scope="col">Note</th>
-                          <th scope="col">Date Added</th>
+                          <th scope="col">Added</th>
                           <th scope="col">Edit</th>
                           <th scope="col">Delete</th>
                         </tr>
