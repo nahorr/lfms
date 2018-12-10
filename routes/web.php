@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::get('admin/cases/showcases', 'Admin\ClientCasesController@showCases');
   	Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
 
+  	/*Court Dates and Times*/
+  	Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');
+
   	/* Agreement Types */
   	//Manage Agreement Types
   	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');

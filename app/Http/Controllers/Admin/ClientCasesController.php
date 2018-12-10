@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\UpComingCourtDate;
+
 use App\ClientCase;
+use Carbon\Carbon;
+use App\User;
+
 
 class ClientCasesController extends Controller
 {
@@ -78,6 +83,25 @@ class ClientCasesController extends Controller
     	flash('Client deleted!')->warning();
 
         return back();
+    }
+
+    public function courtDates()
+    {
+        $client_cases = ClientCase::get();
+
+        $up_coming_court_cases = ClientCase::whereDate('court_date', '=', Carbon::now()->addDays(10) )->get();
+
+        $user = User::where('id', '=', 1)->where('is_admin', '=', 1)->first();
+
+        foreach ($up_coming_court_cases as  $up_coming_court_case) {
+            
+            $hgyfgh = $user->notify(new UpComingCourtDate("A new court date is less than 10 day away"));
+        }
+        
+
+        dd($hgyfgh);
+    
+        return view('admin.cases.courtdates', compact('client_cases', 'up_coming_court_cases', 'hgyfgh'));
     }
 
 }
