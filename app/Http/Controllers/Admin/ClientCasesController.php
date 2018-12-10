@@ -89,19 +89,22 @@ class ClientCasesController extends Controller
     {
         $client_cases = ClientCase::get();
 
-        $up_coming_court_cases = ClientCase::whereDate('court_date', '=', Carbon::now()->addDays(10) )->get();
-
         $user = User::where('id', '=', 1)->where('is_admin', '=', 1)->first();
 
-        foreach ($up_coming_court_cases as  $up_coming_court_case) {
-            
-            $hgyfgh = $user->notify(new UpComingCourtDate("A new court date is less than 10 day away"));
+
+
+        foreach ($client_cases as  $clientcase) {
+
+            if ( $clientcase->court_date == Carbon::now()->addDays(10) || $clientcase->court_date == Carbon::now()->addDays(5) || $clientcase->court_date == Carbon::now()->addDays(1) ) {
+
+               $user->notify(new UpComingCourtDate($clientcase));
+            }
+
+           //dd($clientcase->court_date->toFormattedDateString());
         }
         
 
-        dd($hgyfgh);
-    
-        return view('admin.cases.courtdates', compact('client_cases', 'up_coming_court_cases', 'hgyfgh'));
+        return view('admin.cases.courtdates', compact('client_cases', 'up_coming_court_cases'));
     }
 
 }

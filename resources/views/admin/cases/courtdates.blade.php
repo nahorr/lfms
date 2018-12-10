@@ -39,7 +39,7 @@
                           <td>{{ $cases->client->last_name }}, {{ $cases->client->first_name }}</td>
                           <td>
                             <button type="button" class="btn btn-danger">
-                              <strong>{{ $cases->court_date->toFormatteddateString() }}</strong>
+                              <strong>{{ $cases->court_date->toFormattedDateString() }}</strong>
                             </button>
                           </td>
                           <td>

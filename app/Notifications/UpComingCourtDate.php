@@ -7,20 +7,23 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\ClientCase;
+use Carbon\Carbon;
 
 class UpComingCourtDate extends Notification
 {
     use Queueable;
-    public $up_coming_court_case;
+    public $clientcase;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(ClientCase $case)
+    public function __construct(ClientCase $clientcase)
     {
-        $this->up_coming_court_case = $case;
+        $this->clientcase = $clientcase;
+
+        return $this->clientcase;
     }
 
     /**
@@ -43,9 +46,14 @@ class UpComingCourtDate extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('There is a new court date coming up soon: ')
+                    ->line('Case Title: '.$this->clientcase->case_title )
+                    ->line('Client: '.$this->clientcase->client->last_name. ',' . $this->clientcase->client->first_name)
+                    ->line('Date: '.$this->clientcase->court_date->toFormattedDateString() )
+                    ->line('Time: '.$this->clientcase->court_date->format('g:i A') )
+                    ->line('Location: '.$this->clientcase->court_location )
+                    ->action('Login to View Upcoming Cases', url('/admin/cases/courtdates'))
+                    ->line('Thank you!');
     }
 
     /**
