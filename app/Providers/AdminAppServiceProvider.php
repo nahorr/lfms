@@ -4,7 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class AdminAppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -16,10 +16,12 @@ class AppServiceProvider extends ServiceProvider
         // Using class based composers...
         View::composer(
             [
-            'include.app',
+            'admin.layouts.app',
+            'admin.home',
+            'admin.user',
             ], 
             
-            'App\Http\ViewComposers\UserViewComposer'
+            'App\Http\ViewComposers\AdminViewComposer'
         );
     }
 

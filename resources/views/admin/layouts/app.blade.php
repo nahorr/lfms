@@ -68,14 +68,9 @@
                             Agreements
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="#">Hire Purchase Agreement</a>
-                                <a class="dropdown-item" href="#">Land Agreement</a>
-                                <a class="dropdown-item" href="#">Loan Agreement</a>
-                                <a class="dropdown-item" href="#">Partnership Agreement</a>
-                                <a class="dropdown-item" href="#">Copy Right Agreement</a>
-                                <a class="dropdown-item" href="#">Memorandum of Understanding</a>
-                                <a class="dropdown-item" href="#">Business Agreement</a>
-                                <a class="dropdown-item" href="#">Contract Agreement</a>
+                                @foreach($agreement_types as $agreement_type)
+                                    <a class="dropdown-item" href="#">{{@$agreement_type->name}}</a>
+                                @endforeach
                             </div>
                         </li>
                     </ul>

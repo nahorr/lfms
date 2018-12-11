@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Felixkiss\UniqueWithValidator\ServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AdminAppServiceProvider::class,
 
     ],
 
