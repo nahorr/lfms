@@ -38,6 +38,9 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::get('admin/users', 'Admin\UsersController@showUsers');
   	//Delete a user
   	Route::get('admin/deleteuser/{user}', 'Admin\UsersController@deleteUser');
+  	//Make Admin or User
+  	Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');
+  	Route::post('admin/users/makeuser/{user}', 'Admin\UsersController@makeUser');
 
   	//Make Admin or make User
   	Route::get('/admin/makeUser/{user}', 'Admin\UsersController@makeUser');

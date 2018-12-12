@@ -15,6 +15,42 @@ class UsersController extends Controller
     	return view('admin.users', compact('users'));
     }
 
+    public function makeAdmin(Request $request, User $user)
+    {
+        $this->validate(request(), [
+
+            'is_admin' => 'required',
+        ]);
+
+        $make_admin = User::where('id', $user->id)->first();
+
+        $make_admin->is_admin = $request->is_admin;
+
+        $make_admin->save();
+       
+        flash('User Updated successfully!')->success();
+
+        return back();
+    }
+
+    public function makeUser(Request $request, User $user)
+    {
+        $this->validate(request(), [
+
+            'is_admin' => 'required',
+        ]);
+
+        $make_user = User::where('id', $user->id)->first();
+
+        $make_user->is_admin = $request->is_admin;
+
+        $make_user->save();
+       
+        flash('User Updated successfully!')->success();
+
+        return back();
+    }
+
     public function deleteUser(User $user)
     {
     	User::where('id', $user->id)->delete();

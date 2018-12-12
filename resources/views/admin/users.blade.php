@@ -38,17 +38,26 @@
                           <td>{{ $user->email }}</td>
                           <td>{{ $user->created_at->toFormatteddateString() }}</td>
                           <td>
-                            @if($user->is_admin == 1)
-                              <form action="{{ url('/admin/home/makeUser', [$user->id])}}" method="POST">
+                            @if($user->is_admin == 1 && $user->id != 1)
+                              <form action="{{ url('/admin/users/makeuser', [$user->id])}}" method="POST">
                                 {{ csrf_field() }}
                                   <input name="is_admin" type="hidden" value="0">
                                   
-                                  <button type="button" class="btn btn btn-success" onclick="return confirm('Are you sure you want to remove this user from admin list?')">Make User&nbsp;&nbsp;
+                                  <button type="submit" class="btn btn btn-success" onclick="return confirm('Are you sure you want to remove this user from admin list?')">Make User&nbsp;&nbsp;
                                   </button>
                               </form>
                               
-                            @else
-                              <button type="button" class="btn btn-warning">Make Admin</button>
+                            @elseif($user->is_admin == 0)
+                              <form action="{{ url('/admin/users/makeadmin', [$user->id])}}" method="POST">
+                                {{ csrf_field() }}
+                                  <input name="is_admin" type="hidden" value="1">
+                                  
+                                  <button type="submit" class="btn btn btn-info" onclick="return confirm('Are you sure you want to add this user to admin list?')">Make Admin&nbsp;&nbsp;
+                                  </button>
+                              </form>
+
+                              @else
+                              <button type="button" class="btn btn btn-warning" data-toggle="tooltip" data-placement="top" title="Cannot be Modified">Super Admin</button>
                             @endif
                           </td>
                           <td>
