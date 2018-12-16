@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//Home page when loged in 
 	Route::get('home', 'HomeController@index')->name('home');
+	/* Paystack */
+  	Route::post('/paystack', 'HomeController@payStackPost');
 	
 	//User profile page
 	Route::get('profile', 'ProfileController@profile');
@@ -32,6 +34,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
 	//Admin Home page for the company
   	Route::get('admin/home', 'Admin\HomeController@index');
+  	/* Paystack */
+  	Route::post('/admin/paystack', 'Admin\HomeController@payStack');
 
   	/* Users */
   	//Manage users
@@ -66,4 +70,5 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');
   	Route::post('admin/agreements/types/addagreementtype', 'Admin\AgreementTypesController@addAgreementType');
   	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
+
 });

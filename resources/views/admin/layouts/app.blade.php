@@ -91,6 +91,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{ asset('/uploads/avatars/'.Auth::user()->avatar) }}" style="width 40px; height:40px; float:left; border-radius:50%; margin: -6px 7px;" class="float-left img-thumbnail">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

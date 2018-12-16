@@ -55,6 +55,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @if (Auth::check())
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -79,7 +80,7 @@
                             </div>
                         </li>
                     </ul>
-
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -95,8 +96,11 @@
                         @else
 
                             <li class="nav-item dropdown">
+
+                                
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <img src="{{ asset('/uploads/avatars/'.Auth::user()->avatar) }}" style="width 40px; height:40px; float:left; border-radius:50%; margin: -6px 7px;" class="float-left img-thumbnail">
+                                        {{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
