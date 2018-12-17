@@ -28,6 +28,7 @@ class HomeController extends Controller
             'fee_id' => Fee::where('type', 'Tuition-SS2')->first()->id,
             'email' => Auth::user()->email,
             'amount' => Fee::where('type', 'Tuition-SS2')->first()->amount,
+            'trans_ref' => mt_rand(1000000000, 9999999999).preg_replace('/\s+/', '', Auth::user()->email),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
