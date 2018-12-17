@@ -7,6 +7,7 @@ use App\Company;
 use App\PayStack;
 use App\Fee;
 use Auth;
+use Input;
 
 
 class HomeController extends Controller
@@ -36,22 +37,18 @@ class HomeController extends Controller
         return view('home', compact('fee_ss1', 'fee_ss2', 'paystack'));
     }
 
-    public function payStackPost(Request $request)
-
+    public function payStackPost()
     {
-        $fee_ss1 = Fee::where('type', 'Tuition-SS1')->first();
-        $fee_ss2 = Fee::where('type', 'Tuition-SS2')->first();
+        $paystack = new PayStack();
 
-        PayStack::insert([
-            'fee_id' => $fee_ss1->id,
-            'email' => Auth::user()->email,
-            'amount' => $fee_ss1->amount,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+        $paystack->fee_id = Fee::where('type', 'Tuition-SS1')->first()->id;
+        $paystack->email = Auth::user()->email;
+        $paystack->amount = Fee::where('type', 'Tuition-SS1')->first()->amount;
+        $paystack->trans_ref = Input::get('trans_ref');
 
+        $paystack->save();
 
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        return response()->json();
 
     }
 }

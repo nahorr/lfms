@@ -19,6 +19,7 @@ class CreatePayStacksTable extends Migration
             $table->foreign('fee_id')->references('id')->on('fees')->onDelete('cascade');
             $table->string('email');
             $table->decimal('amount', 20, 0);
+            $table->string('trans_ref')->unique();
             $table->timestamps();
         });
     }

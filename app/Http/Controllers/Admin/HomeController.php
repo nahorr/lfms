@@ -22,7 +22,7 @@ class HomeController extends Controller
     	return view('admin.home', compact('fee_ss1', 'fee_ss2', 'paystack'));
     }
 
-    public function payStack(Request $request)
+    public function payStack()
     {
     	PayStack::insert([
             'fee_id' => Fee::where('type', 'Tuition-SS2')->first()->id,
