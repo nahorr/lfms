@@ -55,7 +55,7 @@
                 callback: function(response){
                     saveOrder();
                     alert('success. transaction ref is ' + response.reference);
-                    var ref_num = response.reference;
+                    var ref_num = { trans_ref : response.reference };
                 },
                 
                 onClose: function(){
@@ -80,7 +80,7 @@
 
                  url:'/paystack',
 
-                 //data: { "trans_ref": ref_num},
+                 data: ref_num,
 
               });
             }
