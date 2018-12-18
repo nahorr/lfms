@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Company;
 use App\PayStack;
 use App\Fee;
 use Auth;
-use Input;
 
 
 class HomeController extends Controller
@@ -34,6 +33,7 @@ class HomeController extends Controller
 
         $paystack = PayStack::first();
 
+
         return view('home', compact('fee_ss1', 'fee_ss2', 'paystack'));
     }
 
@@ -44,7 +44,7 @@ class HomeController extends Controller
         $paystack->fee_id = Fee::where('type', 'Tuition-SS1')->first()->id;
         $paystack->email = Auth::user()->email;
         $paystack->amount = Fee::where('type', 'Tuition-SS1')->first()->amount;
-        $paystack->trans_ref = Input::get('trans_ref');
+        $paystack->trans_ref = Input::get('ref_num');
 
         $paystack->save();
 

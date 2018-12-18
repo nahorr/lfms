@@ -5,6 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
+          @if (count($errors) > 0)
+                
+            <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+            </div>
+
+          @endif
+
           <div class="row">
 
             <div class="col-md-4 float-md-left">
@@ -13,88 +25,67 @@
                  <button type="button" class="btn btn-warning" name="pay_now" id="pay-now" title="Pay now"  onclick="payWithPaystack()">Pay With Paystack</button>
               </form>
             </div>
-              <script type="text/javascript">
+              <script>
 
-                $.ajaxSetup({
+            $.ajaxSetup({
 
-                        headers: {
+                headers: {
 
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-                        }
-
-                    });
-
-                var orderObj = {
-                  email: '{{ Auth::user()->email }}',
-                  amount: <?php echo $fee_ss1->amount; ?>,
-                  fee_id: <?php echo $fee_ss1->id; ?>
-                  // other params you want to save
-                };
-
-                function payWithPaystack(data){
-                  var handler = PaystackPop.setup({
-                    // This assumes you already created a constant named
-                    // PAYSTACK_PUBLIC_KEY with your public key from the
-                    // Paystack dashboard. You can as well just paste it
-                    // instead of creating the constant
-                    key: 'pk_test_d15f69a461a6e80ef256902944f1d9de40d17acb',
-                    email: orderObj.email,
-                    amount: orderObj.amount,
-                    metadata: {
-                      fee_id: orderObj.fee_id,
-                      custom_fields: [
-                        {
-                          display_name: "Paid on",
-                          variable_name: "paid_on",
-                          value: 'Website'
-                        },
-                        {
-                          display_name: "Paid via",
-                          variable_name: "paid_via",
-                          value: 'Inline Popup'
-                        }
-                      ]
-                    },
-                    callback: function(response){
-                      var trx_ref = response.reference;
-                      saveOrderUser(trx_ref);
-                      // post to server to verify transaction before giving value
-                      var verifying = $.get( '/verify.php?reference=' + response.reference);
-                      
-                      verifying.done(function( data ) { 
-                      /* give value saved in data */ 
-                        
-
-                      });
-                      
-                    },
-                    onClose: function(){
-                      alert('Click "Pay now" to retry payment.');
-                    }
-                  });
-                  handler.openIframe();
-                }
-
-
-                function saveOrderUser(trx_ref){
-                  
-                  // Send the data to save using post
-                  //var posting = $.post( '/paystack', orderObj );
-                  var posting = $.ajax({
-
-                           type:'POST',
-
-                           url:'/paystack',
-
-                           data: { "trans_ref": trx_ref },
-
-                        });
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 
                 }
 
+            });
 
-              </script>
+            function payWithPaystack(data){
+              var handler = PaystackPop.setup({
+                key: 'pk_test_d15f69a461a6e80ef256902944f1d9de40d17acb',
+                email: '{{ Auth::user()->email }}',
+                amount: <?php echo $fee_ss1->amount; ?>,
+                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                   custom_fields: [
+                      {
+                          display_name: "Mobile Number",
+                          variable_name: "mobile_number",
+                          value: "+2348012345678"
+                      }
+                   ]
+                },
+                callback: function(response){
+                    saveOrder();
+                    alert('success. transaction ref is ' + response.reference);
+                    var ref_num = response.reference;
+                },
+                
+                onClose: function(){
+                    alert('window closed');
+                },
+
+              });
+
+              handler.openIframe();
+            }
+
+            
+            
+
+            function saveOrder(data){
+              
+              // Send the data to save using post
+              //var posting = $.post( '/paystack', orderObj );
+              var posting = $.ajax({
+
+                 type:'POST',
+
+                 url:'/paystack',
+
+                 //data: { "trans_ref": ref_num},
+
+              });
+            }
+
+          </script>
           
           <div class="col-md-4 offset-md-4">
             <a role="button" class="btn btn-primary float-right" href="{{url('admin/home')}}">Admin Dashboard</a>

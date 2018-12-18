@@ -16,9 +16,9 @@
 
           @endif
 
-          <form>
+          <form class="form-group">
             <script src="https://js.paystack.co/v1/inline.js"></script>
-            <button type="button" class="btn btn-primary btn-lg" onclick="payWithPaystack()"> Pay Your Fee</button> 
+            <button type="button" class="btn btn-warning" onclick="payWithPaystack()"> Pay Your Fee</button> 
           </form>
            
           <script>
