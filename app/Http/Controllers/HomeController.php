@@ -31,20 +31,17 @@ class HomeController extends Controller
         $fee_ss1 = Fee::where('type', 'Tuition-SS1')->first();
         $fee_ss2 = Fee::where('type', 'Tuition-SS2')->first();
 
-        $paystack = PayStack::first();
-
-
-        return view('home', compact('fee_ss1', 'fee_ss2', 'paystack'));
+        return view('home', compact('fee_ss1', 'fee_ss2'));
     }
 
-    public function payStackPost()
+    public function payStackPost(Request $request)
     {
         $paystack = new PayStack();
 
         $paystack->fee_id = Fee::where('type', 'Tuition-SS1')->first()->id;
         $paystack->email = Auth::user()->email;
         $paystack->amount = Fee::where('type', 'Tuition-SS1')->first()->amount;
-        $paystack->trans_ref = Input::get('ref_num');
+        $paystack->trans_ref = $request->trans_ref;
 
         $paystack->save();
 

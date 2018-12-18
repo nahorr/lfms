@@ -22,13 +22,13 @@ class HomeController extends Controller
     	return view('admin.home', compact('fee_ss1', 'fee_ss2', 'paystack'));
     }
 
-    public function payStack()
+    public function payStack(Request $request)
     {
     	PayStack::insert([
             'fee_id' => Fee::where('type', 'Tuition-SS2')->first()->id,
             'email' => Auth::user()->email,
             'amount' => Fee::where('type', 'Tuition-SS2')->first()->amount,
-            'trans_ref' => mt_rand(1000000000, 9999999999).preg_replace('/\s+/', '', Auth::user()->email),
+            'trans_ref' => $request->trans_ref,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

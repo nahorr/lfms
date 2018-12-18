@@ -23,63 +23,66 @@
            
           <script>
 
-            $.ajaxSetup({
+              $.ajaxSetup({
 
-                headers: {
+                  headers: {
 
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 
-                }
+                  }
 
-            });
+              });
 
-            function payWithPaystack(data){
-              var handler = PaystackPop.setup({
-                key: 'pk_test_d15f69a461a6e80ef256902944f1d9de40d17acb',
-                email: '{{ Auth::user()->email }}',
-                amount: <?php echo $fee_ss2->amount; ?>,
-                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                metadata: {
-                   custom_fields: [
-                      {
-                          display_name: "Mobile Number",
-                          variable_name: "mobile_number",
-                          value: "+2348012345678"
-                      }
-                   ]
-                },
-                callback: function(response){
-                    saveOrder(data);
+              function payWithPaystack(data){
+                var handler = PaystackPop.setup({
+                  key: 'pk_test_d15f69a461a6e80ef256902944f1d9de40d17acb',
+                  email: '{{ Auth::user()->email }}',
+                  amount: <?php echo $fee_ss2->amount; ?>,
+                  ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                  metadata: {
+                     custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2348012345678"
+                        }
+                     ]
+                  },
+                  callback: function(response){
+
+                    saveOrder(response);
                     alert('success. transaction ref is ' + response.reference);
-                    
-                },
-                
-                onClose: function(){
-                    alert('window closed');
-                },
+                    var tranx_ref = response.response;
+                  },
+                  
+                  onClose: function(){
+                      alert('window closed');
+                  },
 
-              });
+                });
 
-              handler.openIframe();
-            }
+                handler.openIframe();
+              }
 
-
-            function saveOrder(){
               
-              // Send the data to save using post
-              //var posting = $.post( '/paystack', orderObj );
-              var posting = $.ajax({
+              
 
-                 type:'POST',
+              function saveOrder(response){
+                
+                // Send the data to save using post
+                //var posting = $.post( '/paystack', orderObj );
+                var posting = $.ajax({
 
-                 url:'/admin/paystack',
+                   type:'POST',
 
-                 //data: orderObj,
+                   url:'/admin/paystack',
 
-              });
-            }
+                   data: { trans_ref : response.reference },
 
-          </script>
+                });
+              }
+
+            </script>
 
         
             <div class="card">
