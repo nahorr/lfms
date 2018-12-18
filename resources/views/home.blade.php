@@ -13,7 +13,7 @@
                  <button type="button" class="btn btn-warning" name="pay_now" id="pay-now" title="Pay now"  onclick="payWithPaystack()">Pay With Paystack</button>
               </form>
             </div>
-              <script >
+              <script type="text/javascript">
 
                 $.ajaxSetup({
 
