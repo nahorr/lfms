@@ -91,16 +91,16 @@ class ClientCasesController extends Controller
 
         $user = User::where('id', '=', 1)->where('is_admin', '=', 1)->first();
 
-
-
         foreach ($client_cases as  $clientcase) {
 
-            if ( $clientcase->court_date == Carbon::now()->addDays(10) || $clientcase->court_date == Carbon::now()->addDays(5) || $clientcase->court_date == Carbon::now()->addDays(1) ) {
+            if ( $clientcase->court_date->toFormattedDateString() == Carbon::now()->addDays(10)->toFormattedDateString() || $clientcase->court_date->toFormattedDateString() == Carbon::now()->addDays(5)->toFormattedDateString() || $clientcase->court_date->toFormattedDateString() == Carbon::now()->addDays(1)->toFormattedDateString() | $clientcase->court_date->toFormattedDateString() == Carbon::now()->addDays(0)->toFormattedDateString()) {
 
                $user->notify(new UpComingCourtDate($clientcase));
             }
 
-           //dd($clientcase->court_date->toFormattedDateString());
+           //dd($clientcase->court_date->toFormattedDateString() == Carbon::now()->addDays(0));
+           //dd(Carbon::now()->addDays(1)->toFormattedDateString());
+            //dd($clientcase->court_date->toFormattedDateString());
         }
         
 

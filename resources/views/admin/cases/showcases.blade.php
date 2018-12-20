@@ -7,6 +7,7 @@
         <div class="col-md-12">
           @include('flash::message')
           @include('admin.form_error')
+          @include('admin.includes.dashboard')
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
                   <strong><i class="fas fa-balance-scale"></i> Cases</strong>

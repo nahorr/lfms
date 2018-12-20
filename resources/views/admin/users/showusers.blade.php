@@ -6,6 +6,7 @@
 
         <div class="col-md-10">
           @include('flash::message')
+          @include('admin.includes.dashboard')
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
                   <strong><i class="fas fa-users"></i> Company Users</strong>
@@ -32,7 +33,7 @@
                           <td>
                             {{ $user->name }}
                             @if($user->is_admin == 1)
-                              <button type="button" class="btn btn-primary btn-sm">Admin</button>
+                              <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="top" title="Administrator"></i>
                             @endif
                           </td>
                           <td>{{ $user->email }}</td>

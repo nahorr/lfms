@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
     	$users = User::get();
 
-    	return view('admin.users', compact('users'));
+    	return view('admin.users.showusers', compact('users'));
     }
 
     public function makeAdmin(Request $request, User $user)

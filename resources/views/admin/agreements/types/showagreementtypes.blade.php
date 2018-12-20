@@ -7,6 +7,7 @@
         <div class="col-md-10">
           @include('flash::message')
           @include('admin.form_error')
+          @include('admin.includes.dashboard')
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
                   <strong><i class="fas fa-file-alt"></i> Agreement Types</strong>
