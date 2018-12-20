@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\AgreementType;
+use App\TemplateType;
+use App\Template;
 
-class AgreementTypesController extends Controller
+class TemplatesController extends Controller
 {
+    public function showTemplateTypes()
+    {
+        
+        return view('admin.templates.showtemplatetypes');
+    }
+
     public function showAgreementTypes()
     {
     	$agreement_types = AgreementType::get();

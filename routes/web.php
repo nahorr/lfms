@@ -65,8 +65,11 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	/*Court Dates and Times*/
   	Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');
 
-  	/* Agreement Types */
-  	//Manage Agreement Types
+  	/* Template Types*/
+  	Route::get('admin/templates/showtemplatetypes', 'Admin\TemplatesController@showTemplateTypes');
+
+  	/* Template Types */
+  	//Manage Template Types
   	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');
   	Route::post('admin/agreements/types/addagreementtype', 'Admin\AgreementTypesController@addAgreementType');
   	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');

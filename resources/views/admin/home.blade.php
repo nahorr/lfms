@@ -66,8 +66,8 @@
                     <div class="col-sm-4">
                       <div class="card">
                         <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Agreements</strong></h5>
-                          <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
+                          <h5 class="card-title"><strong>Templates</strong></h5>
+                          <a href="{{url('/admin/templates/showtemplatetypes')}}">
                               <p class="card-text">
                                   <i class="fa fa-file-contract" style="font-size:40px;color:#2E86C1;"></i>
                               </p>
@@ -101,26 +101,7 @@
                     </div>
 
                   </div>
-                    <!-- Second Row Ends -->
-
-                  <!-- Third row starts-->
-                  <div class="row top-buffer">
-
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Templates</strong></h5>
-                          <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-file-alt" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- 3rd Row Ends -->
+                  <!-- Second Row Ends -->
 
               </div>
           </div>

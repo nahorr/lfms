@@ -4,8 +4,8 @@ namespace App\Http\ViewComposers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Repositories\UserRepository;
-use App\AgreementType;
-use App\Agreement;
+use App\TemplateType;
+use App\Template;
 use Carbon\Carbon;
 use App\User;
 use Auth;
@@ -20,16 +20,16 @@ Class AdminViewComposer {
         //get current date
         $today = Carbon::today();
         $users = User::orderBy('created_at', 'desc')->get();
-        $agreements = Agreement::get();
-        $agreement_types = AgreementType::get();
+        $templates = Template::get();
+        $template_types = TemplateType::get();
        
         //put variables in views
         $view
         ->with('number_init', $number_init )
         ->with('today', $today )
         ->with('users', $users)
-        ->with('agreements', $agreements)
-        ->with('agreement_types', $agreement_types);
+        ->with('templates', $templates)
+        ->with('template_types', $template_types);
         
     }
 }

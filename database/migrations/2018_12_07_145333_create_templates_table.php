@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAgreementTypesTable extends Migration
+class CreateTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAgreementTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('agreement_types', function (Blueprint $table) {
+        Schema::create('templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('template_type_id')->unsigned();
+            $table->foreign('template_type_id')->references('id')->on('template_types')->onDelete('cascade');
             $table->string('name');
-            $table->string('template')->nullable();
+            $table->string('template_file')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateAgreementTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agreement_types');
+        Schema::dropIfExists('templates');
     }
 }

@@ -66,11 +66,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Agreements
+                            Templates
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                @foreach($agreement_types as $agreement_type)
-                                    <a class="dropdown-item" href="#">{{@$agreement_type->name}}</a>
+                                @foreach($templates as $template)
+                                    <a class="dropdown-item" href="#">{{@$template->name}}</a>
                                 @endforeach
                             </div>
                         </li>

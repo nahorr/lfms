@@ -62,7 +62,11 @@
                             @endif
                           </td>
                           <td>
-                            <a class=" btn btn-danger" href="{{url('admin/deleteuser/'.$user->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this user?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
+                            @if($user->is_admin == 1 && $user->id == 1)
+                               <button type="button" class="btn btn btn-warning" data-toggle="tooltip" data-placement="top" title="Cannot be Modified">Super Admin</button>
+                            @else
+                              <a class=" btn btn-danger" href="{{url('admin/deleteuser/'.$user->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this user?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
+                            @endif
                           </td>
                         </tr>
                         @endforeach

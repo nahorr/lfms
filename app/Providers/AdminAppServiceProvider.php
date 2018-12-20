@@ -18,7 +18,8 @@ class AdminAppServiceProvider extends ServiceProvider
             [
             'admin.layouts.app',
             'admin.home',
-            'admin.user',
+            'admin.user.showusers',
+            'admin.templates.showtemplates',
             ], 
             
             'App\Http\ViewComposers\AdminViewComposer'
