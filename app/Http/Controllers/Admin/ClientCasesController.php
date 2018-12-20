@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Notifications\UpComingCourtDate;
 
 use App\ClientCase;
+use App\Client;
 use Carbon\Carbon;
 use App\User;
 
@@ -18,6 +19,13 @@ class ClientCasesController extends Controller
     	$client_cases = ClientCase::get();
 
     	return view('admin.cases.showcases', compact('client_cases'));
+    }
+
+    public function showAllClientCases(Client $client)
+    {
+        $allclientcases = ClientCase::where('client_id', $client->id)->get();
+
+        return view('admin.cases.showallclientcases', compact('client', 'allclientcases'));
     }
 
     public function addCase(Request $request){

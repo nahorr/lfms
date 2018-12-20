@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	/* Cases */
   	//Manage cases
   	Route::get('admin/cases/showcases', 'Admin\ClientCasesController@showCases');
+  	Route::get('admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
   	Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
 
   	/*Court Dates and Times*/

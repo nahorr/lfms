@@ -59,7 +59,7 @@
                             })
                           </script>
                           <td>
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="View cases">
+                            <a class="btn btn-light" href="{{ url('/admin/cases/showallclientcases/'.$client->id) }}" role="button" data-toggle="tooltip" data-placement="top" title="View all client cases">
                               {{ $client->client_cases->count() }} <i class="fas fa-balance-scale" style="color: Tomato;"></i> cases
                             </a>
                           </td>
