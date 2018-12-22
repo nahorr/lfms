@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
 
-        <div class="col-md-10">
+        <div class="col-md-11">
           @include('flash::message')
           @include('admin.form_error')
           @include('admin.includes.dashboard')
@@ -30,6 +30,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Type</th>
                           <th scope="col">Added</th>
+                          <th scope="col">Updated</th>
                           <th scope="col">Template</th>
                           <th scope="col">Edit</th>
                           <th scope="col">Delete</th>
@@ -42,6 +43,7 @@
                           <td>{{ $key+1 }}</td>
                           <td>{{ $template->name }}</td>
                           <td>{{ $template->created_at->toFormatteddateString() }}</td>
+                          <td>{{ $template->updated_at->toFormatteddateString() }}</td>
                           <td>
                             <a class="btn btn-light" href="{{ asset('uploads/templates/types/'.$type_location)}}/{{$template->template_file }}" target="_blank" role="button" data-toggle="tooltip" data-placement="top" title="click on file name to view" id="addNewCase-{{$template->id}}">
                               {{ $template->template_file }}<i class="fas fa-download" style="color: Tomato;"></i>
