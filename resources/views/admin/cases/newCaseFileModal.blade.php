@@ -1,11 +1,12 @@
+
 <!-- The Modal -->
-  <div class="modal fade" id="addNewCaseModal-{{ $client->id }}">
+  <div class="modal fade" id="addNewCaseFileModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header" style="background-color: Tomato;">
-          <h4 class="modal-title" style="color: #FFF"><strong>New Case Form:</strong> For {{$client->last_name}}, {{$client->first_name}}</h4>
+          <h4 class="modal-title" style="color: #FFF"><strong>New Case Form</strong></h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -13,8 +14,21 @@
         <div class="modal-body">
           <form action="{{ url('admin/cases/addcase') }}" method="POST">
             @csrf()
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label><strong>Select a Client:</strong></label>
+                <select class="form-control form-control-lg selectpicker" name="client_id" id="client_id" data-live-search="true">
+                   @foreach($clients as $key => $client)
 
-            <input type="hidden" name="client_id" value="{{$client->id}}" required="">
+                      <option value="{{ $client->id }}" data-tokens="{{ $client->last_name }},{{ $client->first_name }}-{{ $client->client_number }}">
+                          {{ $client->last_name }},{{ $client->first_name }}-{{ $client->client_number }}
+                      </option>
+
+                  @endforeach
+                </select>
+
+              </div>
+            </div>
 
             <div class="form-row">
               <div class="form-group col-md-6">
@@ -74,15 +88,19 @@
 
   <script type="text/javascript">
     //Summernote js
-          $('#addNewCaseModal').on('shown.bs.modal', function() {
-              $('#summernote').summernote({
-                dialogsInBody: true,
-                height: 300, // set editor height
-                width: null,
-                minHeight: null, // set minimum height of editor
-                maxHeight: null, // set maximum height of editor
-                focus: true  // set focus to editable area after initializing summernote
-              });
-            })
+      $('#addNewCaseFileModal').on('shown.bs.modal', function() {
+          $('#summernote').summernote({
+            dialogsInBody: true,
+            height: 300, // set editor height
+            width: null,
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: true  // set focus to editable area after initializing summernote
+          });
+        })
+      //Bootstrap select picker
+      $(function() {
+        $('.selectpicker').selectpicker();
+      });
   </script>
   

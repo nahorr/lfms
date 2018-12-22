@@ -91,7 +91,7 @@
                       <div class="card">
                         <div class="card-body text-center">
                           <h5 class="card-title"><strong>Expiration Dates</strong></h5>
-                          <a href="{{url('/admin/agreements/types/showagreementtypes')}}">
+                          <a href="{{url('/admin/cases/courtdates')}}">
                               <p class="card-text">
                                   <i class="fa fa-calendar-times" style="font-size:40px;color:#2E86C1;"></i>
                               </p>

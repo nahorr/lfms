@@ -11,9 +11,15 @@
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
                   <strong><i class="fas fa-balance-scale"></i> Cases</strong>
-                  <button type="button" class="btn btn-warning" id="addNewClient">New Case</button>
+                  <button type="button" class="btn btn-warning" id="addNewCaseFile">Open a New Case File</button>
                 </div>
-               
+                @include('admin.cases.newCaseFileModal')
+                <script type="text/javascript">
+                  $('#addNewCaseFile').on('click', function(e){
+                     e.preventDefault();
+                    $('#addNewCaseFileModal').modal('show');
+                  })
+                </script>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover">
@@ -21,7 +27,6 @@
                         <tr>
                           <th scope="col">Case#</th>
                           <th scope="col">Client</th>
-                          <th scope="col">History</th>
                           <th scope="col">Court Date</th>
                           <th scope="col">Outcome</th>
                           <th scope="col">Assigned To</th>
@@ -36,15 +41,18 @@
                         <tr>
 
                           <td>
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Open a new file">
-                              {{ $cases->case_number }} <i class="fas fa-folder-open" style="color: Tomato;"></i>
+                            <a class="btn btn-success" href="#" role="button" data-toggle="tooltip" data-placement="top" title="View case details">
+                              {{ $cases->case_number }} <i class="fas fa-info-circle" style="color: white;"></i>
                             </a>
                           </td>
                           <td>{{ $cases->client->last_name }}, {{ $cases->client->first_name }}</td>
                           <td>
-                            <button type="button" class="btn btn-primary" id="viewCaseHistory-{{$cases->id}}">View History</button>
+                              @if(!empty($cases->court_date))
+                                {{ $cases->court_date->toDayDateTimeString() }}
+                              @else
+                                Not Date yet
+                              @endif
                           </td>
-                          <td>{{ $cases->court_date->toDayDateTimeString() }}</td>
                           <td>{{$cases->outcome}}</td>
                           <td>{{ $cases->assigned_to }}</td>
                           <td>{{ $cases->created_at->toFormatteddateString() }}</td>

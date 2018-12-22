@@ -16,9 +16,8 @@ class ClientCasesController extends Controller
 {
     public function showCases()
     {
-    	$client_cases = ClientCase::get();
 
-    	return view('admin.cases.showcases', compact('client_cases'));
+    	return view('admin.cases.showcases');
     }
 
     public function showAllClientCases(Client $client)

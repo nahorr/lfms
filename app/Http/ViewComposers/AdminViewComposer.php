@@ -9,6 +9,8 @@ use App\Template;
 use Carbon\Carbon;
 use App\User;
 use Auth;
+use App\ClientCase;
+use App\Client;
 	
 Class AdminViewComposer {	
 
@@ -22,6 +24,8 @@ Class AdminViewComposer {
         $users = User::orderBy('created_at', 'desc')->get();
         $templates = Template::get();
         $template_types = TemplateType::get();
+        $clients = Client::get();
+        $client_cases = ClientCase::get();
        
         //put variables in views
         $view
@@ -29,7 +33,9 @@ Class AdminViewComposer {
         ->with('today', $today )
         ->with('users', $users)
         ->with('templates', $templates)
-        ->with('template_types', $template_types);
+        ->with('template_types', $template_types)
+        ->with('clients', $clients)
+        ->with('client_cases', $client_cases);
         
     }
 }

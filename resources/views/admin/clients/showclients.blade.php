@@ -27,7 +27,7 @@
                         <tr>
                           <th scope="col">Client#</th>
                           <th scope="col">
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="View All Cases">
+                            <a class="btn btn-light" href="{{ url('admin/cases/showcases') }}" role="button" data-toggle="tooltip" data-placement="top" title="View All Cases">
                               <i class="fas fa-balance-scale" style="color: Tomato;"></i>Cases({{ $all_cases->count() }} )
                             </a>
                           </th>
@@ -55,11 +55,11 @@
                           <script type="text/javascript">
                             $('#addNewCase-{{$client->id}}').on('click', function(e){
                                e.preventDefault();
-                              $('#addNewCaseModal').modal('show');
+                              $('#addNewCaseModal-{{ $client->id }}').modal('show');
                             })
                           </script>
                           <td>
-                            <a class="btn btn-light" href="{{ url('/admin/cases/showallclientcases/'.$client->id) }}" role="button" data-toggle="tooltip" data-placement="top" title="View all client cases">
+                            <a class="btn btn-light" href="{{ url('/admin/cases/showallclientcases/'.$client->id) }}" role="button" data-toggle="tooltip" data-placement="top" title="View all {{ $client->last_name }}, {{ $client->first_name }}'s cases">
                               {{ $client->client_cases->count() }} <i class="fas fa-balance-scale" style="color: Tomato;"></i> cases
                             </a>
                           </td>
@@ -76,7 +76,10 @@
                               {{ str_limit($client->client_note, 10) }}
                             </a>
                           </td>
-                          <td>{{ $client->created_at->toFormatteddateString() }}</td>
+                          <td>
+
+                            {{ @$client->created_at->toFormatteddateString() }}
+                          </td>
                           <td>
                             <button type="button" class="btn btn-primary" id="editClient-{{$client->id}}">Edit</button>
                           </td>

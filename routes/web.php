@@ -68,11 +68,14 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
   	/* Template Types*/
   	Route::get('admin/templates/showtemplatetypes', 'Admin\TemplatesController@showTemplateTypes');
+  	Route::post('admin/templates/types', 'Admin\TemplatesController@addTemplateType');
+  	Route::get('admin/templates/types/delete/{type}', 'Admin\TemplatesController@deleteTemplateType');
 
-  	/* Template Types */
-  	//Manage Template Types
-  	Route::get('admin/agreements/types/showagreementtypes', 'Admin\AgreementTypesController@showAgreementTypes');
-  	Route::post('admin/agreements/types/addagreementtype', 'Admin\AgreementTypesController@addAgreementType');
+  	/* Templates*/
+  	//Manage Template by types
+  	Route::get('admin/templates/types/showtemplates/{type}', 'Admin\TemplatesController@showTemplates');
+  	Route::post('admin/templates/types/addtemplate/{type}', 'Admin\TemplatesController@addTemplate');
+
   	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
 
 });

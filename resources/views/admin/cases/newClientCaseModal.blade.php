@@ -1,5 +1,5 @@
 <!-- The Modal -->
-  <div class="modal fade" id="addNewCaseModal-{{ $client->id }}">
+  <div class="modal fade" id="addNewClientCaseModal-{{$client->id}}">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
@@ -74,7 +74,7 @@
 
   <script type="text/javascript">
     //Summernote js
-          $('#addNewCaseModal').on('shown.bs.modal', function() {
+          $('#addNewClientCaseModal-{{$client->id}}').on('shown.bs.modal', function() {
               $('#summernote').summernote({
                 dialogsInBody: true,
                 height: 300, // set editor height

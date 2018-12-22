@@ -15,34 +15,66 @@ class TemplatesController extends Controller
         return view('admin.templates.showtemplatetypes');
     }
 
-    public function showAgreementTypes()
-    {
-    	$agreement_types = AgreementType::get();
-
-    	return view('admin.agreements.types.showagreementtypes', compact('agreement_types'));
-    }
-
-    public function addAgreementType(Request $request){
+    public function addTemplateType(Request $request){
         
         $this->validate(request(), [
-            'name' => 'required',
+            'type_name' => 'required',
         ]);
 
-        if($request->hasFile('template')){
-            $template = $request->file('template');
-            $filename = preg_replace('/\s+/', '', $request->name) . time() . '.' . $template->getClientOriginalExtension();
-            $destinationPath = public_path().'/uploads/agreements/types/';
-            $template->move($destinationPath,$filename);
-            
-        }
-        AgreementType::insert([
-            'name' => $request->name,
-            'template' => $filename,
+        TemplateType::insert([
+            'type_name' => $request->type_name,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
        
-        flash('Agreement Type Added!')->success();
+        flash('Template Type Added!')->success();
+
+        return back();
+   }
+
+   public function deleteTemplateType(TemplateType $type)
+    {
+        TemplateType::where('id', $type->id)->delete();
+
+        flash('Template Type deleted!')->warning();
+
+        return back();
+    }
+
+    public function showTemplates(TemplateType $type)
+    {
+        $type_location = preg_replace('/\s+/', '', $type->type_name);
+
+    	$templates = Template::where('template_type_id', $type->id)->get();
+
+    	return view('admin.templates.types.showtemplates', compact('type', 'type_location', 'templates'));
+    }
+
+    public function addTemplate(Request $request, TemplateType $type){
+        
+        $type_location = preg_replace('/\s+/', '', $type->type_name);
+
+        $this->validate(request(), [
+            'template_type_id' => 'required',
+            'name' => 'required',
+        ]);
+
+        if($request->hasFile('template_file')){
+            $template_file = $request->file('template_file');
+            $filename = preg_replace('/\s+/', '', $request->name) . time() . '.' . $template_file->getClientOriginalExtension();
+            $destinationPath = public_path().'/uploads/templates/types/'.$type_location;
+            $template_file->move($destinationPath,$filename);
+            
+        }
+        Template::insert([
+            'template_type_id' => $request->template_type_id,
+            'name' => $request->name,
+            'template_file' => $filename,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+       
+        flash(' New '. $type->type_name . ' Template Added!')->success();
 
         return back();
    }

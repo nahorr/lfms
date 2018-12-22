@@ -11,23 +11,28 @@
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
                   <strong><i class="fas fa-file-contract"></i> Template Types</strong>
-                  <button type="button" class="btn btn-warning" id="addNewTemplate">New Template Type</button>
+                  <button type="button" class="btn btn-warning" id="addNewTemplateType">New Template Type</button>
                 </div>
+                @include('admin.templates.newTemplateTypeModal')
+                <script type="text/javascript">
+
+                  $('#addNewTemplateType').on('click', function(e){
+                     e.preventDefault();
+                    $('#addNewTemplateTypeModal').modal('show');
+                  })
+                  
+                </script>
                
                 <div class="card-body">
                   <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <strong>Cras justo odio</strong>
-                      <span class="badge badge-primary badge-pill">14</span>
+                    @foreach($template_types as $key => $type)
+                    <li class="list-group-item d-flex justify-content-between align-items-center" style="margin-top: 10px;">
+                      <strong><a href="{{ url('/admin/templates/types/showtemplates/'.$type->id) }}" data-toggle="tooltip" data-placement="top" title="view {{$type->type_name}} Templates">{{ $type->type_name }}</a> <a href="{{ url('/admin/templates/types/delete/'.$type->id) }}"><i class="far fa-trash-alt" style="color: red;" data-toggle="tooltip" data-placement="top" title="Delete Template Type"></i></a></strong>
+                      <span class="badge badge-primary badge-pill" data-toggle="tooltip" data-placement="top" title="Number of templates">
+                        {{ $templates->where('template_type_id', $type->id)->count() }}
+                      </span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      Dapibus ac facilisis in
-                      <span class="badge badge-primary badge-pill">2</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      Morbi leo risus
-                      <span class="badge badge-primary badge-pill">1</span>
-                    </li>
+                    @endforeach
                   </ul>
                 </div>
             </div>

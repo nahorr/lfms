@@ -10,15 +10,17 @@
           @include('admin.includes.dashboard')
             <div class="card">
                 <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
-                  <strong><i class="fas fa-file-alt"></i> Agreement Types</strong>
-                  <button type="button" class="btn btn-warning" id="addAgreementType">New Agreement Type</button>
+                  <strong><i class="fas fa-file-alt"></i> {{ $type->type_name}} Templates</strong>
+                  <button type="button" class="btn btn-warning" id="addNewTemplate-{{$type->id}}">New {{ $type->type_name}} Template</button>
                 </div>
-                @include('admin.agreements.types.newAgreementTypeModal')
+                @include('admin.templates.types.newTemplateModal')
                 <script type="text/javascript">
-                  $('#addAgreementType').on('click', function(e){
+
+                  $('#addNewTemplate-{{$type->id}}').on('click', function(e){
                      e.preventDefault();
-                    $('#addNewAgreementTypeModal').modal('show');
+                    $('#addNewTempalateModal-{{ $type->id }}').modal('show');
                   })
+                  
                 </script>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -35,22 +37,22 @@
                       </thead>
                       <tbody>
 
-                        @foreach($agreement_types as $key=>$type)
+                        @foreach($templates as $key=>$template)
                         <tr>
                           <td>{{ $key+1 }}</td>
-                          <td>{{ $type->name }}</td>
-                          <td>{{ $type->created_at->toFormatteddateString() }}</td>
+                          <td>{{ $template->name }}</td>
+                          <td>{{ $template->created_at->toFormatteddateString() }}</td>
                           <td>
-                            <a class="btn btn-light" href="{{ asset('uploads/agreements/types/'.$type->template) }}" target="_blank" role="button" data-toggle="tooltip" data-placement="top" title="click on file name to view" id="addNewCase-{{$type->id}}">
-                              {{ $type->template }}<i class="fas fa-download" style="color: Tomato;"></i>
+                            <a class="btn btn-light" href="{{ asset('uploads/templates/types/'.$type_location)}}/{{$template->template_file }}" target="_blank" role="button" data-toggle="tooltip" data-placement="top" title="click on file name to view" id="addNewCase-{{$template->id}}">
+                              {{ $template->template_file }}<i class="fas fa-download" style="color: Tomato;"></i>
                             </a>
                           </td>
                           <td>
-                            <button type="button" class="btn btn-primary" id="editAgreementType-{{$type->id}}">Edit</button>
+                            <button template="button" class="btn btn-primary" id="editAgreementtemplate-{{$template->id}}">Edit</button>
                           </td>
                          
                           <td>
-                            <a class=" btn btn-danger" href="{{url('admin/agreements/types/deleteagreementtype/'.$type->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this user?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
+                            <a class=" btn btn-danger" href="{{url('admin/agreements/templates/deleteagreementtemplate/'.$template->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this user?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
                           </td>
                         </tr>
                         @endforeach
