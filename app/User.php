@@ -16,7 +16,7 @@ class User extends Authenticatable //implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'reg_code',
+        'name', 'email', 'password', 'company_id',
     ];
 
     /**
@@ -27,4 +27,9 @@ class User extends Authenticatable //implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo('App\Company');
+    }
 }

@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Image;
 use Auth;
 use File;
+use Hash;
 
 class ProfileController extends Controller
 {
     public function profile()
     {
-    	return view('profile');
+    	return view('/user/profile');
     }
 
     public function updateAvatar(Request $request){
@@ -37,7 +39,31 @@ class ProfileController extends Controller
     		$user->save();
     	}
 
-    	return view('profile', array('user' => Auth::user()) );
+    	//return view('user.profile', array('user' => Auth::user()) );
+        return back();
+
+    }
+
+    public function updatePassword(Request $request)
+    {   
+        
+        if (Hash::check($request->currentpassword, Auth::user()->password)) {
+
+            $this->validate(request(), [
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+            $user = Auth::user();
+            $user->password = Hash::make($request['password']);
+            $user->save();
+
+            flash('Password Updated Successfully')->success();
+
+            return back();
+        }
+        
+        flash('Current password is incorrect!')->error();
+        return back();
 
     }
 

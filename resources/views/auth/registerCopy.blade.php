@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @include('flash::message')
             
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -18,16 +17,14 @@
              @endif
 
             <div class="card">
-                <div class="card-header">FINAL STEP: Add Your Informtion(You must be the company owner or Administrator)</div>
+                <div class="card-header">Register Your Company</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <input type="hidden" name="company_id" value="{{ $company->id }}" required>
-
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Your Full Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -79,7 +76,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register Company') }}
+                                    {{ __('Register') }}
                                 </button>
                             </div>
                         </div>

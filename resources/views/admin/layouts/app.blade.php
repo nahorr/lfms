@@ -108,7 +108,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ url('home') }}"><i class="fas fa-desktop"></i> Home</a>
+                                    <a class="dropdown-item" href="{{ url('user/home') }}"><i class="fas fa-desktop"></i> User Home</a>
                                     
                                     @if(Auth::user()->is_admin == 1)
                                         <a class="dropdown-item" href="{{ url('admin/home') }}"><i class="fas fa-cog"></i> Admin Home</a>

@@ -47,7 +47,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 
-                    <a class="navbar-brand" href="{{ url('home') }}">
+                    <a class="navbar-brand" href="{{ url('/user/home') }}">
                         <strong>Dashboard</strong>
                     </a>
                
@@ -86,14 +86,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                @endif
-                            </li>
+                            @if((\Request::is('register_company')) || (\Request::is('register')))
+                                <a class="navbar-brand btn btn-primary" href="{{ route('login') }}" role="button">
+                                    <strong style="color: white">Login</strong>
+                                </a>
+                            @elseif(\Request::is('login'))
+                                <a class="navbar-brand btn btn-primary" href="{{ route('registercompany') }}">
+                                    <strong style="color: white">Set Up Your Company</strong>
+                                </a>
+                            @endif
                         @else
 
                             <li class="nav-item dropdown">
@@ -106,12 +107,16 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ url('home') }}"><i class="fas fa-desktop"></i> Home</a>
+                                    <a class="dropdown-item" href="{{ url('/user/home') }}"><i class="fas fa-desktop"></i> Home</a>
 
-                                    <a class="dropdown-item" href="{{ url('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                                    <a class="dropdown-item" href="{{ url('/user/profile') }}"><i class="fas fa-user"></i> My Profile</a>
                                     
                                     @if(Auth::user()->is_admin == 1)
-                                        <a class="dropdown-item" href="{{ url('admin/home') }}"><i class="fas fa-cog"></i> Administrator</a>
+                                        <a class="dropdown-item" href="{{ url('/admin/home') }}"><i class="fas fa-cog"></i> Administrator</a>
+                                    @endif
+
+                                    @if(Auth::user()->is_superadmin == 1)
+                                        <a class="dropdown-item" href="{{ url('/super/home') }}"><i class="fas fa-user-plus"></i> Super User</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

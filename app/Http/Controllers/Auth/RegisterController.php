@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Validation\Rule;
+use App\Company;
 
 class RegisterController extends Controller
 {
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/user/home';
 
     /**
      * Create a new controller instance.
@@ -48,10 +50,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'reg_code' => ['required', 'exists:companies,reg_code'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -64,10 +66,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'reg_code' => Hash::make($data['reg_code']),
+            'company_id' => $data['company_id'],
             'password' => Hash::make($data['password']),
         ]);
     }

@@ -14,8 +14,10 @@ class CompaniesTableSeeder extends Seeder
     public function run()
     {
         DB::table('companies')->insert([
-        	'reg_code' => 'YGH-TRG-1RT-UYH',
-            'name' => 'Nahorr Analytics',
+            'company_name' => 'Nahorr Analytics',
+        ]);
+        DB::table('companies')->insert([
+            'company_name' => 'Examginny Schools LTD',
         ]);
     }
 }

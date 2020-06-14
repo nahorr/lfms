@@ -13,19 +13,26 @@
 
 Route::get('/', 'Controller@welcome');
 
+//Company Registration
+Route::get('/register_company', 'Controller@registerCompany')->name('registercompany');
+Route::post('/register_company', 'Controller@postRegisterCompany')->name('postregistercompany');
+
 Auth::routes();//Auth::routes(['verify' => true]); /*Also uncoment implements MustVerifyEmail in User.php model*/
 
 //Private Area - Regular Users
 Route::group(['middleware' => 'auth'], function () {
 
 	//Home page when loged in 
-	Route::get('home', 'HomeController@index')->name('home');
-	/* Paystack */
-  	Route::post('/paystack', 'HomeController@payStackPost');
+	Route::get('/user/home', 'User\HomeController@index')->name('home');
 	
 	//User profile page
-	Route::get('profile', 'ProfileController@profile');
-	Route::post('update_avatar', 'ProfileController@updateAvatar');	
+	Route::get('/user/profile', 'User\ProfileController@profile');
+	Route::post('/user/update_avatar', 'User\ProfileController@updateAvatar');
+  Route::post('/user/update_password', 'User\ProfileController@updatePassword');
+
+  //Users - showuser users
+  Route::get('user/users/showusers', 'User\UsersController@showUsers');
+
 
 });
 
@@ -77,5 +84,17 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::post('admin/templates/types/addtemplate/{type}', 'Admin\TemplatesController@addTemplate');
 
   	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
+
+    //Company - Subscription
+    Route::get('admin/company/subscriptions', 'Admin\Company\SubscrptionController@showSubscriptions');
+
+});
+
+//Private Area - Super Admin Users. For Nahorr Analtytic Management of registered law firms
+Route::group(['middleware' => ['auth', 'superadmin']], function () {
+
+  //Home page when Super Admin is loged in 
+  Route::get('/superadmin/home', 'SuperAdmin\HomeController@index')->name('superhome');
+  
 
 });
