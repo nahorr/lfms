@@ -87,7 +87,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <a class="btn btn-primary btn-lg" role="button" href="{{ route('registercompany') }}"><strong>Setup Your Company</strong></a><br/>
+                    <a class="btn btn-primary btn-lg" role="button" href="{{ route('registercompany') }}"><strong>Setup Your Company added branch</strong></a><br/>
                     <span style="color:  #f03312 "><strong>Law Firm Management System</strong></span> <br/>
                 </div>
 
