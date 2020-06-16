@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'Controller@welcome');
+Route::get('/', 'Controller@welcome')->name('welcome');
 
 //Company Registration
 Route::get('/register_company', 'Controller@registerCompany')->name('registercompany');
