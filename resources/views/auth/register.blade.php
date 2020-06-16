@@ -1,92 +1,70 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @include('flash::message')
-            
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-
-             @endif
-
-            <div class="card">
-                <div class="card-header">FINAL STEP: Add Your Informtion(You must be the company owner or Administrator)</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <input type="hidden" name="company_id" value="{{ $company->id }}" required>
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Your Full Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register Company') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<!-- CONTAINER OPEN -->
+<div class="container-login100">
+    
+    <div class="wrap-login100 p-6">
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ol>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ol>
             </div>
-        </div>
+         @endif
+        <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+            @csrf
+            <span class="login100-form-title">
+                <i class="fa fa-user mr-2" aria-hidden="true"></i>User Registration
+            </span>
+            <input type="hidden" name="company_id" value="{{ $company->id }}">
+            <div class="wrap-input100 validate-input">
+                <input id="name" type="text" class="input100 form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Full Name">
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                   <i class="fa fa-user" aria-hidden="true"></i>
+                </span>
+                @if ($errors->has('name'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="wrap-input100 validate-input">
+                <input id="email" type="email" class="input100 form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+                @if ($errors->has('email'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="wrap-input100 validate-input">
+                <input id="password" type="password" class="input100 form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="wrap-input100 validate-input">
+                <input id="password-confirm" type="password" class="input100 form-control" name="password_confirmation" required placeholder="Confirm Password">
+                <span class="focus-input100"></span>
+                <span class="symbol-input100">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="login100-form-btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </form>
     </div>
 </div>
+<!-- CONTAINER CLOSED -->
 @endsection
