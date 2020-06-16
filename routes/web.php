@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
 Route::group(['middleware' => ['auth', 'superadmin']], function () {
 
   //Home page when Super Admin is loged in 
-  Route::get('/superadmin/home', 'SuperAdmin\HomeController@index')->name('superhome');
+  Route::get('/super/home', 'SuperAdmin\HomeController@index')->name('superhome');
   
 
 });

@@ -211,12 +211,12 @@
                                             <i class="dropdown-icon mdi mdi-account-outline"></i> My Profile
                                         </a>
                                         @if(Auth::user()->is_admin == 1)
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ url('/admin/home') }}">
                                             <i class="dropdown-icon  mdi mdi-account-plus"></i> Administrator
                                         </a>
                                         @endif
                                         @if(Auth::user()->is_superadmin == 1)
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{{ url('/super/home') }}">
                                             <span class="float-right"></span>
                                             <i class="dropdown-icon mdi mdi-account-key"></i> Super Admin
                                         </a>

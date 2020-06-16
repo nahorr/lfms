@@ -34,7 +34,7 @@
             <i class="fe fe-users text-white"></i>
           </span>
           <div class="svg-icons text-right ml-auto">
-            <p class="text-muted mb-2">Users</p>
+            <p class="text-muted mb-2"><strong>Users</strong></p>
             <h2 class="mb-0 number-font">2,897</h2>
           </div>
         </div>
@@ -52,16 +52,16 @@
         <a href="{{url('/user/clients/showclients')}}">
         <div class="d-flex mb-4">
           <span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary1">
-            <i class="fe fe-award text-white"></i>
+            <i class="fe fe-user-check text-white"></i>
           </span>
           <div class="svg-icons text-right ml-auto">
-            <p class="text-muted mb-2">Clients</p>
+            <p class="text-muted mb-2"><strong>Clients</strong></p>
             <h2 class="mb-0 number-font">1,567</h2>
           </div>
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar  bg-secondary1 w-60" role="progressbar"></div>
+          <div class="progress-bar  bg-secondary1 w-50" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -72,16 +72,16 @@
         <a href="{{url('/user/cases/showcases')}}">
         <div class="d-flex mb-4">
           <span class="brround align-self-center avatar-lg br-3 cover-image bg-warning">
-            <i class="fe fe-tag text-white"></i>
+            <i class="fa fa-gavel text-white"></i>
           </span>
           <div class="svg-icons text-right ml-auto">
-            <p class="text-muted mb-2">Cases</p>
+            <p class="text-muted mb-2"><strong>Cases</strong></p>
             <h2 class="mb-0 number-font">4,293</h2>
           </div>
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar progress-bar-animated bg-warning w-40" role="progressbar"></div>
+          <div class="progress-bar progress-bar-animated bg-warning w-50" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -91,15 +91,16 @@
       <div class="card-body text-center">
         <div class="d-flex mb-4">
           <span class="brround align-self-center avatar-lg br-3 cover-image bg-warning">
-            <i class="fe fe-tag text-white"></i>
+            <i class="fa fa-bell text-white"></i>
+            <span class="pulse1 bg-danger"></span>
           </span>
           <div class="svg-icons text-right ml-auto">
-            <p class="text-muted mb-2">Upcoming </p>
+            <p class="text-muted mb-2"><strong>Upcoming Cases</strong></p>
             <h2 class="mb-0 number-font">4,293</h2>
           </div>
         </div>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar progress-bar-animated bg-warning w-40" role="progressbar"></div>
+          <div class="progress-bar progress-bar-animated bg-warning w-50" role="progressbar"></div>
         </div>
       </div>
     </div>
