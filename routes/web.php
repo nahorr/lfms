@@ -26,12 +26,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user/home', 'User\HomeController@index')->name('home');
 	
 	//User profile page
-	Route::get('/user/profile', 'User\ProfileController@profile');
+	Route::get('/user/profile', 'User\ProfileController@profile')->name('profile');
 	Route::post('/user/update_avatar', 'User\ProfileController@updateAvatar');
   Route::post('/user/update_password', 'User\ProfileController@updatePassword');
 
   //Users - showuser users
-  Route::get('user/users/showusers', 'User\UsersController@showUsers');
+  Route::get('user/users/showusers', 'User\UsersController@showUsers')->name('Company Users');
 
 
 });
@@ -97,7 +97,13 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
   Route::get('/super/home', 'SuperAdmin\HomeController@index')->name('superhome');
 
   //Manage Users
-  Route::get('/super/users/showusers', 'SuperAdmin\UsersController@showUsers');
+  Route::get('/super/users/showusers', 'SuperAdmin\UsersController@showUsers')->name('All Users');
+  Route::get('/super/users/delete/{user}', 'SuperAdmin\UsersController@deleteUser');
+
+    //Add new user
+    Route::get('/super/users/newuser', 'SuperAdmin\UsersController@NewUser')->name('New User');
+    Route::post('/super/users/addnewuser', 'SuperAdmin\UsersController@addNewUser');
+  
   
 
 });

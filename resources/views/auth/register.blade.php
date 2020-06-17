@@ -3,8 +3,9 @@
 @section('content')
 <!-- CONTAINER OPEN -->
 <div class="container-login100">
+
     
-    <div class="wrap-login100 p-6">
+    <div class="wrap-login100 p-6"> 
         @if (count($errors) > 0)
             <div class="alert alert-danger">
                 <ol>
@@ -14,6 +15,8 @@
                 </ol>
             </div>
          @endif
+
+        <span class="wrap-login100 p-6">@include('flash::message')</span>
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
             @csrf
             <span class="login100-form-title">

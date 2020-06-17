@@ -41,11 +41,6 @@
         <!-- INTERNAL SELECT2 CSS -->
         <link href="../../assets/plugins/select2/select2.min.css" rel="stylesheet"/>
 
-        <!-- INTERNAL  DATA TABLE CSS-->
-        <link href="../../assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet"/>
-        <link href="../../assets/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet" />
-        <link href="../../assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css" rel="stylesheet" />
-
         <!-- CUSTOM SCROLL BAR CSS-->
         <link href="../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet"/>
 
@@ -300,12 +295,6 @@
                 </div>
                 <!-- Header -->
 
-                <!--/Horizontal-main -->
-                @auth
-                 @include('user.includes.navbar')
-                @endauth
-                <!--/Horizontal-main -->
-
                 <!--Content-area open-->
                 <div class="content-area">
                     <div class="container">
@@ -407,27 +396,8 @@
         <!-- CUSTOM SCROLL BAR JS-->
         <script src="../../assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
 
-        <!-- INTERNAL  DATA TABLE JS-->
-        <script src="../../assets/plugins/datatable/jquery.dataTables.min.js"></script>
-        <script src="../../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-        <script src="../../assets/plugins/datatable/datatable.js"></script>
-        <script src="../../assets/plugins/datatable/dataTables.responsive.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/dataTables.buttons.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/buttons.bootstrap4.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/jszip.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/pdfmake.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/vfs_fonts.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/buttons.html5.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/buttons.print.min.js"></script>
-        <script src="../../assets/plugins/datatable/fileexport/buttons.colVis.min.js"></script>
-
         <!-- SIDEBAR JS -->
         <script src="../../assets/plugins/sidebar/sidebar.js"></script>
-
-        <!-- STICKY JS -->
-        <script src="../../assets/js/stiky.js"></script>
-
-
 
         <!-- CUSTOM JS-->
         <script src="../../assets/js/custom.js"></script>

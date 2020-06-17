@@ -4,7 +4,7 @@ $(function(e) {
 	$('#data-table1').DataTable();
 	
 	//Data-table2
-	var table = $('#data-table2').DataTable();
+	/*var table = $('#data-table2').DataTable();
 	$('button').click( function() {
 		var data = table.$('input, select').serialize();
 		alert(
@@ -12,7 +12,7 @@ $(function(e) {
 			data.substr( 0, 120 )+'...'
 		);
 		return false;
-	});
+	});*/
 	
 	//Data-table3
 	$('#data-table3').DataTable( {

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app_user')
 
 @section('content')
 
 <!-- ROW -->
-<div class="row mt-xl-5">
+<div class="row mt-xl-10">
   <div class="col-xl-3 col-sm-6">
     <div class="card">
       <div class="card-body text-center">
