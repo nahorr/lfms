@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
   	/* Users */
   	//Manage users
-  	Route::get('admin/users/showusers', 'Admin\UsersController@showUsers');
+  	Route::get('admin/users/showusers', 'Admin\UsersController@showUsers')->name('company users');
   	//Delete a user
   	Route::get('admin/deleteuser/{user}', 'Admin\UsersController@deleteUser');
   	//Make Admin or User
@@ -104,6 +104,8 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::get('/super/users/newuser', 'SuperAdmin\UsersController@NewUser')->name('New User');
     Route::post('/super/users/addnewuser', 'SuperAdmin\UsersController@addNewUser');
   
-  
+  //Manage Companies
+  Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
+  Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
 
 });
