@@ -101,11 +101,15 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
   Route::get('/super/users/delete/{user}', 'SuperAdmin\UsersController@deleteUser');
 
     //Add new user
-    Route::get('/super/users/newuser', 'SuperAdmin\UsersController@NewUser')->name('New User');
+    Route::get('/super/users/newuser', 'SuperAdmin\UsersController@newUser')->name('New User');
     Route::post('/super/users/addnewuser', 'SuperAdmin\UsersController@addNewUser');
   
   //Manage Companies
   Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
   Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
+
+  //Add New Company
+    Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
+    Route::post('/super/companies/addnewcompany', 'SuperAdmin\CompaniesController@addNewCompany');
 
 });
