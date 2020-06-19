@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Company;
 
 class UsersController extends Controller
 {
-    public function showUsers()
+    public function showCompanyUsers(Company $company)
     {
-    	$users = User::get();
+    	$companyusers = User::where('company_id', $company->id)->get();
 
-    	return view('admin.users.showusers', compact('users'));
+    	return view('admin.users.showusers', compact('companyusers'));
     }
 
     public function makeAdmin(Request $request, User $user)

@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('/user/update_password', 'User\ProfileController@updatePassword');
 
   //Users - showuser users
-  Route::get('user/users/showusers', 'User\UsersController@showUsers')->name('Company Users');
+  //Route::get('user/users/showusers', 'User\UsersController@showUsers')->name('Company Users');
 
 
 });
@@ -41,12 +41,9 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
 	//Admin Home page for the company
   	Route::get('admin/home', 'Admin\HomeController@index');
-  	/* Paystack */
-  	Route::post('/admin/paystack', 'Admin\HomeController@payStack');
 
-  	/* Users */
-  	//Manage users
-  	Route::get('admin/users/showusers', 'Admin\UsersController@showUsers')->name('company users');
+  	//Manage Company users
+  	Route::get('admin/users/showusers/{company}', 'Admin\UsersController@showCompanyUsers')->name('companyusers');
   	//Delete a user
   	Route::get('admin/deleteuser/{user}', 'Admin\UsersController@deleteUser');
   	//Make Admin or User
@@ -83,10 +80,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::get('admin/templates/types/showtemplates/{type}', 'Admin\TemplatesController@showTemplates');
   	Route::post('admin/templates/types/addtemplate/{type}', 'Admin\TemplatesController@addTemplate');
 
-  	Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
+  	//Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
 
     //Company - Subscription
-    Route::get('admin/company/subscriptions', 'Admin\Company\SubscrptionController@showSubscriptions');
+    //Route::get('admin/company/subscriptions', 'Admin\Company\SubscrptionController@showSubscriptions');
 
 });
 

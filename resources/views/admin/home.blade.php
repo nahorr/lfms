@@ -23,18 +23,18 @@
       </div>
     </div>
   </div>
-  @if(Auth::user()->is_admin == 1 || Auth::user()->is_superadmin == 1)
+  
   <div class="col-xl-3 col-sm-6">
     <div class="card overflow-hidden">
       <div class="card-body text-center">
-        <a href="{{url('/user/users/showusers')}}">
+        <a href="{{url('/admin/users/showusers/'.$company->id)}}">
         <div class="d-flex mb-4">
           <span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary">
             <i class="fe fe-users text-white"></i>
           </span>
           <div class="svg-icons text-right ml-auto">
             <p class="text-muted mb-2"><strong>Users</strong></p>
-            <h2 class="mb-0 number-font">2,897</h2>
+            <h2 class="mb-0 number-font">{{ $company->users()->count() }}</h2>
           </div>
         </div>
         </a>
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  @endif
+ 
   <div class="col-xl-3 col-sm-6">
     <div class="card overflow-hidden">
       <div class="card-body text-center">
