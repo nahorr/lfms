@@ -24,6 +24,7 @@ class CreateClientCasesTable extends Migration
             $table->longText('court_location')->nullable();
             $table->string('outcome')->nullable();
             $table->string('assigned_to')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

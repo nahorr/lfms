@@ -20,6 +20,7 @@ class CreateCaseFilesTable extends Migration
             $table->string('file_name')->nullable();
             $table->string('file_description')->nullable();
             $table->string('case_file')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar bg-orange w-50" role="progressbar"></div>
+          <div class="progress-bar bg-orange w-100" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -34,12 +34,12 @@
           </span>
           <div class="svg-icons text-right ml-auto">
             <p class="text-muted mb-2"><strong>Users</strong></p>
-            <h2 class="mb-0 number-font">{{ $company->users()->count() }}</h2>
+            <h2 class="mb-0 number-font">{{ $company->users()->where('deleted_at',Null)->count() }}</h2>
           </div>
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar bg-secondary w-50" role="progressbar"></div>
+          <div class="progress-bar bg-secondary w-100" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar  bg-secondary1 w-50" role="progressbar"></div>
+          <div class="progress-bar  bg-secondary1 w-100" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
         </div>
         </a>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar progress-bar-animated bg-warning w-50" role="progressbar"></div>
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
           </div>
         </div>
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar progress-bar-animated bg-warning w-50" role="progressbar"></div>
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
         </div>
       </div>
     </div>

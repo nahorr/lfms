@@ -47,16 +47,25 @@
                     Not Verified
                   @endif
                 </td>
-                <td>{{ $user->created_at }}</td>
-                <td>
-                  @if($user->is_superadmin !=1)
-                  <a href="{{ url('/super/users/delete/'.$user->id) }}" class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this user?')">
-                    <i class="fa fa-trash-o"></i>
+                <td>{{ $user->created_at->toFormattedDateString()}}</td>
+                  <td>
+                    @if($user->is_admin !=1)
+                  <a href="{{ url('/admin/users/delete/'.$user->id) }}" id="delete_user-{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
+                    onclick="
+                    return confirm('Are you sure you want to Delete this user?')
+                         event.preventDefault();
+                         document.getElementById( "delete_user-{{$user->id}} ").submit();
+                    "><i class="fa fa-trash-o"></i>
+                    
                   </a>
-
-                  <a href="" class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                  <form id="delete_user-{{$user->id}}" action="{{ url('/admin/users/delete/'.$user->id) }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                   @endif
-                </td>
+                  <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                  
+                  </td>
+                </tr>
               </tr>
               @endforeach
             </tbody>

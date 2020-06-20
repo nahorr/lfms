@@ -45,19 +45,20 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	//Manage Company users
   	Route::get('admin/users/showusers/{company}', 'Admin\UsersController@showCompanyUsers')->name('companyusers');
   	//Delete a user
-  	Route::get('admin/deleteuser/{user}', 'Admin\UsersController@deleteUser');
+  	Route::get('admin/users/delete/{user}', 'Admin\UsersController@deleteUser');
   	//Make Admin or User
-  	Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');
-  	Route::post('admin/users/makeuser/{user}', 'Admin\UsersController@makeUser');
+  	//Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');
+  	//Route::post('admin/users/makeuser/{user}', 'Admin\UsersController@makeUser');
 
   	//Make Admin or make User
-  	Route::get('/admin/makeUser/{user}', 'Admin\UsersController@makeUser');
-  	Route::get('/admin/makeAdmin/{user}', 'Admin\UsersController@makeAdmin');
+  	//Route::get('/admin/makeUser/{user}', 'Admin\UsersController@makeUser');
+  	//Route::get('/admin/makeAdmin/{user}', 'Admin\UsersController@makeAdmin');
 
   	/* Clients */
   	//Manage clients
-  	Route::get('admin/clients/showclients', 'Admin\ClientsController@showClients');
-  	Route::post('admin/clients/addclient', 'Admin\ClientsController@addClient');
+  	Route::get('admin/clients/showclients/{company}', 'Admin\ClientsController@showClients')->name('CompanyClients');
+    Route::get('admin/clients/newclient/{company}', 'Admin\ClientsController@newClient')->name('newclient');
+  	Route::post('admin/clients/addclient/{company}', 'Admin\ClientsController@addClient');
   	Route::post('admin/clients/editclient/{client}', 'Admin\ClientsController@editClient');
   	Route::get('admin/clients/deleteclient/{client}', 'Admin\ClientsController@deleteClient');
 

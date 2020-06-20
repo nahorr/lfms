@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function showCompanyUsers(Company $company)
     {
-    	$companyusers = User::where('company_id', $company->id)->get();
+    	$companyusers = User::where('company_id', $company->id)->where('deleted_at', Null)->get();
 
     	return view('admin.users.showusers', compact('companyusers'));
     }
@@ -52,11 +52,15 @@ class UsersController extends Controller
         return back();
     }
 
-    public function deleteUser(User $user)
+     public function deleteUser(User $user)
     {
-    	User::where('id', $user->id)->delete();
+        $user = User::where('id', $user->id)->first();
 
-    	flash('user deleted!')->danger();
+        $user->deleted_at = date('Y-m-d H:i:s');
+
+        $user->save();
+
+        flash('user deleted!')->error();
 
         return back();
     }

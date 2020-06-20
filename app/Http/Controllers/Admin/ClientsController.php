@@ -6,16 +6,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ClientCase;
 use App\Client;
+use App\Company;
 
 class ClientsController extends Controller
 {
-    public function showClients()
+    public function showClients(Company $company)
     {
-    	$clients = Client::get();
+    	$clients = Client::where('company_id', $company->id)->get();
 
         $all_cases = ClientCase::get();
 
-    	return view('admin.clients.showclients', compact('clients', 'all_cases'));
+    	return view('admin.clients.showclients', compact('company', 'clients', 'all_cases'));
+    }
+
+    public function newClient(Company $company)
+    {
+        return view('admin.clients.newclient', compact('company'));
     }
 
     public function addClient(Request $request){

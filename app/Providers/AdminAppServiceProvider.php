@@ -16,12 +16,15 @@ class AdminAppServiceProvider extends ServiceProvider
         // Using class based composers...
         View::composer(
             [
+            'layouts.app-admin',
             'admin.layouts.app',
             'admin.home',
             'admin.user.showusers',
             'admin.cases.showcases',
             'admin.cases.showallclientcases',
             'admin.templates.showtemplatetypes',
+            'admin.users.showusers',
+            'admin.clients.showclients',
             ], 
             
             'App\Http\ViewComposers\AdminViewComposer'

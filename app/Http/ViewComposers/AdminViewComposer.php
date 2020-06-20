@@ -11,6 +11,7 @@ use App\User;
 use Auth;
 use App\ClientCase;
 use App\Client;
+use App\Company;
 	
 Class AdminViewComposer {	
 
@@ -21,6 +22,7 @@ Class AdminViewComposer {
         $number_init = 1;
         //get current date
         $today = Carbon::today();
+        $company = Company::where('id', Auth::user()->company_id)->first();
         $users = User::orderBy('created_at', 'desc')->get();
         $templates = Template::get();
         $template_types = TemplateType::get();
@@ -30,6 +32,7 @@ Class AdminViewComposer {
         //put variables in views
         $view
         ->with('number_init', $number_init )
+        ->with('company', $company )
         ->with('today', $today )
         ->with('users', $users)
         ->with('templates', $templates)

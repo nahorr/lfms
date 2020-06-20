@@ -23,6 +23,7 @@ class CreateCompaniesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('logo')->default('default.jpg')->default('default.jpg');
             $table->string('motto')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
