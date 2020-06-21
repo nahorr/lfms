@@ -7,9 +7,9 @@ class IsSuperAdmin
 {
     public function handle($request, Closure $next)
     {
-         if (Auth::user() &&  Auth::user()->is_superadmin == 1) {
+         if (Auth::user() &&  Auth::user()->group_id == 1) {
             return $next($request);
          }
-        return redirect('/user/home');
+        return redirect('/super/home');
     }
 }

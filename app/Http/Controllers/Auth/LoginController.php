@@ -28,11 +28,17 @@ class LoginController extends Controller
      */
     public function authenticated($request , $user){
 
-        if(Auth::user()->is_superadmin == 1){
+        if(Auth::user()->group_id == 1){
             
             return redirect()->route('superhome') ;
-        }else{
-            return redirect()->route('home') ;
+        }
+        elseif(Auth::user()->group_id == 2 || Auth::user()->group_id == 3){
+
+            return redirect()->route('adminhome') ;
+        }
+        elseif(Auth::user()->group_id == 4){
+
+            return redirect()->route('lawyerhome') ;
         }
 
     }

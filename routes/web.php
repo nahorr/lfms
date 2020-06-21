@@ -19,20 +19,22 @@ Route::post('/register_company', 'Controller@postRegisterCompany')->name('postre
 
 Auth::routes();//Auth::routes(['verify' => true]); /*Also uncoment implements MustVerifyEmail in User.php model*/
 
-//Private Area - Regular Users
+//Private Area - View Common to all Authenticated uers
 Route::group(['middleware' => 'auth'], function () {
-
-	//Home page when loged in 
-	Route::get('/user/home', 'User\HomeController@index')->name('home');
-	
-	//User profile page
-	Route::get('/user/profile', 'User\ProfileController@profile')->name('profile');
-	Route::post('/user/update_avatar', 'User\ProfileController@updateAvatar');
+  
+  //User profile page
+  Route::get('/user/profile', 'User\ProfileController@profile')->name('profile');
+  Route::post('/user/update_avatar', 'User\ProfileController@updateAvatar');
   Route::post('/user/update_password', 'User\ProfileController@updatePassword');
 
-  //Users - showuser users
-  //Route::get('user/users/showusers', 'User\UsersController@showUsers')->name('Company Users');
+});
 
+//Private Area - Lawyers
+Route::group(['middleware' => ['auth', 'lawyer']], function () {
+
+	//Home page when loged in 
+	Route::get('/lawyer/home', 'Lawyer\HomeController@index')->name('lawyerhome');
+	
 
 });
 
@@ -40,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => ['auth','admin']], function () { 
 
 	//Admin Home page for the company
-  	Route::get('admin/home', 'Admin\HomeController@index');
+  	Route::get('admin/home', 'Admin\HomeController@index')->name('adminhome');
 
   	//Manage Company users
   	Route::get('admin/users/showusers/{company}', 'Admin\UsersController@showCompanyUsers')->name('companyusers');
@@ -102,6 +104,15 @@ Route::group(['middleware' => ['auth','admin']], function () {
 //Private Area - Super Admin Users. For Nahorr Analtytic Management of registered law firms
 Route::group(['middleware' => ['auth', 'superadmin']], function () {
 
+  //Manage Companies
+  Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
+  Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
+
+  //Add New Company
+    Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
+    Route::post('/super/companies/addnewcompany', 'SuperAdmin\CompaniesController@addNewCompany');
+
+
   //Home page when Super Admin is loged in 
   Route::get('/super/home', 'SuperAdmin\HomeController@index')->name('superhome');
 
@@ -113,12 +124,5 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::get('/super/users/newuser', 'SuperAdmin\UsersController@newUser')->name('New User');
     Route::post('/super/users/addnewuser', 'SuperAdmin\UsersController@addNewUser');
   
-  //Manage Companies
-  Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
-  Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
-
-  //Add New Company
-    Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
-    Route::post('/super/companies/addnewcompany', 'SuperAdmin\CompaniesController@addNewCompany');
-
+  
 });

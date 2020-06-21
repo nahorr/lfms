@@ -7,9 +7,9 @@ class IsAdmin
 {
     public function handle($request, Closure $next)
     {
-         if (Auth::user() &&  Auth::user()->is_admin == 1) {
+         if (Auth::user() &&  (Auth::user()->group_id == 2 || Auth::user()->group_id == 3)) {
             return $next($request);
          }
-        return redirect('/user/home');
+        return redirect('/admin/home');
     }
 }

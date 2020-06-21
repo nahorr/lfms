@@ -17,32 +17,38 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Super User',
+            'group_id' => 1,
             'email' => 'super@gmail.com',
             'password' => bcrypt('123456'),
-            //'reg_code' => $company->reg_code,
             'company_id' => $company1->id,
-            'is_admin' => 1,
-            'is_superadmin' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
          DB::table('users')->insert([
-            'name' => 'Admin User',
-            'email' => 'admin@gmail.com',
+            'name' => 'Admin One',
+            'group_id' => 2,
+            'email' => 'adminone@gmail.com',
             'password' => bcrypt('123456'),
-            //'reg_code' => $company->reg_code,
             'company_id' => $company2->id,
-            'is_admin' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
          DB::table('users')->insert([
-            'name' => 'Regular User',
-            'email' => 'Regular@gmail.com',
+            'name' => 'Assistant One',
+            'group_id' => 3,
+            'email' => 'assistantone@gmail.com',
             'password' => bcrypt('123456'),
-            //'reg_code' => $company->reg_code,
+            'company_id' => $company2->id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+         DB::table('users')->insert([
+            'name' => 'Lawyer One',
+            'group_id' => 4,
+            'email' => 'lawyerone@gmail.com',
+            'password' => bcrypt('123456'),
             'company_id' => $company2->id,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
