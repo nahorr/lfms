@@ -20,7 +20,7 @@
                 <th>Email</th>
                 <th>Comapny</th>
                 <th>Role</th>
-                <th>Verified</th>
+                <th>Status</th>
                 <th>Created</th>
                 <th>Action</th>
               </tr>
@@ -32,24 +32,17 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->company->company_name }}</td>
-                <td>@if($user->is_superadmin == 1)
-                    Super
-                  @elseif($user->is_admin == 1)
-                    Admin
-                  @else
-                    User
-                  @endif
-                </td>
+                <td>{{ $user->group->group_name}}</td>
                 <td>
-                  @if($user->email_verified_at != NULL)
-                    Verified
+                  @if($user->deleted_at != Null)
+                    <span style="color: red">Deleted</span>
                   @else
-                    Not Verified
+                    <span style="color: green">Active</span>
                   @endif
                 </td>
                 <td>{{ $user->created_at->toFormattedDateString()}}</td>
                   <td>
-                    @if($user->is_admin !=1)
+                  @if($user->group_id !=2)
                   <a href="{{ url('/admin/users/delete/'.$user->id) }}" id="delete_user-{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
                     onclick="
                     return confirm('Are you sure you want to Delete this user?')

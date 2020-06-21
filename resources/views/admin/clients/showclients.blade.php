@@ -20,6 +20,7 @@
                 <th>Email</th>
                 <th>Phone#</th>
                 <th>Created</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -33,8 +34,25 @@
                 <td>{{ $client->phone }}</td>
                 <td>{{ @$client->created_at->toFormatteddateString() }}</td>
                 <td>
+                  @if($client->deleted_at != Null)
+                    <span style="color: red">Deleted</span>
+                  @else
+                    <span style="color: green">Active</span>
+                  @endif
+                </td>             
+                <td>
                   <i class="fa fa-pencil"></i>
-                  <i class="fa fa-trash"></i>
+                  <a href="{{ url('/admin/clients/delete/'.$client->id) }}" id="delete_client-{{$client->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
+                    onclick="
+                    return confirm('Are you sure you want to Delete this client?')
+                         event.preventDefault();
+                         document.getElementById( "delete_client-{{$client->id}} ").submit();
+                    "><i class="fa fa-trash-o"></i>
+                    
+                  </a>
+                  <form id="delete_client-{{$client->id}}" action="{{ url('/admin/clients/delete/'.$client->id) }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                   <i class="fa fa-eye"></i>
                 </td>
               </tr>

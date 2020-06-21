@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
     	//Route::get('/admin/makeAdmin/{user}', 'Admin\UsersController@makeAdmin');
 
     //Manage Lawyers
-    Route::get('admin/lawyers/showlawyers/{company}', 'Admin\LawyersController@showCompanyLawyers')->name('companylawyers');
-    Route::get('admin/lawyers/delete/{lawyer}', 'Admin\lawyersController@deleteLawyer');
+    Route::get('/admin/lawyers/showlawyers/{company}', 'Admin\LawyersController@showCompanyLawyers')->name('companylawyers');
+    Route::get('/admin/lawyers/delete/{lawyer}', 'Admin\LawyersController@deleteLawyer');
       //Add New Lawyers
       Route::get('/admin/lawyers/newlawyer/{company}', 'Admin\LawyersController@newLawyer')->name('NewCompanyLawyer');
       Route::post('/admin/lawyers/addnewlawyer/{company}', 'Admin\LawyersController@addNewLawyer');
@@ -71,15 +71,14 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	Route::get('admin/clients/showclients/{company}', 'Admin\ClientsController@showClients')->name('CompanyClients');
     Route::get('admin/clients/newclient/{company}', 'Admin\ClientsController@newClient')->name('newclient');
   	Route::post('admin/clients/addclient/{company}', 'Admin\ClientsController@addClient');
-    //Stopped
-  	Route::post('admin/clients/editclient/{client}', 'Admin\ClientsController@editClient');
-  	Route::get('admin/clients/deleteclient/{client}', 'Admin\ClientsController@deleteClient');
+  	//Route::post('admin/clients/editclient/{client}', 'Admin\ClientsController@editClient');
+  	Route::get('/admin/clients/delete/{client}', 'Admin\ClientsController@deleteClient');
 
   	/* Cases */
   	//Manage cases
-  	Route::get('admin/cases/showcases', 'Admin\ClientCasesController@showCases');
-  	Route::get('admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
-  	Route::post('admin/cases/addcase', 'Admin\ClientCasesController@addCase');
+  	Route::get('/admin/cases/showcases/{company}', 'Admin\ClientCasesController@showCases')->name('adminclientcases');
+  	Route::get('/admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
+  	Route::post('/admin/cases/addcase', 'Admin\ClientCasesController@addCase');
 
   	/*Court Dates and Times*/
   	Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');

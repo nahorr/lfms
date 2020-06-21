@@ -17,7 +17,7 @@ class AdminAppServiceProvider extends ServiceProvider
         View::composer(
             [
             'layouts.app-admin',
-            'admin.layouts.app',
+            'includes.navbar-admin',
             'admin.home',
             'admin.user.showusers',
             'admin.cases.showcases',

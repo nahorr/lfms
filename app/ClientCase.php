@@ -8,6 +8,11 @@ class ClientCase extends Model
 {
 	protected $dates = ['court_date'];
 
+	public function company()
+    {
+    	return $this->belongsTo('App\Company');
+    }
+    
     public function client()
     {
     	return $this->belongsTo('App\Client');

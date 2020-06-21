@@ -14,4 +14,9 @@ class Company extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    public function client_cases()
+    {
+        return $this->hasMany('App\ClientCase');
+    }
 }

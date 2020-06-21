@@ -15,6 +15,8 @@ class CreateClientCasesTable extends Migration
     {
         Schema::create('client_cases', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');   
             $table->string('case_number')->unique();
             $table->string('case_title');
             $table->integer('client_id')->unsigned();

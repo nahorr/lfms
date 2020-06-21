@@ -12,31 +12,33 @@ class UsersController extends Controller
 {
     public function showCompanyUsers(Company $company)
     {
-    	$companyusers = User::where('company_id', $company->id)->where('deleted_at', Null)->get();
+    	$companyusers = User::where('company_id', $company->id)->get();
 
     	return view('admin.users.showusers', compact('companyusers'));
     }
 
     public function newUser(Company $company)
     {
-        return view('admin.users.newuser', compact('company'));
+        $companyusers = $companyusers = User::where('company_id', $company->id)->where('deleted_at', Null)->get();
+
+        return view('admin.users.newuser', compact('companyusers', 'company'));
     }
 
     public function addNewUser(Request $request, Company $company){
         
         $this->validate(request(), [
             'name' => 'required',
-            //'company_id' => 'required',
+            'group_id' => 'required',
             'email' => 'required|unique:users',
-            'is_admin' => 'required',
             'password' => 'required',
         ]);
 
         User::insert([
             'name' => $request->name,
             'company_id' => $company->id,
+            'group_id' => $request->group_id,
             'email' => $request->email,
-            'is_admin' => $request->is_admin,
+            'designation' => $request->designation,
             'password' => Hash::make($request->password),
             'email_verified_at' => date('Y-m-d H:i:s'),
             'created_at' => date('Y-m-d H:i:s'),

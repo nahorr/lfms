@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\UpComingCourtDate;
-
+use App\Company;
 use App\ClientCase;
 use App\Client;
 use Carbon\Carbon;
@@ -14,10 +14,11 @@ use App\User;
 
 class ClientCasesController extends Controller
 {
-    public function showCases()
+    public function showCases(Company $company)
     {
+        $companycases = ClientCase::where('company_id', $company->id)->get();
 
-    	return view('admin.cases.showcases');
+    	return view('admin.cases.showcases', compact('companycases'));
     }
 
     public function showAllClientCases(Client $client)

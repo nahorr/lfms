@@ -90,9 +90,13 @@ class ClientsController extends Controller
 
     public function deleteClient(Client $client)
     {
-    	Client::where('id', $client->id)->delete();
+        $client = Client::where('id', $client->id)->first();
 
-    	flash('Client deleted!')->warning();
+        $client->deleted_at = date('Y-m-d H:i:s');
+
+        $client->save();
+
+        flash('client deleted!')->error();
 
         return back();
     }
