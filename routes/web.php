@@ -44,21 +44,32 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
   	//Manage Company users
   	Route::get('admin/users/showusers/{company}', 'Admin\UsersController@showCompanyUsers')->name('companyusers');
-  	//Delete a user
   	Route::get('admin/users/delete/{user}', 'Admin\UsersController@deleteUser');
-  	//Make Admin or User
-  	//Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');
-  	//Route::post('admin/users/makeuser/{user}', 'Admin\UsersController@makeUser');
 
-  	//Make Admin or make User
-  	//Route::get('/admin/makeUser/{user}', 'Admin\UsersController@makeUser');
-  	//Route::get('/admin/makeAdmin/{user}', 'Admin\UsersController@makeAdmin');
+      //Add new user
+      Route::get('/admin/users/newuser/{company}', 'Admin\UsersController@newUser')->name('NewCompanyUser');
+      Route::post('/admin/users/addnewuser/{company}', 'Admin\UsersController@addNewUser');
 
-  	/* Clients */
+    	//Make Admin or User
+    	//Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');
+    	//Route::post('admin/users/makeuser/{user}', 'Admin\UsersController@makeUser');
+
+    	//Make Admin or make User
+    	//Route::get('/admin/makeUser/{user}', 'Admin\UsersController@makeUser');
+    	//Route::get('/admin/makeAdmin/{user}', 'Admin\UsersController@makeAdmin');
+
+    //Manage Lawyers
+    Route::get('admin/lawyers/showlawyers/{company}', 'Admin\LawyersController@showCompanyLawyers')->name('companylawyers');
+    Route::get('admin/lawyers/delete/{lawyer}', 'Admin\lawyersController@deleteLawyer');
+      //Add New Lawyers
+      Route::get('/admin/lawyers/newlawyer/{company}', 'Admin\LawyersController@newLawyer')->name('NewCompanyLawyer');
+      Route::post('/admin/lawyers/addnewlawyer/{company}', 'Admin\LawyersController@addNewLawyer');
+
   	//Manage clients
   	Route::get('admin/clients/showclients/{company}', 'Admin\ClientsController@showClients')->name('CompanyClients');
     Route::get('admin/clients/newclient/{company}', 'Admin\ClientsController@newClient')->name('newclient');
   	Route::post('admin/clients/addclient/{company}', 'Admin\ClientsController@addClient');
+    //Stopped
   	Route::post('admin/clients/editclient/{client}', 'Admin\ClientsController@editClient');
   	Route::get('admin/clients/deleteclient/{client}', 'Admin\ClientsController@deleteClient');
 

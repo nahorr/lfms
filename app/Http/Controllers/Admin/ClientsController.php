@@ -8,6 +8,7 @@ use App\ClientCase;
 use App\Client;
 use App\Company;
 
+
 class ClientsController extends Controller
 {
     public function showClients(Company $company)
@@ -24,7 +25,7 @@ class ClientsController extends Controller
         return view('admin.clients.newclient', compact('company'));
     }
 
-    public function addClient(Request $request){
+    public function addClient(Request $request, Company $company){
 
         $this->validate(request(), [
             'client_number' => 'required|unique:clients',
@@ -36,6 +37,7 @@ class ClientsController extends Controller
         ]);
         
         Client::insert([
+            'company_id' => $company->id,
             'client_number' => $request->client_number,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -53,7 +55,7 @@ class ClientsController extends Controller
        
         flash('Client Added!')->success();
 
-        return back();
+        return redirect()->route('CompanyClients', compact('company'));
    }
 
    public function editClient(Request $request, Client $client)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Company;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,37 @@ class UsersController extends Controller
 
     	return view('admin.users.showusers', compact('companyusers'));
     }
+
+    public function newUser(Company $company)
+    {
+        return view('admin.users.newuser', compact('company'));
+    }
+
+    public function addNewUser(Request $request, Company $company){
+        
+        $this->validate(request(), [
+            'name' => 'required',
+            //'company_id' => 'required',
+            'email' => 'required|unique:users',
+            'is_admin' => 'required',
+            'password' => 'required',
+        ]);
+
+        User::insert([
+            'name' => $request->name,
+            'company_id' => $company->id,
+            'email' => $request->email,
+            'is_admin' => $request->is_admin,
+            'password' => Hash::make($request->password),
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+       
+        flash('New User created Successfully!')->success();
+
+        return redirect()->route('companyusers', compact('company'));
+   }
 
     public function makeAdmin(Request $request, User $user)
     {

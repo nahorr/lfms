@@ -25,6 +25,7 @@ class AdminAppServiceProvider extends ServiceProvider
             'admin.templates.showtemplatetypes',
             'admin.users.showusers',
             'admin.clients.showclients',
+            'admin.lawyers.showlawyers',
             ], 
             
             'App\Http\ViewComposers\AdminViewComposer'
