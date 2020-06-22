@@ -9,7 +9,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title mr-10">Cases Table</h3>
-        <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
+        <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
           <span>
               <i class="fa fa-plus"></i>
           </span> <strong>New Case</strong>
@@ -42,13 +42,7 @@
                 <td>{{ $case->deleted_at}}</td>
                 <td>
                 @if($user->group_id !=2)
-                <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
-                  onclick="
-                  return confirm('Are you sure you want to Delete this case?')
-                       event.preventDefault();
-                       document.getElementById( "delete_case-{{$case->id}} ").submit();
-                  "><i class="fa fa-trash-o"></i>
-                  
+                <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i>   
                 </a>
                 <form id="delete_case-{{$case->id}}" action="{{ url('/admin/cases/delete/'.$case->id) }}" method="POST" style="display: none;">
                     @csrf
@@ -67,5 +61,4 @@
   </div>
 </div>
 <!-- ROW-4 CLOSED-->
-
 @endsection

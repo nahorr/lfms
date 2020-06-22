@@ -21,11 +21,20 @@ class ClientCasesController extends Controller
     	return view('admin.cases.showcases', compact('companycases'));
     }
 
-    public function showAllClientCases(Client $client)
+    /*public function showAllClientCases(Client $client)
     {
         $allclientcases = ClientCase::where('client_id', $client->id)->get();
 
         return view('admin.cases.showallclientcases', compact('client', 'allclientcases'));
+    }*/
+
+    public function addNewCase(Company $company)
+    {
+        $companyclients = Client::where('company_id', $company->id)->get();
+
+        $companylawyers = User::where('group_id', 4)->where('company_id', $company->id)->get();
+
+        return view('admin.cases.addnewcase', compact('companyclients', 'company', 'companylawyers'));
     }
 
     public function addCase(Request $request){
