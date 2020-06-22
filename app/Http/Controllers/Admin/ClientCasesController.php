@@ -37,7 +37,15 @@ class ClientCasesController extends Controller
         return view('admin.cases.addnewcase', compact('companyclients', 'company', 'companylawyers'));
     }
 
-    public function addCase(Request $request){
+    public function addNewClientCase(Company $company, Client $client)
+    {
+
+        $companylawyers = User::where('group_id', 4)->where('company_id', $company->id)->get();
+
+        return view('admin.cases.addnewclientcase', compact('client', 'company', 'companylawyers'));
+    }
+
+    public function addCase(Request $request, Company $company){
 
         $this->validate(request(), [
             'client_id' => 'required',
@@ -46,6 +54,7 @@ class ClientCasesController extends Controller
         ]);
         
         ClientCase::insert([
+            'company_id' => $company->id,
             'client_id' => $request->client_id,
             'case_number' => $request->case_number,
             'case_title' => $request->case_title,
@@ -53,14 +62,40 @@ class ClientCasesController extends Controller
             'court_date' => $request->court_date,
             'court_location' => $request->court_location,
             'outcome' => $request->outcome,
-            'assigned_to' => $request->assigned_to,
+            'user_id' => $request->user_id,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
        
         flash('Case Added!')->success();
 
-        return back();
+        return redirect(route('adminclientcases', compact('company')));
+   }
+
+   public function addClientCase(Request $request, Company $company, Client $client){
+
+        $this->validate(request(), [
+            'case_number' => 'required|unique:client_cases',
+            'case_title' => 'required',
+        ]);
+        
+        ClientCase::insert([
+            'company_id' => $company->id,
+            'client_id' => $client->id,
+            'case_number' => $request->case_number,
+            'case_title' => $request->case_title,
+            'history' => $request->history,
+            'court_date' => $request->court_date,
+            'court_location' => $request->court_location,
+            'outcome' => $request->outcome,
+            'user_id' => $request->user_id,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+       
+        flash('Case Added!')->success();
+
+        return redirect(route('adminclientcases', compact('company')));
    }
 
    public function editCase(Request $request, ClientCase $Case)

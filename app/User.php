@@ -38,4 +38,9 @@ class User extends Authenticatable //implements MustVerifyEmail
         return $this->belongsTo('App\Group');
     }
 
+    public function clientcases()
+    {
+        return $this->belongsTo('App\ClientCase');
+    }
+
 }

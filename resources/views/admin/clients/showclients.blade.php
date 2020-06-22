@@ -29,7 +29,13 @@
               <tr>
                 <td>{{ $client->client_number }}</td>
                 <td>{{ $client->last_name }}, {{ $client->first_name }}</td>
-                <td>{{ $client->client_cases->count() }}</td>
+                <td>
+                  {{ $client->client_cases->count() }}
+                  <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}/{{$client->id}}" id="delete_client-{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a case for this client">
+                    <i class="fa fa-plus"></i>
+                    
+                  </a>
+                </td>
                 <td>{{ $client->email }}</td>
                 <td>{{ $client->phone }}</td>
                 <td>{{ @$client->created_at->toFormatteddateString() }}</td>

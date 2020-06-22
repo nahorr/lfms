@@ -78,9 +78,12 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	//Manage cases
   	Route::get('admin/cases/showcases/{company}', 'Admin\ClientCasesController@showCases')->name('adminclientcases');
   	//Route::get('/admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
-
+    //Add a new case
     Route::get('/admin/cases/addnewcase/{company}', 'Admin\ClientCasesController@addNewCase');
-  	Route::post('/admin/cases/addcase/{company}/{client}', 'Admin\ClientCasesController@addCase');
+  	Route::post('/admin/cases/addcase/{company}', 'Admin\ClientCasesController@addCase');
+    //Add a new case for a client
+    Route::get('/admin/cases/addnewcase/{company}/{client}', 'Admin\ClientCasesController@addNewClientCase');
+    Route::post('/admin/cases/addcase/{company}/{client}', 'Admin\ClientCasesController@addClientCase');
 
   	/*Court Dates and Times*/
   	Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');

@@ -33,15 +33,20 @@
             <tbody>
               @foreach($companycases as $case)
               <tr>
-                <td>{{ $case->id }}</td>
                 <td>{{ $case->case_number }}</td>
                 <td>{{ $case->client->first_name}} {{ $case->client->last_name }}</td>
-                <td>{{ $case->court_date }}</td>
+                <td>{{ $case->court_date->toFormattedDateString() }}</td>
                 <td>{{ $case->user->name}}</td>
-                <td>{{ $case->created_at}}</td>
-                <td>{{ $case->deleted_at}}</td>
+                <td>{{ $case->created_at->toFormattedDateString()}}</td>
                 <td>
-                @if($user->group_id !=2)
+                    @if($case->deleted_at != Null)
+                      <span style="color: red">Deleted</span>
+                    @else
+                      <span style="color: green">Active</span>
+                    @endif
+                </td>
+                <td>
+                @if(Auth::user()->group_id !=2)
                 <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i>   
                 </a>
                 <form id="delete_case-{{$case->id}}" action="{{ url('/admin/cases/delete/'.$case->id) }}" method="POST" style="display: none;">
