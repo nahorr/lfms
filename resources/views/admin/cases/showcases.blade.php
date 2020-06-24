@@ -22,10 +22,11 @@
               <tr>
                 <th>Case#</th>
                 <th>Client</th>
+                <th># of Case Files</th>
                 <th>Court Date</th>
                 <th>Assigned To</th>
                 <th>Created</th>
-                <th>Status</th>
+                <th>Status</th>    
                 <th>Action</th>  
               </tr>
               </tr>
@@ -35,6 +36,11 @@
               <tr>
                 <td>{{ $case->case_number }}</td>
                 <td>{{ $case->client->first_name}} {{ $case->client->last_name }}</td>
+                <td>
+                  <a href="{{ url('/admin/cases/files/showcasefiles', [$case->id, $case->company_id, $case->client_id]) }}">
+                    {{ count(json_decode($case->case_file))}} <i class="fa fa-file"></i> files
+                  </a>
+                </td>
                 <td>{{ $case->court_date->toFormattedDateString() }}</td>
                 <td>{{ $case->user->name}}</td>
                 <td>{{ $case->created_at->toFormattedDateString()}}</td>

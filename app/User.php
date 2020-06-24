@@ -40,7 +40,7 @@ class User extends Authenticatable //implements MustVerifyEmail
 
     public function clientcases()
     {
-        return $this->belongsTo('App\ClientCase');
+        return $this->hasmany('App\ClientCase');
     }
 
 }

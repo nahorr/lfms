@@ -19,4 +19,9 @@ class Company extends Model
     {
         return $this->hasMany('App\ClientCase');
     }
+
+    public function templatecategory()
+    {
+        return $this->hasmany('App\TemplateCategory');
+    }
 }

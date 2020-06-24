@@ -84,19 +84,24 @@ Route::group(['middleware' => ['auth','admin']], function () {
     //Add a new case for a client
     Route::get('/admin/cases/addnewcase/{company}/{client}', 'Admin\ClientCasesController@addNewClientCase');
     Route::post('/admin/cases/addcase/{company}/{client}', 'Admin\ClientCasesController@addClientCase');
+    //View case files
+    Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 
+      'Admin\CaseFilesController@showCaseFiles')->name('admin.showcasefiles');
 
   	/*Court Dates and Times*/
-  	Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');
+  	//Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');
 
-  	/* Template Types*/
-  	Route::get('admin/templates/showtemplatetypes', 'Admin\TemplatesController@showTemplateTypes');
-  	Route::post('admin/templates/types', 'Admin\TemplatesController@addTemplateType');
-  	Route::get('admin/templates/types/delete/{type}', 'Admin\TemplatesController@deleteTemplateType');
+  	/* Template Categories*/
+  	Route::get('admin/templates/showcategories/{company}', 'Admin\TemplatesController@showCategories')->name('admin.templatecategories');
+  	Route::get('admin/templates/newcategory/{company}', 'Admin\TemplatesController@newCategory');
+    Route::post('admin/templates/addnewcategory/{company}', 'Admin\TemplatesController@addNewCategory');
+  	//Route::get('admin/templates/types/delete/{type}', 'Admin\TemplatesController@deleteTemplateType');
 
   	/* Templates*/
-  	//Manage Template by types
-  	Route::get('admin/templates/types/showtemplates/{type}', 'Admin\TemplatesController@showTemplates');
-  	Route::post('admin/templates/types/addtemplate/{type}', 'Admin\TemplatesController@addTemplate');
+  	//Manage Template by categories
+  	Route::get('admin/templates/category/showtemplates/{company}/{category}', 'Admin\TemplatesController@showTemplates')->name('admin.templates');
+    Route::get('admin/templates/category/newtemplate/{company}/{category}', 'Admin\TemplatesController@newTemplate');
+  	Route::post('admin/templates/category/addtemplate/{company}/{category}', 'Admin\TemplatesController@addTemplate');
 
   	//Route::get('admin/agreements/types/deleteagreementtype/{type}', 'Admin\AgreementTypesController@deleteAgreementType');
 

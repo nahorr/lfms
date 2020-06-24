@@ -25,6 +25,7 @@ class AdminAppServiceProvider extends ServiceProvider
             'admin.users.showusers',
             'admin.clients.showclients',
             'admin.lawyers.showlawyers',
+            'admin.cases.files.showcasefiles',
 
             ], 
             

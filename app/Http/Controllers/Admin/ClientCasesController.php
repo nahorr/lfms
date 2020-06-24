@@ -47,17 +47,34 @@ class ClientCasesController extends Controller
 
     public function addCase(Request $request, Company $company){
 
+        $case_file_folder = preg_replace('/\s+/', '', $request->case_number);
+
         $this->validate(request(), [
             'client_id' => 'required',
             'case_number' => 'required|unique:client_cases',
             'case_title' => 'required',
+            //'case_file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg, pdf,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,|max:10000'
+            'case_file.*' => 'required|file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
         ]);
-        
+
+        if($request->hasFile('case_file'))
+        {
+            foreach($request->file('case_file') as $file)
+            {
+                //$case_file = $request->file('case_file');
+                $filename = preg_replace('/\s+/', '', $request->case_number) . time() . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path().'/uploads/companies/cases/'.$case_file_folder;
+                $file->move($destinationPath,$filename);
+                $data[] = $filename; 
+            }
+        }
+
         ClientCase::insert([
             'company_id' => $company->id,
             'client_id' => $request->client_id,
             'case_number' => $request->case_number,
             'case_title' => $request->case_title,
+            'case_file'=>json_encode($data),
             'history' => $request->history,
             'court_date' => $request->court_date,
             'court_location' => $request->court_location,
