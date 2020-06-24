@@ -47,13 +47,12 @@ class ClientCasesController extends Controller
 
     public function addCase(Request $request, Company $company){
 
-        $case_file_folder = preg_replace('/\s+/', '', $request->case_number);
+        $case_file_folder = preg_replace('/\..+$/', '', $request->case_number);
 
         $this->validate(request(), [
             'client_id' => 'required',
             'case_number' => 'required|unique:client_cases',
             'case_title' => 'required',
-            //'case_file.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg, pdf,doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,|max:10000'
             'case_file.*' => 'required|file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
         ]);
 
@@ -61,13 +60,16 @@ class ClientCasesController extends Controller
         {
             foreach($request->file('case_file') as $file)
             {
-                //$case_file = $request->file('case_file');
-                $filename = preg_replace('/\s+/', '', $request->case_number) . time() . '.' . $file->getClientOriginalExtension();
+                
+                $filename = preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
                 $destinationPath = public_path().'/uploads/companies/cases/'.$case_file_folder;
                 $file->move($destinationPath,$filename);
                 $data[] = $filename; 
+                
             }
         }
+
+        dd($data);
 
         ClientCase::insert([
             'company_id' => $company->id,
