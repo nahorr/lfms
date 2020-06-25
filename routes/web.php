@@ -113,25 +113,39 @@ Route::group(['middleware' => ['auth','admin']], function () {
 //Private Area - Super Admin Users. For Nahorr Analtytic Management of registered law firms
 Route::group(['middleware' => ['auth', 'superadmin']], function () {
 
-  //Manage Companies
-  Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
-  Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
-
-  //Add New Company
-    Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
-    Route::post('/super/companies/addnewcompany', 'SuperAdmin\CompaniesController@addNewCompany');
-
-
   //Home page when Super Admin is loged in 
   Route::get('/super/home', 'SuperAdmin\HomeController@index')->name('superhome');
 
+  //Manage Companies
+  Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
+  
+    //Add New Company
+    Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
+    Route::post('/super/companies/addnewcompany', 'SuperAdmin\CompaniesController@addNewCompany');
+
+    //Edit Company
+    Route::get('/super/companies/editcompany/{company}', 'SuperAdmin\CompaniesController@editCompany')->name('editCompany');
+    Route::post('/super/companies/update/{company}', 'SuperAdmin\CompaniesController@updateCompany');
+    
+    //Delete and UnDelete Company
+    Route::get('/super/companies/delete/{company}', 'SuperAdmin\CompaniesController@deleteCompany');
+    Route::get('/super/companies/undelete/{company}', 'SuperAdmin\CompaniesController@unDeleteCompany');
+
   //Manage Users
   Route::get('/super/users/showusers', 'SuperAdmin\UsersController@showUsers')->name('All Users');
-  Route::get('/super/users/delete/{user}', 'SuperAdmin\UsersController@deleteUser');
-
+  
     //Add new user
     Route::get('/super/users/newuser', 'SuperAdmin\UsersController@newUser')->name('New User');
     Route::post('/super/users/addnewuser', 'SuperAdmin\UsersController@addNewUser');
+
+    //Edit Users
+    Route::get('/super/users/edituser/{user}', 'SuperAdmin\UsersController@editUser')->name('super.edit.user');
+    Route::post('/super/users/update/{user}', 'SuperAdmin\UsersController@updateUser');
+
+    //Delete and undelete users
+    Route::get('/super/users/delete/{user}', 'SuperAdmin\UsersController@deleteUser');
+    Route::get('/super/users/undelete/{user}', 'SuperAdmin\UsersController@unDeleteUser');
+
   
   
 });

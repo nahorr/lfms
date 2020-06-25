@@ -69,7 +69,7 @@ class ClientCasesController extends Controller
             }
         }
 
-        dd($data);
+        //dd($data);
 
         ClientCase::insert([
             'company_id' => $company->id,

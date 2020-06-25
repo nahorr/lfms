@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Company;
 use Hash;
+use App\Group;
 
 class UsersController extends Controller
 {
@@ -19,9 +20,9 @@ class UsersController extends Controller
 
     public function newUser(Company $company)
     {
-        $companyusers = $companyusers = User::where('company_id', $company->id)->where('deleted_at', Null)->get();
+        $roles= Group::where('id', '!=', 1)->get();
 
-        return view('admin.users.newuser', compact('companyusers', 'company'));
+        return view('admin.users.newuser', compact('roles', 'company'));
     }
 
     public function addNewUser(Request $request, Company $company){
