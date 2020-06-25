@@ -27,6 +27,6 @@ class Company extends Model
 
     public function subscriptions()
     {
-        return $this->hasMany('App\Subscriptions');
+        return $this->hasMany('App\Subscription');
     }
 }
