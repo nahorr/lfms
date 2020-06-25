@@ -24,4 +24,9 @@ class Company extends Model
     {
         return $this->hasmany('App\TemplateCategory');
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscriptions');
+    }
 }

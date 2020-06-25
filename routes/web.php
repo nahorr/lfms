@@ -118,6 +118,7 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
 
   //Manage Companies
   Route::get('/super/companies/showcompanies', 'SuperAdmin\CompaniesController@showCompanies')->name('companies');
+  Route::get('/super/companies/detail/{company}', 'SuperAdmin\CompaniesController@companyDetail')->name('super.company.detail');
   
     //Add New Company
     Route::get('/super/companies/newcompany', 'SuperAdmin\CompaniesController@newCompany')->name('NewCompany');
@@ -146,6 +147,15 @@ Route::group(['middleware' => ['auth', 'superadmin']], function () {
     Route::get('/super/users/delete/{user}', 'SuperAdmin\UsersController@deleteUser');
     Route::get('/super/users/undelete/{user}', 'SuperAdmin\UsersController@unDeleteUser');
 
-  
+  //Manage Payments and Subscriptions
+  Route::get('/super/subscriptions/showsubscriptions', 'SuperAdmin\SubscriptionsController@showSubscriptions')->name('super.subscriptions');
+
+    //Add new manual subscription
+    Route::get('/super/subscriptions/newsubscription', 'SuperAdmin\SubscriptionsController@newSubscription')->name('super.newsubscription');
+    Route::post('/super/subscriptions/addnewsubscription', 'SuperAdmin\SubscriptionsController@addNewSubscription');
+
+    //Edit Subcription
+    Route::get('/super/subscriptions/editsubscription/{subscription}', 'SuperAdmin\SubscriptionsController@editSubscription')->name('super.edit.subscription');
+    Route::post('/super/subscriptions/update/{subscription}', 'SuperAdmin\SubscriptionsController@updateSubscription');
   
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Company;
 use App\User;
+use App\Subscription;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,8 @@ class HomeController extends Controller
 
     	$users = User::get();
 
-    	return view('super.home', compact('companies', 'users'));
+    	$subscriptions = Subscription::get();
+
+    	return view('super.home', compact('companies', 'users', 'subscriptions'));
     }
 }
