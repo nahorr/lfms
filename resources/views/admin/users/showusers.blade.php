@@ -8,7 +8,12 @@
     @include('flash::message')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title mr-10">Users Table</h3>
+        <h3 class="card-title mr-10">Employees Table</h3>
+        <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-warning btn-icon text-white mr-2" style="margin: auto;">
+            <span>
+                <i class="fe fe-user"></i>
+            </span> <strong>Add Employee</strong>
+        </a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -42,21 +47,22 @@
                 </td>
                 <td>{{ $user->created_at->toFormattedDateString()}}</td>
                   <td>
-                  @if($user->group_id !=2)
-                  <a href="{{ url('/admin/users/delete/'.$user->id) }}" id="delete_user-{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
-                    onclick="
-                    return confirm('Are you sure you want to Delete this user?')
-                         event.preventDefault();
-                         document.getElementById( "delete_user-{{$user->id}} ").submit();
-                    "><i class="fa fa-trash-o"></i>
-                    
-                  </a>
-                  <form id="delete_user-{{$user->id}}" action="{{ url('/admin/users/delete/'.$user->id) }}" method="POST" style="display: none;">
-                      @csrf
-                  </form>
-                  @endif
-                  <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                  
+                    <a href="{{url('/admin/users/edituser/'.$user->company_id)}}/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+
+                    @if($user->group_id !=2)
+                      <a href="{{ url('/admin/users/delete/'.$user->id) }}" id="delete_user-{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
+                        onclick="
+                        return confirm('Are you sure you want to Delete this user?')
+                             event.preventDefault();
+                             document.getElementById( "delete_user-{{$user->id}} ").submit();
+                        "><i class="fa fa-trash-o"></i>
+                        
+                      </a>
+                      <form id="delete_user-{{$user->id}}" action="{{ url('/admin/users/delete/'.$user->id) }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
+                    @endif
+                     
                   </td>
                 </tr>
               </tr>

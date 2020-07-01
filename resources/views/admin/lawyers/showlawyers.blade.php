@@ -9,6 +9,11 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title mr-10"><i class="fa fa-lawyer"></i> Lawyers Table</h3>
+        <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-warning btn-icon text-white mr-2" style="margin: auto;">
+            <span>
+                <i class="fe fe-user"></i>
+            </span> <strong>Add Lawyer</strong>
+        </a>
       </div>
       <div class="card-body">
         <div class="table-responsive">

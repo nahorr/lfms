@@ -7,19 +7,28 @@
   <div class="col-xl-3 col-sm-6">
     <div class="card overflow-hidden">
       <div class="card-body text-center">
-        <a href="{{url('/admin/users/showusers/'.$company->id)}}">
+        
         <div class="d-flex mb-4">
           <span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary">
-            <i class="fe fe-users text-white"></i>
+            <a href="{{url('/admin/users/showusers/'.$company->id)}}"><i class="fe fe-users text-white"></i></a>
           </span>
           <div class="svg-icons text-right ml-auto">
-            <p class="text-muted mb-2"><strong>Users</strong></p>
-            <h2 class="mb-0 number-font">{{ $company->users()->where('deleted_at',Null)->count() }}</h2>
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/users/showusers/'.$company->id)}}">
+                <strong>Employees</strong>
+              </a>
+              <a href="{{ url('/admin/users/newuser/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+            </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/users/showusers/'.$company->id)}}">{{ $company->users()->where('deleted_at',Null)->count() }}</a>
+            </h2>
           </div>
         </div>
-        </a>
+        
         <div class="progress h-1 mt-0 mb-0">
-          <div class="progress-bar bg-secondary w-100" role="progressbar"></div>
+          <div class="progress-bar bg-secondary w-50" role="progressbar"></div>
         </div>
       </div>
     </div>

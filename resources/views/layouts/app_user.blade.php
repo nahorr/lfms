@@ -93,7 +93,7 @@
                     <div class="container">
                         <div class="d-flex">
                             @auth
-                            <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
+                                <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
                                 @if(Auth::user()->group_id == 1)
                                     <a class="header-brand" href="{{ url('/super/home') }}">
                                         <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">

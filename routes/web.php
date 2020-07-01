@@ -22,13 +22,6 @@ Route::get('/no_subscription', 'Controller@noSubscription')->name('NoSubscriptio
 //Contact page
 Route::get('/contactus', 'Controller@contactUs')->name('ContactUs');
 Route::post('/postcontactus', 'Controller@postContactUs')->name('PostContactUs');
-// Route::get('/postcontactus', function () {
-
-//     $contact = App\ContactUs::find(1);
-
-//     return (new App\Notifications\ContactFormSubmitted($contact))
-//                 ->toMail('Nnamdi');
-// });
 
 //Company Registration
 Route::get('/register_company', 'Controller@registerCompany')->name('registercompany');
@@ -68,6 +61,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
       //Add new user
       Route::get('/admin/users/newuser/{company}', 'Admin\UsersController@newUser')->name('NewCompanyUser');
       Route::post('/admin/users/addnewuser/{company}', 'Admin\UsersController@addNewUser');
+
+      //Edit Company user
+      Route::get('/admin/users/edituser/{company}/{user}', 'Admin\UsersController@editUser')->name('editCompanyUser');
+      Route::post('/admin/users/update/{company}/{user}', 'Admin\UsersController@updateUser');
 
     	//Make Admin or User
     	//Route::post('admin/users/makeadmin/{user}', 'Admin\UsersController@makeAdmin');

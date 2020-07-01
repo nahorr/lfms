@@ -51,6 +51,44 @@ class UsersController extends Controller
         return redirect()->route('companyusers', compact('company'));
    }
 
+   public function editUser(Company $company, User $user)
+    {
+        $roles= Group::where('id', '!=', 1)->get();
+
+        return view('admin.users.edituser', compact('roles', 'company', 'user'));
+    }
+
+    public function updateUser(Request $request, Company $company, User $user){
+        
+        $this->validate(request(), [
+            'name' => 'required',
+            'designation' => 'required',
+        ]);
+
+        User::where('id', $user->id)->update([
+            'name' => $request->name,
+            'designation' => $request->designation,
+        ]);
+       
+        flash('New Udated Successfully!')->success();
+
+        return redirect()->route('companyusers', compact('company'));
+   }
+    
+
+     public function deleteUser(User $user)
+    {
+        $user = User::where('id', $user->id)->first();
+
+        $user->deleted_at = date('Y-m-d H:i:s');
+
+        $user->save();
+
+        flash('user deleted!')->error();
+
+        return back();
+    }
+
     public function makeAdmin(Request $request, User $user)
     {
         $this->validate(request(), [
@@ -83,19 +121,6 @@ class UsersController extends Controller
         $make_user->save();
        
         flash('User Updated successfully!')->success();
-
-        return back();
-    }
-
-     public function deleteUser(User $user)
-    {
-        $user = User::where('id', $user->id)->first();
-
-        $user->deleted_at = date('Y-m-d H:i:s');
-
-        $user->save();
-
-        flash('user deleted!')->error();
 
         return back();
     }
