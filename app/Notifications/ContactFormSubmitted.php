@@ -56,7 +56,7 @@ class ContactFormSubmitted extends Notification
                     ->line('Phone #: '.$this->contact->phone_number)
                     ->line('Message: '.$this->contact->contact_message)
                     ->line('Date Submitted: '.$this->contact->created_at->toFormattedDateString())
-                    ->markdown('mail.contact.submitted', ['url' => $url]);
+                    ->markdown('notifications.contactformsubmitted', ['url' => $url]);
     }
 
     /**
