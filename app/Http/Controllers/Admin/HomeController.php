@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Company;
 use Auth;
+use App\Subscription;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {

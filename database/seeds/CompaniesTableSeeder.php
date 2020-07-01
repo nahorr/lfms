@@ -22,7 +22,7 @@ class CompaniesTableSeeder extends Seeder
         ]);
         DB::table('companies')->insert([
             'company_code' => Str::uuid(),
-            'company_name' => 'Examginny Schools LTD',
+            'company_name' => 'Examginny Law LTD',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

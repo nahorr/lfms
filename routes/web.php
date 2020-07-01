@@ -11,7 +11,24 @@
 |
 */
 
+
+
 Route::get('/', 'Controller@welcome')->name('welcome');
+
+//Expired and Null Subscription pages
+Route::get('/expired_subscription', 'Controller@expiredSubscription')->name('ExpiredSubscription');
+Route::get('/no_subscription', 'Controller@noSubscription')->name('NoSubscription');
+
+//Contact page
+Route::get('/contactus', 'Controller@contactUs')->name('ContactUs');
+Route::post('/postcontactus', 'Controller@postContactUs')->name('PostContactUs');
+// Route::get('/postcontactus', function () {
+
+//     $contact = App\ContactUs::find(1);
+
+//     return (new App\Notifications\ContactFormSubmitted($contact))
+//                 ->toMail('Nnamdi');
+// });
 
 //Company Registration
 Route::get('/register_company', 'Controller@registerCompany')->name('registercompany');

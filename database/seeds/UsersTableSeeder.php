@@ -12,8 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-    	$company1 = DB::table('companies')->where('company_name', 'Nahorr Analytics')->first();
-        $company2 = DB::table('companies')->where('company_name', 'Examginny Schools LTD')->first();
+    	$company1 = DB::table('companies')->where('id', 1)->first();
+        $company2 = DB::table('companies')->where('id', 2)->first();
 
         DB::table('users')->insert([
             'name' => 'Super User',

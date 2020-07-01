@@ -8,8 +8,10 @@ class IsSuperAdmin
     public function handle($request, Closure $next)
     {
          if (Auth::user() &&  Auth::user()->group_id == 1) {
+
             return $next($request);
          }
+         
         return redirect('/super/home');
     }
 }

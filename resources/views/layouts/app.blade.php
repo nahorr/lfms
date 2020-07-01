@@ -345,6 +345,7 @@
                                                     <a href="#" class="btn btn-link" >Privacy</a>
                                                     <a href="#" class="btn btn-link" >Terms</a>
                                                     <a href="#" class="btn btn-link" >About Us</a>
+                                                    <a href="{{ route('ContactUs') }}" class="btn btn-link" >Contact Us</a>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center flex-row-reverse">

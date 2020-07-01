@@ -94,13 +94,31 @@
                         <div class="d-flex">
                             @auth
                             <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
-                            <a class="header-brand" href="{{ url('/user/home') }}">
-                                <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">
-                                <span style="text-transform: uppercase;">
-                                    {{ \App\Company::where('id', Auth::user()->company_id)->first()->company_name }}
-                                </span>
-                                <img src="{{ asset('/assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo mobile-logo" alt="logo">
-                            </a>
+                                @if(Auth::user()->group_id == 1)
+                                    <a class="header-brand" href="{{ url('/super/home') }}">
+                                        <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">
+                                        <span style="text-transform: uppercase;">
+                                            {{ \App\Company::where('id', Auth::user()->company_id)->first()->company_name }}
+                                        </span>
+                                        <img src="{{ asset('/assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo mobile-logo" alt="logo">
+                                    </a>
+                                @elseif(Auth::user()->group_id == 2 || Auth::user()->group_id == 3)
+                                    <a class="header-brand" href="{{ url('/admin/home') }}">
+                                        <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">
+                                        <span style="text-transform: uppercase;">
+                                            {{ \App\Company::where('id', Auth::user()->company_id)->first()->company_name }}
+                                        </span>
+                                        <img src="{{ asset('/assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo mobile-logo" alt="logo">
+                                    </a>
+                                @elseif(Auth::user()->group_id == 4)
+                                    <a class="header-brand" href="{{ url('/lawyer/home') }}">
+                                        <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">
+                                        <span style="text-transform: uppercase;">
+                                            {{ \App\Company::where('id', Auth::user()->company_id)->first()->company_name }}
+                                        </span>
+                                        <img src="{{ asset('/assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo mobile-logo" alt="logo">
+                                    </a>
+                                @endif
                             @else
                             <a class="header-brand" href="{{ url('/') }}">
                                 <img src="{{ asset('/assets/images/brand/logo-3.png') }}" class="header-brand-img mobile-icon" alt="logo">
@@ -301,11 +319,26 @@
                                 </a> 
                                 @elseif(\Request::is('login'))
                                     @auth
-                                    <a href="{{ url('/user/home') }}" class="btn btn-sm btn-primary text-white mr-2">
-                                        <span>
-                                            <i class="fe fe-home"></i>
-                                        </span><strong>Dashboard</strong>
-                                    </a>
+                                        @if(Auth::user()->group_id == 1)
+                                            <a href="{{ url('/super/home') }}" class="btn btn-sm btn-primary text-white mr-2">
+                                                <span>
+                                                    <i class="fe fe-home"></i>
+                                                </span><strong>Dashboard</strong>
+                                            </a>
+                                        @elseif(Auth::user()->group_id == 2 || Auth::user()->group_id == 3)
+                                            <a href="{{ url('/admin/home') }}" class="btn btn-sm btn-primary text-white mr-2">
+                                                <span>
+                                                    <i class="fe fe-home"></i>
+                                                </span><strong>Dashboard</strong>
+                                            </a>
+                                        @else(Auth::user()->group_id == 4)
+                                            <a href="{{ url('/lawyer/home') }}" class="btn btn-sm btn-primary text-white mr-2">
+                                                <span>
+                                                    <i class="fe fe-home"></i>
+                                                </span><strong>Dashboard</strong>
+                                            </a>
+                                        @endif
+
                                     @else                               
                                     <a href="{{ route('registercompany') }}" class="btn btn-sm btn-secondary text-white">
                                         <span>
@@ -363,10 +396,10 @@
                                         <i class="fe fe-user"></i>
                                     </span> <strong>Add User</strong>
                                 </a>
-                                <a href="#" class="btn btn-primary btn-icon text-white">
+                                <a href="{{url('/super/subscriptions/newsubscription')}}" class="btn btn-primary btn-icon text-white">
                                     <span>
                                         <i class="fa fa-dollar"></i>
-                                    </span> <strong>Add Payment</strong>
+                                    </span> <strong>Add Subscription</strong>
                                 </a>
                                 @elseif(Auth::user()->group_id == 2 || Auth::user()->group_id == 3)
                                 <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-warning btn-icon text-white mr-2">
