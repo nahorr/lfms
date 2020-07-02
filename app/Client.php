@@ -10,4 +10,9 @@ class Client extends Model
     {
         return $this->hasMany('App\ClientCase');
     }
+
+    public function company()
+    {
+    	return $this->belongsTo('App\Company');
+    }
 }

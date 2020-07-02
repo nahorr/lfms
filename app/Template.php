@@ -10,4 +10,9 @@ class Template extends Model
     {
     	return $this->belongsTo('App\TemplateCategory');
     }
+
+    public function company()
+    {
+    	return $this->belongsTo('App\Company');
+    }
 }

@@ -19,8 +19,9 @@
 			  <table id="exportexample" class="table table-bordered border-t0 key-buttons text-nowrap w-100" >
 			    <thead>
 			      <tr>
-			        <th>Case#</th>
-			        <th>Client</th>
+			      	<th>#</th>
+			        <!-- <th>Case#</th>
+			        <th>Client</th> -->
 			        <th>Case Files</th>
 			        <th>Action</th>  
 			      </tr>
@@ -29,8 +30,9 @@
 			    <tbody>
 			      @for ($i = 0; $i < count(json_decode($case->case_file)); $i++)
 			      <tr>
-			        <td>{{ $case->case_number}}</td>
-			        <td>{{ $client->first_name}} {{ $client->last_name}}</td>
+			      	<td>{{ $i + 1}}</td>
+			        <!-- <td>{{ $case->case_number}}</td>
+			        <td>{{ $client->first_name}} {{ $client->last_name}}</td> -->
 			        <td>
 			          <a href="{{ asset('/uploads/companies/cases/'.$case_file_folder)}}/{{json_decode($case->case_file)[$i] }}">
 						<i class="fa fa-download"></i> {{json_decode($case->case_file)[$i]}}

@@ -39,19 +39,21 @@
                 <td>{{ $lawyer->designation }}</td>
                 <td>{{ $lawyer->created_at->toFormattedDateString()}}</td>
                 <td>
-                <a href="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" id="delete_lawyer-{{$lawyer->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
-                  onclick="
-                  return confirm('Are you sure you want to Delete this lawyer?')
-                       event.preventDefault();
-                       document.getElementById( "delete_lawyer-{{$lawyer->id}} ").submit();
-                  "><i class="fa fa-trash-o"></i>
-                  
-                </a>
-                <form id="delete_lawyer-{{$lawyer->id}}" action="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                  <a href="{{ url('/admin/lawyers/editlawyer/'.$lawyer->company_id) }}/{{$lawyer->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+
+                  <a href="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" id="delete_lawyer-{{$lawyer->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
+                    onclick="
+                    return confirm('Are you sure you want to Delete this lawyer?')
+                         event.preventDefault();
+                         document.getElementById( "delete_lawyer-{{$lawyer->id}} ").submit();
+                    "><i class="fa fa-trash-o"></i>
+                    
+                  </a>
+                  <form id="delete_lawyer-{{$lawyer->id}}" action="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
                 
-                <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                
                 
                 </td>
                 </tr>

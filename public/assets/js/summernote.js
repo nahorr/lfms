@@ -1,6 +1,6 @@
 $(function(e) {
 	  $('#summernote').summernote({
-		placeholder: 'Hello bootstrap 4',
+		placeholder: 'Enter case details here...',
 		tabsize: 3,
 		height: 300
 	  });

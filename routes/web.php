@@ -77,9 +77,14 @@ Route::group(['middleware' => ['auth','admin']], function () {
     //Manage Lawyers
     Route::get('/admin/lawyers/showlawyers/{company}', 'Admin\LawyersController@showCompanyLawyers')->name('companylawyers');
     Route::get('/admin/lawyers/delete/{lawyer}', 'Admin\LawyersController@deleteLawyer');
+      
       //Add New Lawyers
       Route::get('/admin/lawyers/newlawyer/{company}', 'Admin\LawyersController@newLawyer')->name('NewCompanyLawyer');
       Route::post('/admin/lawyers/addnewlawyer/{company}', 'Admin\LawyersController@addNewLawyer');
+
+      //Edit Lawyer
+      Route::get('/admin/lawyers/editlawyer/{company}/{lawyer}', 'Admin\LawyersController@editLawyer')->name('EditCompanyLawyer');
+      Route::post('/admin/lawyers/update/{company}/{lawyer}', 'Admin\LawyersController@updateLawyer');
 
   	//Manage clients
   	Route::get('admin/clients/showclients/{company}', 'Admin\ClientsController@showClients')->name('CompanyClients');

@@ -20,13 +20,23 @@ class Company extends Model
         return $this->hasMany('App\ClientCase');
     }
 
-    public function templatecategory()
+    public function templatecategories()
     {
         return $this->hasmany('App\TemplateCategory');
+    }
+
+    public function templates()
+    {
+        return $this->hasmany('App\Template');
     }
 
     public function subscriptions()
     {
         return $this->hasMany('App\Subscription');
+    }
+
+    public function clients()
+    {
+        return $this->hasMany('App\Client');
     }
 }

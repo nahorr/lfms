@@ -23,22 +23,24 @@ Class AdminViewComposer {
         //get current date
         $today = Carbon::today();
         $company = Company::where('id', Auth::user()->company_id)->first();
-        $users = User::orderBy('created_at', 'desc')->get();
-        $templates = Template::get();
-        $template_categories = TemplateCategory::get();
-        $clients = Client::get();
-        $client_cases = ClientCase::get();
+        // $users = User::orderBy('created_at', 'desc')->get();
+        // $templates = Template::get();
+        // $template_categories = TemplateCategory::get();
+        // $clients = Client::get();
+         $cases = ClientCase::get();
        
         //put variables in views
         $view
         ->with('number_init', $number_init )
-        ->with('company', $company )
         ->with('today', $today )
-        ->with('users', $users)
-        ->with('templates', $templates)
-        ->with('template_categories', $template_categories)
-        ->with('clients', $clients)
-        ->with('client_cases', $client_cases);
+        ->with('company', $company )
+        ->with('cases', $cases);
+        
+        // ->with('users', $users)
+        // ->with('templates', $templates)
+        // ->with('template_categories', $template_categories)
+        // ->with('clients', $clients)
+        // ->with('client_cases', $client_cases);
         
     }
 }

@@ -30,7 +30,6 @@ class LawyersController extends Controller
             'name' => 'required',
             //'company_id' => 'required',
             'email' => 'required|unique:users',
-            //'group_id' => 'required',
             'password' => 'required',
         ]);
 
@@ -38,6 +37,7 @@ class LawyersController extends Controller
             'name' => $request->name,
             'company_id' => $company->id,
             'email' => $request->email,
+            'designation' => $request->designation,
             'group_id' => 4,//group_id for lawyers is always 4
             'password' => Hash::make($request->password),
             'email_verified_at' => date('Y-m-d H:i:s'),
@@ -49,6 +49,29 @@ class LawyersController extends Controller
 
         return redirect()->route('companyusers', compact('company'));
    }
+
+   public function editLawyer(Company $company, User $lawyer)
+    {
+
+        return view('admin.lawyers.editlawyer', compact('company', 'lawyer'));
+    }
+
+    public function updateLawyer(Request $request, Company $company, User $lawyer){
+        
+        $this->validate(request(), [
+            'name' => 'required',
+        ]);
+
+        User::where('id', $lawyer->id)->update([
+            'name' => $request->name,
+            'designation' => $request->designation,
+        ]);
+       
+        flash('New User created Successfully!')->success();
+
+        return redirect()->route('companyusers', compact('company'));
+   }
+
      public function deleteLawyer(User $lawyer)
     {
         $lawyer = User::where('id', $lawyer->id)->first();
