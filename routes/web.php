@@ -96,16 +96,34 @@ Route::group(['middleware' => ['auth','admin']], function () {
   	/* Cases */
   	//Manage cases
   	Route::get('admin/cases/showcases/{company}', 'Admin\ClientCasesController@showCases')->name('adminclientcases');
-  	//Route::get('/admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
-    //Add a new case
-    Route::get('/admin/cases/addnewcase/{company}', 'Admin\ClientCasesController@addNewCase');
-  	Route::post('/admin/cases/addcase/{company}', 'Admin\ClientCasesController@addCase');
-    //Add a new case for a client
-    Route::get('/admin/cases/addnewcase/{company}/{client}', 'Admin\ClientCasesController@addNewClientCase');
-    Route::post('/admin/cases/addcase/{company}/{client}', 'Admin\ClientCasesController@addClientCase');
-    //View case files
-    Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 
-      'Admin\CaseFilesController@showCaseFiles')->name('admin.showcasefiles');
+    	//Route::get('/admin/cases/showallclientcases/{client}', 'Admin\ClientCasesController@showAllClientCases');
+
+      //Add a new case
+      Route::get('/admin/cases/addnewcase/{company}', 'Admin\ClientCasesController@addNewCase');
+    	Route::post('/admin/cases/addcase/{company}', 'Admin\ClientCasesController@addCase');
+
+      //Add a new case for a client
+      Route::get('/admin/cases/addnewcase/{company}/{client}', 'Admin\ClientCasesController@addNewClientCase');
+      Route::post('/admin/cases/addcase/{company}/{client}', 'Admin\ClientCasesController@addClientCase');
+
+      //View case files
+      Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 
+        'Admin\CaseFilesController@showCaseFiles')->name('admin.showcasefiles');
+
+    /* Services */
+    //Manage Services
+    Route::get('admin/services/showservices/{company}', 'Admin\ServicesController@showServices')->name('services');
+
+      //Add a new Company Service
+      Route::get('/admin/services/addnewservice/{company}', 'Admin\ServicesController@addNewService')->name('New Service Form');
+      Route::post('/admin/services/addservice/{company}', 'Admin\ServicesController@addService');
+
+      //Add a new Client Service
+      Route::get('/admin/services/addclientservice/{company}/{service}', 'Admin\ServicesController@addClientService')->name('Client Service Form');
+      Route::post('/admin/services/addnewclientservice/{company}/{service}', 'Admin\ServicesController@addNewClientService');
+
+      //Client services
+      Route::get('admin/services/showclientservices/{company}/{service}', 'Admin\ServicesController@showClientServices')->name('clientservices');
 
   	/*Court Dates and Times*/
   	//Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');

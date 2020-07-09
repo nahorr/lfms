@@ -36,6 +36,14 @@
                             Cases
                         </a>
                     </li>
+
+                    <li aria-haspopup="true">
+                        <a href="{{ url('/admin/services/showservices/'.$company->id) }}" class="">
+                            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+
+                            Services
+                        </a>
+                    </li>
                                       
                     <li aria-haspopup="true">
                         <a href="{{ url('/admin/templates/showcategories/'.$company->id) }}" class="">

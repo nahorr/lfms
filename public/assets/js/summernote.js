@@ -1,6 +1,6 @@
 $(function(e) {
 	  $('#summernote').summernote({
-		placeholder: 'Enter case details here...',
+		placeholder: 'Enter details and history here...',
 		tabsize: 3,
 		height: 300
 	  });

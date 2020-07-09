@@ -15,9 +15,18 @@ class Company extends Model
         return $this->hasMany('App\User');
     }
 
+    public function services()
+    {
+        return $this->hasMany('App\Service');
+    }
+    
     public function client_cases()
     {
         return $this->hasMany('App\ClientCase');
+    }
+    public function client_services()
+    {
+        return $this->hasMany('App\ClientService');
     }
 
     public function templatecategories()
