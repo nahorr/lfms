@@ -41,10 +41,16 @@
                 <td>{{ $service->created_at->toFormattedDateString() }}</td>
                 <td>
                     <a class="btn btn-sm btn-light" href="{{ asset('/admin/services/addclientservice/'.$company->id)}}/{{$service->id}}" data-toggle="tooltip" data-placement="top" data-container="body" title="Add New {{$service->service_name}} Service">
-                    <i class="fa fa-plus" style="color: Tomato;"></i>
+                      <i class="fa fa-plus" style="color: Tomato;"></i>
                     </a>
-                    <a href="" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil text-white"></i></a>
-                    <a href="{{url('/admin/services/delete/'.$service->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash text-white"></i></a>
+
+                    <a href="{{url('/admin/services/editservice/'.$company->id)}}/{{$service->id}}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Edit">
+                      <i class="fa fa-pencil text-white"></i>
+                    </a>
+
+                    <a href="{{url('/admin/services/delete/'.$service->id)}}" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                      <i class="fa fa-trash text-white"></i>
+                    </a>
                 </td>
               </tr>
               @endforeach

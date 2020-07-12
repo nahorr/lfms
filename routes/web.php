@@ -121,6 +121,10 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         Route::get('addnewservice/{company}', 'ServicesController@addNewService')->name('New Service Form');
         Route::post('addservice/{company}', 'ServicesController@addService');
 
+        //Edit Company Service
+        Route::get('editservice/{company}/{service}', 'ServicesController@editService')->name('edit service');
+        Route::post('updateservice/{company}/{service}', 'ServicesController@updateService');
+
         //Delete Company Service
         Route::get('delete/{service}', 'ServicesController@deleteService');
         

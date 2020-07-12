@@ -17,7 +17,7 @@ class CreateClientCasesTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');   
-            $table->string('case_number')->unique();
+            $table->string('case_number');
             $table->string('case_title');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

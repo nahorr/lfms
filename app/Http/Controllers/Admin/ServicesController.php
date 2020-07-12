@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\User;
 use Illuminate\Validation\Rule;
 use App\ClientService;
+use Auth;
 
 
 class ServicesController extends Controller
@@ -53,6 +54,49 @@ class ServicesController extends Controller
         return redirect()->route('admin.services.all', compact('company'));
    }
 
+   public function editService(Company $company, Service $service)
+    {
+
+        return view('admin.services.editservice', compact('company', 'service'));
+    }
+
+   public function updateService(Request $request, Company $company, Service $service){
+
+        $this->validate(request(), [
+            /*'service_name' => 'required|unique'*/
+            'service_name' => [
+                'required',
+                Rule::unique('services', 'service_name')->ignore($service)->where(function ($query) use ($company) {
+                return $query->where('company_id', $company->id);
+                })
+            ]
+        ]);
+
+        Service::where('id', $service->id)->update([
+            'service_name' => $request->service_name,
+            'service_description' => $request->service_description,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+       
+        flash('Service Updated!')->success();
+
+        return redirect()->route('admin.services.all', compact('company'));
+   }
+
+   public function deleteService(Service $service)
+    {
+        $companyservice = Service::where('id', $service->id)->first();
+
+        $companyservice->deleted_at = date('Y-m-d H:i:s');
+
+        $companyservice->save();
+
+        flash('service deleted!')->error();
+
+        return back();
+    }
+
    public function addClientService(Company $company, Service $service)
     {
     	$companyclients = Client::where('company_id', $company->id)->get();
@@ -64,7 +108,7 @@ class ServicesController extends Controller
 
      public function addNewClientService(Request $request, Company $company, Service $service){
 
-        $service_file_folder = preg_replace('/\..+$/', '', $company->id.$request->service_number);
+        $service_file_folder = preg_replace('/\..+$/', '', $company->id);
 
             $this->validate(request(), [
                 'client_id' => 'required',
@@ -119,12 +163,10 @@ class ServicesController extends Controller
                 ]);
 
             }
-
-            
            
-            flash('service Added!')->success();
+        flash('service Added!')->success();
 
-            return redirect(route('admin.services.clientservices', compact('company', 'service')));
+        return redirect(route('admin.services.clientservices', compact('company', 'service')));
         
    }
 
@@ -137,17 +179,4 @@ class ServicesController extends Controller
     	return view('admin.services.showclientservices', compact('clientservices', 'company', 'service'));
     }
 
-
-    public function deleteService(Service $service)
-    {
-        $companyservice = Service::where('id', $service->id)->first();
-
-        $companyservice->deleted_at = date('Y-m-d H:i:s');
-
-        $companyservice->save();
-
-        flash('service deleted!')->error();
-
-        return back();
-    }
 }
