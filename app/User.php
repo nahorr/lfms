@@ -32,4 +32,20 @@ class User extends Authenticatable //implements MustVerifyEmail
     {
         return $this->belongsTo('App\Company');
     }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
+    }
+
+    public function clientcases()
+    {
+        return $this->hasMany('App\ClientCase');
+    }
+
+    public function client_services()
+    {
+        return $this->hasMany('App\ClientService');
+    }
+
 }

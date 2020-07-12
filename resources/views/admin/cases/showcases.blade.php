@@ -1,78 +1,75 @@
-@extends('admin.layouts.app')
+@extends('layouts.app_user')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
 
-        <div class="col-md-12">
-          @include('flash::message')
-          @include('admin.form_error')
-          @include('admin.includes.dashboard')
-            <div class="card">
-                <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
-                  <strong><i class="fas fa-balance-scale"></i> Cases</strong>
-                  <button type="button" class="btn btn-warning" id="addNewCaseFile">Open a New Case File</button>
-                </div>
-                @include('admin.cases.newCaseFileModal')
-                <script type="text/javascript">
-                  $('#addNewCaseFile').on('click', function(e){
-                     e.preventDefault();
-                    $('#addNewCaseFileModal').modal('show');
-                  })
-                </script>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">Case#</th>
-                          <th scope="col">Client</th>
-                          <th scope="col">Court Date</th>
-                          <th scope="col">Outcome</th>
-                          <th scope="col">Assigned To</th>
-                          <th scope="col">Date Added</th>
-                          <th scope="col">Edit</th>
-                          <th scope="col">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                        @foreach($client_cases as $cases)
-                        <tr>
-
-                          <td>
-                            <a class="btn btn-success" href="#" role="button" data-toggle="tooltip" data-placement="top" title="View case details">
-                              {{ $cases->case_number }} <i class="fas fa-info-circle" style="color: white;"></i>
-                            </a>
-                          </td>
-                          <td>{{ $cases->client->last_name }}, {{ $cases->client->first_name }}</td>
-                          <td>
-                              @if(!empty($cases->court_date))
-                                {{ $cases->court_date->toDayDateTimeString() }}
-                              @else
-                                Not Date yet
-                              @endif
-                          </td>
-                          <td>{{$cases->outcome}}</td>
-                          <td>{{ $cases->assigned_to }}</td>
-                          <td>{{ $cases->created_at->toFormatteddateString() }}</td>
-                          <td>
-                            <button type="button" class="btn btn-primary" id="editCase-{{$cases->id}}">Edit</button>
-                          </td>
-                          
-                          <td>
-                            <a class=" btn btn-danger" href="{{url('admin/cases/deletecase/'.$cases->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this case?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
-                          </td>
-                          
-                        </tr>
-                        @endforeach
-                      </tbody>
-
-                    </table>
-                  </div>
-                </div>
-            </div>
+<!-- ROW-4 -->
+<div class="row mt-xl-5">
+  <div class="col-md-12 col-lg-12">
+    @include('flash::message')
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title mr-10">Cases Table</h3>
+        <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
+          <span>
+              <i class="fa fa-plus"></i>
+          </span> <strong>New Case</strong>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="exportexample" class="table table-bordered border-t0 key-buttons text-nowrap w-100" >
+            <thead>
+              <tr>
+                <th>Case#</th>
+                <th>Client</th>
+                <th># of Case Files</th>
+                <th>Court Date</th>
+                <th>Assigned To</th>
+                <th>Created</th>
+                <th>Status</th>    
+                <th>Action</th>  
+              </tr>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($companycases as $case)
+              <tr>
+                <td>{{ $case->case_number }}</td>
+                <td>{{ $case->client->first_name}} {{ $case->client->last_name }}</td>
+                <td>
+                  <a href="{{ url('/admin/cases/files/showcasefiles', [$case->id, $case->company_id, $case->client_id]) }}">
+                    {{ count(json_decode($case->case_file))}} <i class="fa fa-file"></i> files
+                  </a>
+                </td>
+                <td>{{ $case->court_date->toFormattedDateString() }}</td>
+                <td>{{ $case->user->name}}</td>
+                <td>{{ $case->created_at->toFormattedDateString()}}</td>
+                <td>
+                    @if($case->deleted_at != Null)
+                      <span style="color: red">Deleted</span>
+                    @else
+                      <span style="color: green">Active</span>
+                    @endif
+                </td>
+                <td>
+                @if(Auth::user()->group_id !=2)
+                <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i>   
+                </a>
+                <form id="delete_case-{{$case->id}}" action="{{ url('/admin/cases/delete/'.$case->id) }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                @endif
+                <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+<!-- ROW-4 CLOSED-->
 @endsection

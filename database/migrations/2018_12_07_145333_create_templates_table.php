@@ -15,8 +15,10 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('template_type_id')->unsigned();
-            $table->foreign('template_type_id')->references('id')->on('template_types')->onDelete('cascade');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->integer('template_category_id')->unsigned();
+            $table->foreign('template_category_id')->references('id')->on('template_categories')->onDelete('cascade');
             $table->string('name');
             $table->string('template_file')->nullable();
             $table->timestamps();

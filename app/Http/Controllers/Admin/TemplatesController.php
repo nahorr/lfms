@@ -4,32 +4,45 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\TemplateType;
+use App\TemplateCategory;
 use App\Template;
+use App\Company;
+use Illuminate\Validation\Rule;
 
 class TemplatesController extends Controller
 {
-    public function showTemplateTypes()
+    public function showCategories(Company $company)
     {
-        
-        return view('admin.templates.showtemplatetypes');
+        $templatecategory = TemplateCategory::where('company_id', $company->id)->get();
+
+        return view('admin.templates.showcategories', compact('company', 'templatecategory'));
     }
 
-    public function addTemplateType(Request $request){
-        
+    public function newCategory(Company $company)
+    {
+
+        return view('admin.templates.newcategory', compact('company'));
+    }
+
+    public function addNewCategory(Request $request, Company $company){
+
         $this->validate(request(), [
-            'type_name' => 'required',
+            'category_name' => Rule::unique('template_categories')->where(function ($query) use ($company) {
+                return $query->where('company_id', $company->id);
+            })
         ]);
 
-        TemplateType::insert([
-            'type_name' => $request->type_name,
+        TemplateCategory::insert([
+            'company_id' => $company->id,
+            'category_name' => $request->category_name,
+            'description' => $request->description,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
        
-        flash('Template Type Added!')->success();
+        flash('Template Category Added!')->success();
 
-        return back();
+        return redirect()->route('admin.templatecategories', compact('company'));
    }
 
    public function deleteTemplateType(TemplateType $type)
@@ -41,42 +54,48 @@ class TemplatesController extends Controller
         return back();
     }
 
-    public function showTemplates(TemplateType $type)
+    public function showTemplates(Company $company, TemplateCategory $category)
     {
-        $type_location = preg_replace('/\s+/', '', $type->type_name);
+        $category_location = preg_replace('/\s+/', '', $category->category_name);
 
-    	$templates = Template::where('template_type_id', $type->id)->get();
+    	$templates = Template::where('template_category_id', $category->id)->get();
 
-    	return view('admin.templates.types.showtemplates', compact('type', 'type_location', 'templates'));
+    	return view('admin.templates.category.showtemplates', compact('company', 'category', 'category_location', 'templates'));
     }
 
-    public function addTemplate(Request $request, TemplateType $type){
+    public function newTemplate(Company $company, TemplateCategory $category)
+    {
+
+        return view('admin.templates.category.newtemplate', compact('company', 'category'));
+    }
+
+    public function addTemplate(Request $request, Company $company, TemplateCategory $category){
         
-        $type_location = preg_replace('/\s+/', '', $type->type_name);
+        $category_location = preg_replace('/\s+/', '', $category->category_name);
 
         $this->validate(request(), [
-            'template_type_id' => 'required',
             'name' => 'required',
         ]);
 
         if($request->hasFile('template_file')){
             $template_file = $request->file('template_file');
             $filename = preg_replace('/\s+/', '', $request->name) . time() . '.' . $template_file->getClientOriginalExtension();
-            $destinationPath = public_path().'/uploads/templates/types/'.$type_location;
+            $destinationPath = public_path().'/uploads/templates/types/'.$category_location;
             $template_file->move($destinationPath,$filename);
             
         }
         Template::insert([
-            'template_type_id' => $request->template_type_id,
+            'company_id' => $company->id,
+            'template_category_id' => $category->id,
             'name' => $request->name,
             'template_file' => $filename,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
        
-        flash(' New '. $type->type_name . ' Template Added!')->success();
+        flash(' New '. $category->category_name . ' Template Added!')->success();
 
-        return back();
+        return redirect()->route('admin.templates', compact('category', 'company'));
    }
 
    public function deleteAgreementType(AgreementType $type)

@@ -1,100 +1,105 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('content')
 
-        <title>Laravel</title>
+<!-- ROW-1 -->
+<div class="row mt-xl-4">
+	<div class="col-md-12">
+		<div class="card  banner">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-xl-3 col-lg-2 text-center">
+						<img src="../../assets/images/pngs/dash2.png" alt="img" class="w-95">
+					</div>
+					<div class="col-xl-9 col-lg-10 pl-lg-0">
+						<div class="row">
+							<div class="col-xl-7 col-lg-6">
+								<div class="text-left text-white mt-xl-4">
+									<h3 class="font-weight-semibold">Congratulations Steven</h3>
+									<h4 class="font-weight-normal">You are Reached your targeted milestone</h4>
+									<p class="mb-lg-0 text-white-50">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+								</div>
+							</div>
+							<div class="col-xl-5 col-lg-6 text-lg-center mt-xl-4">
+								<h5 class="font-weight-semibold mb-1 text-white">Clicks & Conversions Today</h5>
+								<h2 class="display-2 mb-3 number-font text-white">90%</h2>
+								<div class="btn-list mb-xl-0">
+									<a href="#" class="btn btn-dark mb-xl-0">Sign Up</a>
+									<a href="#" class="btn btn-white mb-xl-0" id="skip">Contact Us</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ROW-1 End-->
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- Row1 -->
+<div class="row">
+	<div class="col-xl-3 col-sm-6">
+		<div class="card">
+			<div class="card-body text-center">
+				<div class="d-flex mb-0">
+					<span class="brround align-self-center avatar-lg br-3 cover-image bg-orange">
+						<i class="fe fe-refresh-ccw"></i>
+					</span>
+					<div class="svg-icons text-right ml-auto">
+						<p class="text-muted mb-2">Total Clients</p>
+						<h2 class="mb-0 number-font">7,896</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-3 col-sm-6">
+		<div class="card overflow-hidden">
+			<div class="card-body text-center">
+				<div class="d-flex mb-0">
+					<span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary">
+						<i class="fe fe-bar-chart text-white"></i>
+					</span>
+					<div class="svg-icons text-right ml-auto">
+						<p class="text-muted mb-2">Total Cases</p>
+						<h2 class="mb-0 number-font">56%</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-3 col-sm-6">
+		<div class="card overflow-hidden">
+			<div class="card-body text-center">
+				<div class="d-flex mb-0">
+					<span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary1">
+						<i class="fe fe-dollar-sign text-white"></i>
+					</span>
+					<div class="svg-icons text-right ml-auto">
+						<p class="text-muted mb-2">Total Contracts</p>
+						<h2 class="mb-0 number-font">$14,675</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-3 col-sm-6">
+		<div class="card overflow-hidden">
+			<div class="card-body text-center">
+				<div class="d-flex mb-0">
+					<span class="brround align-self-center avatar-lg br-3 cover-image bg-warning">
+						<i class="fe fe-eye text-white"></i>
+					</span>
+					<div class="svg-icons text-right ml-auto">
+						<p class="text-muted mb-2">Total Lawyers</p>
+						<h2 class="mb-0 number-font">3,768</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Row1 CLOSED -->
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 30px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/user/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        <!-- @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif -->
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    <a class="btn btn-primary btn-lg" role="button" href="{{ route('registercompany') }}"><strong>Setup Your Company</strong></a><br/>
-                    <span style="color:  #f03312 "><strong>Law Firm Management System</strong></span> <br/>
-                </div>
-
-                <div class="links">
-                    <a href="https://nahorr.com">By Nahorr Analytics</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection

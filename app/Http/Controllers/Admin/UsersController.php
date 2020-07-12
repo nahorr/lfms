@@ -5,14 +5,88 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Company;
+use Hash;
+use App\Group;
 
 class UsersController extends Controller
 {
-    public function showUsers()
+    public function showCompanyUsers(Company $company)
     {
-    	$users = User::get();
+    	$companyusers = User::where('company_id', $company->id)->get();
 
-    	return view('admin.users.showusers', compact('users'));
+    	return view('admin.users.showusers', compact('companyusers'));
+    }
+
+    public function newUser(Company $company)
+    {
+        $roles= Group::where('id', '!=', 1)->get();
+
+        return view('admin.users.newuser', compact('roles', 'company'));
+    }
+
+    public function addNewUser(Request $request, Company $company){
+        
+        $this->validate(request(), [
+            'name' => 'required',
+            'group_id' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+        ]);
+
+        User::insert([
+            'name' => $request->name,
+            'company_id' => $company->id,
+            'group_id' => $request->group_id,
+            'email' => $request->email,
+            'designation' => $request->designation,
+            'password' => Hash::make($request->password),
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+       
+        flash('New User created Successfully!')->success();
+
+        return redirect()->route('companyusers', compact('company'));
+   }
+
+   public function editUser(Company $company, User $user)
+    {
+        $roles= Group::where('id', '!=', 1)->get();
+
+        return view('admin.users.edituser', compact('roles', 'company', 'user'));
+    }
+
+    public function updateUser(Request $request, Company $company, User $user){
+        
+        $this->validate(request(), [
+            'name' => 'required',
+            'designation' => 'required',
+        ]);
+
+        User::where('id', $user->id)->update([
+            'name' => $request->name,
+            'designation' => $request->designation,
+        ]);
+       
+        flash('New Udated Successfully!')->success();
+
+        return redirect()->route('companyusers', compact('company'));
+   }
+    
+
+     public function deleteUser(User $user)
+    {
+        $user = User::where('id', $user->id)->first();
+
+        $user->deleted_at = date('Y-m-d H:i:s');
+
+        $user->save();
+
+        flash('user deleted!')->error();
+
+        return back();
     }
 
     public function makeAdmin(Request $request, User $user)
@@ -47,15 +121,6 @@ class UsersController extends Controller
         $make_user->save();
        
         flash('User Updated successfully!')->success();
-
-        return back();
-    }
-
-    public function deleteUser(User $user)
-    {
-    	User::where('id', $user->id)->delete();
-
-    	flash('user deleted!')->danger();
 
         return back();
     }

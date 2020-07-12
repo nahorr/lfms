@@ -15,6 +15,8 @@ class CreateClientCasesTable extends Migration
     {
         Schema::create('client_cases', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');   
             $table->string('case_number')->unique();
             $table->string('case_title');
             $table->integer('client_id')->unsigned();
@@ -23,7 +25,9 @@ class CreateClientCasesTable extends Migration
             $table->dateTime('court_date')->nullable();
             $table->longText('court_location')->nullable();
             $table->string('outcome')->nullable();
-            $table->string('assigned_to')->nullable();
+            $table->longText('case_file')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

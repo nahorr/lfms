@@ -1,107 +1,87 @@
-@extends('admin.layouts.app')
+@extends('layouts.app_user')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-
-        <div class="col-md-12">
-          @include('flash::message')
-          @include('admin.form_error')
-          @include('admin.includes.dashboard')
-            <div class="card">
-                <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1">
-                  <strong><i class="fas fa-user-plus"></i> Clients</strong>
-                  <button type="button" class="btn btn-warning" id="addNewClient">New Client</button>
-                </div>
-                @include('admin.clients.newClientModal')
-                <script type="text/javascript">
-                  $('#addNewClient').on('click', function(e){
-                     e.preventDefault();
-                    $('#addNewClientModal').modal('show');
-                  })
-                </script>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">Client#</th>
-                          <th scope="col">
-                            <a class="btn btn-light" href="{{ url('admin/cases/showcases') }}" role="button" data-toggle="tooltip" data-placement="top" title="View All Cases">
-                              <i class="fas fa-balance-scale" style="color: Tomato;"></i>Cases({{ $all_cases->count() }} )
-                            </a>
-                          </th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Phone#</th>
-                          <th scope="col">Address</th>
-                          <th scope="col">Note</th>
-                          <th scope="col">Added</th>
-                          <th scope="col">Edit</th>
-                          <th scope="col">Delete</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                        @foreach($clients as $client)
-                        <tr>
-                          <td>
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Open a new file" id="addNewCase-{{$client->id}}">
-                              {{ $client->client_number }} <i class="fas fa-folder-open" style="color: Tomato;"></i>
-                            </a>
-                   
-                          </td>
-                          @include('admin.cases.newCaseModal')
-                          <script type="text/javascript">
-                            $('#addNewCase-{{$client->id}}').on('click', function(e){
-                               e.preventDefault();
-                              $('#addNewCaseModal-{{ $client->id }}').modal('show');
-                            })
-                          </script>
-                          <td>
-                            <a class="btn btn-light" href="{{ url('/admin/cases/showallclientcases/'.$client->id) }}" role="button" data-toggle="tooltip" data-placement="top" title="View all {{ $client->last_name }}, {{ $client->first_name }}'s cases">
-                              {{ $client->client_cases->count() }} <i class="fas fa-balance-scale" style="color: Tomato;"></i> cases
-                            </a>
-                          </td>
-                          <td>{{ $client->last_name }}, {{ $client->first_name }}</td>
-                          <td>{{ $client->email }}</td>
-                          <td>{{ $client->phone }}</td>
-                          <td>
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="{{ $client->address }}, {{ $client->address_2 }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }}">
-                             <i class="fas fa-caret-right" style="color: Tomato;"></i>{{ $client->state }}
-                            </a>
-                          </td>
-                          <td>
-                            <a class="btn btn-light" href="#" role="button" data-toggle="tooltip" data-placement="top" title="{{ $client->client_note }}"><i class="fas fa-caret-right" style="color: Tomato;"></i>
-                              {{ str_limit($client->client_note, 10) }}
-                            </a>
-                          </td>
-                          <td>
-
-                            {{ @$client->created_at->toFormatteddateString() }}
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-primary" id="editClient-{{$client->id}}">Edit</button>
-                          </td>
-                          @include('admin.clients.editClientModal')
-                          <script type="text/javascript">
-                            $('#editClient-{{$client->id}}').on('click', function(e){
-                               e.preventDefault();
-                              $('#editClientModal-{{$client->id}}').modal('show');
-                            })
-                          </script>
-                          <td>
-                            <a class=" btn btn-danger" href="{{url('admin/clients/deleteclient/'.$client->id)}}" role="button" onclick="return confirm('Are you sure you want to Delete this user?')"><i class="fa fa-trash" style="color: #FFF;"></i> Delete</a>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-
-                    </table>
-                  </div>
-                </div>
-            </div>
+<!-- ROW-4 -->
+<div class="row mt-xl-5">
+  <div class="col-md-12 col-lg-12">
+    @include('flash::message')
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title mr-10"><i class="fa fa-users"></i> Clients Table</h3>
+        <a href="{{ url('/admin/clients/newclient/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
+          <span>
+              <i class="fa fa-plus"></i>
+          </span> <strong>New Client</strong>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="exportexample" class="table table-bordered border-t0 key-buttons text-nowrap w-100" >
+            <thead>
+              <tr>
+                <th>Client #</th>
+                <th>Name</th>
+                <th>Cases</th>
+                <th>Services</th>
+                <th>Email</th>
+                <th>Phone#</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($clients as $client)
+              <tr>
+                <td>{{ $client->client_number }}</td>
+                <td>{{ $client->last_name }}, {{ $client->first_name }}</td>
+                <td>
+                  {{ $client->client_cases->count() }} Cases
+                  <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}/{{$client->id}}" id="delete_client-{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a case for this client">
+                    <i class="fa fa-plus"></i>
+                    
+                  </a>
+                </td>
+                <td>
+                  {{ $client->client_services->count() }} Services
+                  <a href="{{ url('/admin/services/newclientservice/'.Auth::user()->company_id) }}/{{$client->id}}" id="delete_client-{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a case for this client">
+                    <i class="fa fa-plus"></i>
+                    
+                  </a>
+                </td>
+                <td>{{ $client->email }}</td>
+                <td>{{ $client->phone }}</td>
+                <td>{{ @$client->created_at->toFormatteddateString() }}</td>
+                <td>
+                  @if($client->deleted_at != Null)
+                    <span style="color: red">Deleted</span>
+                  @else
+                    <span style="color: green">Active</span>
+                  @endif
+                </td>             
+                <td>
+                  <i class="fa fa-pencil"></i>
+                  <a href="{{ url('/admin/clients/delete/'.$client->id) }}" id="delete_client-{{$client->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
+                    onclick="
+                    return confirm('Are you sure you want to Delete this client?')
+                         event.preventDefault();
+                         document.getElementById( "delete_client-{{$client->id}} ").submit();
+                    "><i class="fa fa-trash-o"></i>
+                    
+                  </a>
+                  <form id="delete_client-{{$client->id}}" action="{{ url('/admin/clients/delete/'.$client->id) }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+                  <i class="fa fa-eye"></i>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+<!-- ROW-4 CLOSED-->
 @endsection

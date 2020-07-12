@@ -1,106 +1,236 @@
-@extends('admin.layouts.app')
+@extends('layouts.app_user')
 
 @section('content')
-<div class="container">
-  <div class="row justify-content-center">
+<!-- ROW -->
+<div class="row mt-xl-5"> 
+  @if(Auth::user()->group_id == 2)
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
         
-        <div class="col-md-8">
-          
-          <div class="card">
-              <div class="card-header" style="font-size:25px;color:#FFF; background-color: #2E86C1"><strong><i class="fas fa-database"></i> Dashboard</strong></div>
-
-              <div class="card-body">
-
-                  <!-- First row starts -->
-                  <div class="row">
-
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Users</strong></h5>
-                          <a href="{{url('/admin/users/showusers')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-users" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Clients</strong></h5>
-                          <a href="{{url('/admin/clients/showclients')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-user-plus" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-4" style="border-bottom: 20px">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Cases</strong></h5>
-                          <a href="{{url('/admin/cases/showcases')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-balance-scale" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- First row ends-->
-                  
-                  <!-- Second row starts-->
-                  <div class="row top-buffer">
-
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Templates</strong></h5>
-                          <a href="{{url('/admin/templates/showtemplatetypes')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-file-contract" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Court Dates</strong></h5>
-                          <a href="{{url('/admin/cases/courtdates')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-calendar-alt" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="card">
-                        <div class="card-body text-center">
-                          <h5 class="card-title"><strong>Expiration Dates</strong></h5>
-                          <a href="{{url('/admin/cases/courtdates')}}">
-                              <p class="card-text">
-                                  <i class="fa fa-calendar-times" style="font-size:40px;color:#2E86C1;"></i>
-                              </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!-- Second Row Ends -->
-
-              </div>
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-primary">
+            <a href="{{url('/admin/users/showusers/'.$company->id)}}"><i class="fe fe-users text-white"></i></a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/users/showusers/'.$company->id)}}">
+                <strong>Employees</strong>
+              </a>
+              <a href="{{ url('/admin/users/newuser/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+            </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/users/showusers/'.$company->id)}}">{{ $company->users()->where('deleted_at',Null)->count() }}</a>
+            </h2>
           </div>
-
         </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar bg-secondary w-50" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>  
+  @endif
+
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
+        
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-warning">
+            <a href="{{ url('/admin/lawyers/showlawyers/'.$company->id) }}">
+              <i class="fa fa-black-tie text-white"></i>
+            </a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{ url('/admin/lawyers/showlawyers/'.$company->id) }}">
+                <strong>Lawyers</strong>
+              </a>
+              <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+            </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{ url('/admin/lawyers/showlawyers/'.$company->id) }}">
+                {{ $company->users()->where('deleted_at',Null)->where('group_id', 4)->count() }}
+              </a>
+            </h2>
+          </div>
+        </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
+        
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-pink">
+            <a href="{{url('/admin/clients/showclients/'.$company->id)}}">
+              <i class="fe fe-user-check text-white"></i>
+            </a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/clients/showclients/'.$company->id)}}">
+                <strong>Clients</strong>
+              </a>
+              <a href="{{ url('/admin/clients/newclient/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+            </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/clients/showclients/'.$company->id)}}">
+               {{ $company->clients()->where('deleted_at',Null)->where('company_id', $company->id)->count() }}
+              </a>
+            </h2>
+          </div>
+        </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar  bg-secondary1 w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
+        
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-orange">
+            <a href="{{url('/admin/cases/showcases/'.$company->id)}}">
+              <i class="fa fa-gavel text-white"></i>
+            </a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/cases/showcases/'.$company->id)}}">
+                <strong>Cases</strong>
+              </a>
+              <a href="{{ url('/admin/cases/showcases/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+             </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/cases/showcases/'.$company->id)}}">
+                {{ $company->client_cases()->where('deleted_at',Null)->where('company_id', $company->id)->count() }}
+              </a>
+            </h2>
+          </div>
+        </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
+        
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-secondary">
+            <a href="{{url('/admin/services/showservices/'.$company->id)}}">
+              <i class="fa fa-handshake-o text-white"></i>
+            </a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/services/showservices/'.$company->id)}}">
+                <strong>Services</strong>
+              </a>
+              <a href="{{ url('/admin/services/addnewservice/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+             </p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/services/showservices/'.$company->id)}}">
+                {{ $company->services()->where('deleted_at',Null)->where('company_id', $company->id)->count() }}
+              </a>
+            </h2>
+          </div>
+        </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6">
+    <div class="card">
+      <div class="card-body text-center">
+        
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-info">
+            <a href="{{url('/admin/templates/showcategories/'.$company->id)}}">
+              <i class="fe fe-file-text text-white"></i>
+            </a>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2">
+              <a href="{{url('/admin/templates/showcategories/'.$company->id)}}">
+                <strong>Templates</strong>
+              </a>
+              <a href="{{ url('/admin/templates/newcategory/'.Auth::user()->company_id) }}" class="btn btn-default btn-sm ml-2 mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-plus"></i>
+              </a>
+            </p>
+            <h3 class="mb-0 number-font">
+              <a href="{{url('/admin/templates/showcategories/'.$company->id)}}">
+                {{ $company->templatecategories()->where('company_id', $company->id)->count() }}
+              </a>
+            </h3>
+          </div>
+        </div>
+        
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar bg-orange w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6">
+    <div class="card overflow-hidden">
+      <div class="card-body text-center">
+        <div class="d-flex mb-4">
+          <span class="brround align-self-center avatar-lg br-3 cover-image bg-lime">
+            <i class="fa fa-bell text-white"></i>
+            <span class="pulse1 bg-danger"></span>
+          </span>
+          <div class="svg-icons text-right ml-auto">
+            <p class="text-muted mb-2"><strong>Upcoming Cases</strong></p>
+            <h2 class="mb-0 number-font">
+              <a href="{{url('/admin/templates/showcategories/'.$company->id)}}">
+                @foreach($cases as $case)
+                  @if( \Carbon\Carbon::now()->diffInDays($case->court_date) < 60 )
+                  @if($loop->last)
+                    {{ $loop->iteration }}
+                  @endif
+                  @endif
+                @endforeach
+              </a>
+            </h2>
+          </div>
+        </div>
+        <div class="progress h-1 mt-0 mb-0">
+          <div class="progress-bar progress-bar-animated bg-warning w-100" role="progressbar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<!-- END ROW --> 
 @endsection

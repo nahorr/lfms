@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+use App\Company;
+use App\Subscription;
 
 class LoginController extends Controller
 {
@@ -25,7 +28,23 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/user/home';
+    public function authenticated($request , $user){
+
+        if(Auth::user()->group_id == 1){
+            
+            return redirect()->route('superhome') ;
+        }
+        elseif((Auth::user()->group_id == 2 || Auth::user()->group_id == 3)){
+
+            return redirect()->route('adminhome') ;
+        }
+        elseif(Auth::user()->group_id == 4){
+
+            return redirect()->route('lawyerhome') ;
+        }
+
+    }
+
 
     /**
      * Create a new controller instance.

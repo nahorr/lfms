@@ -6,19 +6,26 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\ClientCase;
 use App\Client;
+use App\Company;
+
 
 class ClientsController extends Controller
 {
-    public function showClients()
+    public function showClients(Company $company)
     {
-    	$clients = Client::get();
+    	$clients = Client::where('company_id', $company->id)->get();
 
         $all_cases = ClientCase::get();
 
-    	return view('admin.clients.showclients', compact('clients', 'all_cases'));
+    	return view('admin.clients.showclients', compact('company', 'clients', 'all_cases'));
     }
 
-    public function addClient(Request $request){
+    public function newClient(Company $company)
+    {
+        return view('admin.clients.newclient', compact('company'));
+    }
+
+    public function addClient(Request $request, Company $company){
 
         $this->validate(request(), [
             'client_number' => 'required|unique:clients',
@@ -30,6 +37,7 @@ class ClientsController extends Controller
         ]);
         
         Client::insert([
+            'company_id' => $company->id,
             'client_number' => $request->client_number,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -47,7 +55,7 @@ class ClientsController extends Controller
        
         flash('Client Added!')->success();
 
-        return back();
+        return redirect()->route('CompanyClients', compact('company'));
    }
 
    public function editClient(Request $request, Client $client)
@@ -82,9 +90,13 @@ class ClientsController extends Controller
 
     public function deleteClient(Client $client)
     {
-    	Client::where('id', $client->id)->delete();
+        $client = Client::where('id', $client->id)->first();
 
-    	flash('Client deleted!')->warning();
+        $client->deleted_at = date('Y-m-d H:i:s');
+
+        $client->save();
+
+        flash('client deleted!')->error();
 
         return back();
     }

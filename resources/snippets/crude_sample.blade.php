@@ -95,4 +95,19 @@ class CourseController extends Controller
         flash('course deleted!')->warning();
         return back();
     }
+
+    public function deleteCompany(Company $company)
+    {
+        $file = public_path('/uploads/companies/logo/'.$company->logo);
+
+            if (File::exists($file)) {
+                unlink($file);
+            }
+
+        Company::where('id', $company->id)->delete();
+
+        flash('Company deleted!')->error();
+
+        return back();
+    }
 }
