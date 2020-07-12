@@ -26,7 +26,8 @@
                 <th># of Files</th>
                 <th>Effective Date</th>
                 <th>Assigned To</th>
-                <th>Created</th>    
+                <th>Created</th>  
+                <th>Status</th>  
                 <th>Action</th>  
               </tr>
               </tr>
@@ -38,12 +39,18 @@
                 <td>{{ $clientservice->service_title }}</td>
                 <td>{{ $clientservice->client->first_name}} {{ $clientservice->client->last_name }}</td>
                 <td>
-                  <a href="{{ url('/admin/services/files/showclientservicefiles', [$clientservice->id, $clientservice->company_id, $clientservice->client_id]) }}">
-                    {{ (json_decode($clientservice->clientservice_file))}} <i class="fa fa-file"></i> files
-                  </a>
+                  @if($clientservice->service_files != Null)
+                    <a href="{{ url('/admin/services/files/showclientservicefiles', [$clientservice->id, $clientservice->company_id, $clientservice->service_id, $clientservice->client_id]) }}">
+                      {{ count(json_decode($clientservice->service_files)) }} <i class="fa fa-file"></i> files
+                    </a>
+                  @else
+                    <a href="#">
+                      0 <i class="fa fa-file"></i> files
+                    </a>
+                  @endif
                 </td>
                 <td>{{ $clientservice->effective_date->toFormattedDateString() }}</td>
-                <td>{{ $clientservice->client->name}}</td>
+                <td>{{ $clientservice->user->name}}</td>
                 <td>{{ $clientservice->created_at->toFormattedDateString()}}</td>
                 <td>
                     @if($clientservice->deleted_at != Null)
@@ -53,14 +60,14 @@
                     @endif
                 </td>
                 <td>
-                @if(Auth::user()->group_id !=2)
-                <a href="{{ url('/admin/users/delete/'.$clientservice->id) }}" id="delete_clientservice-{{$clientservice->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i>   
-                </a>
-                <form id="delete_clientservice-{{$clientservice->id}}" action="{{ url('/admin/clientservices/delete/'.$clientservice->id) }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                @endif
-                <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                
+                  <a href="{{ url('/admin/users/delete/'.$clientservice->id) }}" id="delete_clientservice-{{$clientservice->id}}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o text-white"></i>   
+                  </a>
+                  <form id="delete_clientservice-{{$clientservice->id}}" action="{{ url('/admin/clientservices/delete/'.$clientservice->id) }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+                  
+                  <a href="" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil text-white"></i></a>
                 
                 </td>
               </tr>

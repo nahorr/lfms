@@ -8,11 +8,11 @@
     @include('flash::message')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title mr-10"><i class="fa fa-handshake-o"></i> service service Table</h3>
+        <h3 class="card-title mr-10"><i class="fa fa-handshake-o"></i> Services Table</h3>
         <a href="{{ url('/admin/services/addnewservice/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
           <span>
               <i class="fa fa-plus"></i>
-          </span> <strong>New service service</strong>
+          </span> <strong>Add New Service</strong>
         </a>
       </div>
       <div class="card-body">
@@ -38,13 +38,13 @@
                   </a>
                 </td>
                 <td>{{ $service->service_description }}</td>
-                <td>{{ $service->created_at }}</td>
+                <td>{{ $service->created_at->toFormattedDateString() }}</td>
                 <td>
-                    <a class="btn btn-light" href="{{ asset('/admin/services/addclientservice/'.$company->id)}}/{{$service->id}}" role="button" data-toggle="tooltip" data-placement="top" data-container="body" title="click on file name to view">
+                    <a class="btn btn-sm btn-light" href="{{ asset('/admin/services/addclientservice/'.$company->id)}}/{{$service->id}}" data-toggle="tooltip" data-placement="top" data-container="body" title="Add New {{$service->service_name}} Service">
                     <i class="fa fa-plus" style="color: Tomato;"></i>
                     </a>
-                    <i class="fa fa-pencil"></i>
-                    <i class="fa fa-trash"></i>
+                    <a href="" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil text-white"></i></a>
+                    <a href="{{url('/admin/services/delete/'.$service->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash text-white"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -56,5 +56,4 @@
   </div>
 </div>
 <!-- ROW-4 CLOSED-->
-
 @endsection

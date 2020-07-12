@@ -58,7 +58,7 @@
               <label class="g-mb-5"><strong>Service Files - <span style="color: red">You can add more than one files at the same time.</span></strong></label>               
                 <div class="form-group">
                   <div class="file-loading">
-                      <input id="filename" type="file" name="service_files[]" multiple class="file" data-overwrite-initial="false" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..." required="">
+                      <input id="filename" type="file" name="service_files[]" multiple class="file" data-overwrite-initial="false" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
                   </div>
                 </div>
             </div>

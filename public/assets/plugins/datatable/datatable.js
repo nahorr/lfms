@@ -30,6 +30,7 @@ $(function(e) {
             }
         }
     } );
+
 	
 	//Export Data-table
 	var table = $('#exportexample').DataTable( {

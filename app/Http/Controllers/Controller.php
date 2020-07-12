@@ -25,6 +25,11 @@ class Controller extends BaseController
     	return view('welcome');
     }
 
+    public function test()
+    {
+        return view('test');
+    }
+
     public function expiredSubscription()
     {
         return view('expired_subscription');

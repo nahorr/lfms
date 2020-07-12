@@ -71,7 +71,7 @@ class ServicesController extends Controller
             'service_number' => 'required|unique:client_services',
             'service_title' => 'required',
             'effective_date' => 'required',
-            'service_files.*' => 'required|file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
+            'service_files.*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
         ]);
 
         if($request->hasFile('service_files'))
@@ -85,23 +85,39 @@ class ServicesController extends Controller
                 $data[] = $filename; 
                 
             }
+
+            ClientService::insert([
+                'company_id' => $company->id,
+                'service_id' => $service->id,
+                'client_id' => $request->client_id,
+                'service_number' => $request->service_number,
+                'service_title' => $request->service_title,
+                'service_files'=>json_encode($data),
+                'service_details' => $request->service_details,
+                'effective_date' => $request->effective_date,
+                'user_id' => $request->user_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }else{
+
+            ClientService::insert([
+                'company_id' => $company->id,
+                'service_id' => $service->id,
+                'client_id' => $request->client_id,
+                'service_number' => $request->service_number,
+                'service_title' => $request->service_title,
+                //'service_files'=>json_encode($data),
+                'service_details' => $request->service_details,
+                'effective_date' => $request->effective_date,
+                'user_id' => $request->user_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
         }
 
-        //dd($data);
-
-        ClientService::insert([
-            'company_id' => $company->id,
-            'service_id' => $service->id,
-            'client_id' => $request->client_id,
-            'service_number' => $request->service_number,
-            'service_title' => $request->service_title,
-            'service_files'=>json_encode($data),
-            'service_details' => $request->service_details,
-            'effective_date' => $request->effective_date,
-            'user_id' => $request->user_id,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+        
        
         flash('service Added!')->success();
 
@@ -112,6 +128,22 @@ class ServicesController extends Controller
     {
     	$clientservices = ClientService::where('company_id', $company->id)->where('service_id', $service->id)->get();
 
+        
+
     	return view('admin.services.showclientservices', compact('clientservices', 'company', 'service'));
+    }
+
+
+    public function deleteService(Service $service)
+    {
+        $companyservice = Service::where('id', $service->id)->first();
+
+        $companyservice->deleted_at = date('Y-m-d H:i:s');
+
+        $companyservice->save();
+
+        flash('service deleted!')->error();
+
+        return back();
     }
 }

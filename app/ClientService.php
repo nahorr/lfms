@@ -22,4 +22,9 @@ class ClientService extends Model
     {
     	return $this->belongsTo('App\Client');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

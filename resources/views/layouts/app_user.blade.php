@@ -50,12 +50,6 @@
         <link href="{{ asset('/assets/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('/assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
 
-        <!-- CUSTOM SCROLL BAR CSS-->
-        <link href="{{ asset('/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css') }}" rel="stylesheet"/>
-
-        <!--- FONT-ICONS CSS -->
-        <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet"/>
-
         <!-- INTERNAL  FILE UPLODE CSS -->
         <link href="{{ asset('/assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 
@@ -70,9 +64,6 @@
 
         <!-- INTERNAL  MULTI SELECT CSS -->
         <link rel="stylesheet" href="{{ asset('/assets/plugins/multipleselect/multiple-select.css') }}">
-
-        <!-- INTERNAL TELEPHONE CSS-->
-        <link rel="stylesheet" href="{{ asset('/assets/plugins/telephoneinput/telephoneinput.css') }}">
 
     </head>
 
@@ -583,6 +574,6 @@
 
         <!-- CUSTOM JS-->
         <script src="{{ asset('/assets/js/custom.js') }}"></script>
-
+        
     </body>
 </html>

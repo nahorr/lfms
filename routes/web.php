@@ -14,6 +14,7 @@
 
 
 Route::get('/', 'Controller@welcome')->name('welcome');
+Route::get('/test', 'Controller@test')->name('test');
 
 //Expired and Null Subscription pages
 Route::get('/expired_subscription', 'Controller@expiredSubscription')->name('ExpiredSubscription');
@@ -118,12 +119,18 @@ Route::group(['middleware' => ['auth','admin']], function () {
       Route::get('/admin/services/addnewservice/{company}', 'Admin\ServicesController@addNewService')->name('New Service Form');
       Route::post('/admin/services/addservice/{company}', 'Admin\ServicesController@addService');
 
+      //Delete Company Service
+      Route::get('/admin/services/delete/{service}', 'Admin\ServicesController@deleteService');
+      
       //Add a new Client Service
       Route::get('/admin/services/addclientservice/{company}/{service}', 'Admin\ServicesController@addClientService')->name('Client Service Form');
       Route::post('/admin/services/addnewclientservice/{company}/{service}', 'Admin\ServicesController@addNewClientService');
 
       //Client services
       Route::get('admin/services/showclientservices/{company}/{service}', 'Admin\ServicesController@showClientServices')->name('clientservices');
+
+      //Client service files
+      Route::get('admin/services/files/showclientservicefiles/{clientservice}/{company}/{service}/{client}', 'Admin\ClientServiceFilesController@showClientServiceFiles')->name('showclientservicefiles');
 
   	/*Court Dates and Times*/
   	//Route::get('admin/cases/courtdates', 'Admin\ClientCasesController@courtDates');
