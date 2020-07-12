@@ -50,7 +50,7 @@ class ServicesController extends Controller
        
         flash('Service Added!')->success();
 
-        return redirect()->route('services', compact('company'));
+        return redirect()->route('admin.services.all', compact('company'));
    }
 
    public function addClientService(Company $company, Service $service)
@@ -64,64 +64,68 @@ class ServicesController extends Controller
 
      public function addNewClientService(Request $request, Company $company, Service $service){
 
-        $service_file_folder = preg_replace('/\..+$/', '', $request->service_number);
+        $service_file_folder = preg_replace('/\..+$/', '', $company->id.$request->service_number);
 
-        $this->validate(request(), [
-            'client_id' => 'required',
-            'service_number' => 'required|unique:client_services',
-            'service_title' => 'required',
-            'effective_date' => 'required',
-            'service_files.*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
-        ]);
+            $this->validate(request(), [
+                'client_id' => 'required',
+                'service_number' => 'required',
+                'service_number' =>Rule::unique('client_services')->where(function($query) use($company) {
+                    return $query->where('company_id', $company->id);
+                }),   
+                'service_title' => 'required',
+                'effective_date' => 'required',
+                'service_files.*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
+            ]);
 
-        if($request->hasFile('service_files'))
-        {
-            foreach($request->file('service_files') as $file)
+            if($request->hasFile('service_files'))
             {
-                
-                $filename = preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
-                $destinationPath = public_path().'/uploads/companies/services/'.$service_file_folder;
-                $file->move($destinationPath,$filename);
-                $data[] = $filename; 
-                
+                foreach($request->file('service_files') as $file)
+                {
+                    
+                    $filename = preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
+                    $destinationPath = public_path().'/uploads/companies/services/'.$service_file_folder;
+                    $file->move($destinationPath,$filename);
+                    $data[] = $filename; 
+                    
+                }
+
+                ClientService::insert([
+                    'company_id' => $company->id,
+                    'service_id' => $service->id,
+                    'client_id' => $request->client_id,
+                    'service_number' => $request->service_number,
+                    'service_title' => $request->service_title,
+                    'service_files'=>json_encode($data),
+                    'service_details' => $request->service_details,
+                    'effective_date' => $request->effective_date,
+                    'user_id' => $request->user_id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+            }else{
+
+                ClientService::insert([
+                    'company_id' => $company->id,
+                    'service_id' => $service->id,
+                    'client_id' => $request->client_id,
+                    'service_number' => $request->service_number,
+                    'service_title' => $request->service_title,
+                    //'service_files'=>json_encode($data),
+                    'service_details' => $request->service_details,
+                    'effective_date' => $request->effective_date,
+                    'user_id' => $request->user_id,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+
             }
 
-            ClientService::insert([
-                'company_id' => $company->id,
-                'service_id' => $service->id,
-                'client_id' => $request->client_id,
-                'service_number' => $request->service_number,
-                'service_title' => $request->service_title,
-                'service_files'=>json_encode($data),
-                'service_details' => $request->service_details,
-                'effective_date' => $request->effective_date,
-                'user_id' => $request->user_id,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
-        }else{
+            
+           
+            flash('service Added!')->success();
 
-            ClientService::insert([
-                'company_id' => $company->id,
-                'service_id' => $service->id,
-                'client_id' => $request->client_id,
-                'service_number' => $request->service_number,
-                'service_title' => $request->service_title,
-                //'service_files'=>json_encode($data),
-                'service_details' => $request->service_details,
-                'effective_date' => $request->effective_date,
-                'user_id' => $request->user_id,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
-
-        }
-
+            return redirect(route('admin.services.clientservices', compact('company', 'service')));
         
-       
-        flash('service Added!')->success();
-
-        return redirect(route('clientservices', compact('company', 'service')));
    }
 
    public function showClientServices(Company $company, Service $service)
