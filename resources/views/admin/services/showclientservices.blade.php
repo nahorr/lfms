@@ -60,14 +60,13 @@
                     @endif
                 </td>
                 <td>
-                
-                  <a href="{{ url('/admin/users/delete/'.$clientservice->id) }}" id="delete_clientservice-{{$clientservice->id}}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o text-white"></i>   
+                  <a href="" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip" data-original-title="Edit">
+                    <i class="fa fa-pencil text-white"></i>
                   </a>
-                  <form id="delete_clientservice-{{$clientservice->id}}" action="{{ url('/admin/clientservices/delete/'.$clientservice->id) }}" method="POST" style="display: none;">
-                      @csrf
-                  </form>
+                  <a href="{{ url('/admin/services/delete/'.$clientservice->id) }}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="fa fa-trash-o text-white"></i>   {{$clientservice->id}}
+                  </a>
                   
-                  <a href="" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil text-white"></i></a>
                 
                 </td>
               </tr>

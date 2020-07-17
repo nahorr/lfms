@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         'CaseFilesController@showCaseFiles')->name('admin.showcasefiles');
 
       /* Services - Manage Services */
-      Route::group(['prefix' => '/admin/services', 'as' => 'admin.services.'], function () {
+      Route::group(['prefix' => '/admin/services', 'namespace' => 'Services', 'as' => 'admin.services.'], function () {
 
         //Show all company Services
         Route::get('showservices/{company}', 'ServicesController@showServices')->name('all');
@@ -127,13 +127,16 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
 
         //Delete Company Service
         Route::get('delete/{service}', 'ServicesController@deleteService');
+
+        //Client Services
+        Route::get('showclientservices/{company}/{service}', 'ClientServicesController@showClientServices')->name('clientservices');
         
         //Add a new Client Service
-        Route::get('addclientservice/{company}/{service}', 'ServicesController@addClientService')->name('Client Service Form');
-        Route::post('addnewclientservice/{company}/{service}', 'ServicesController@addNewClientService');
+        Route::get('addclientservice/{company}/{service}', 'ClientServicesController@addClientService')->name('Client Service Form');
+        Route::post('addnewclientservice/{company}/{service}', 'ClientServicesController@addNewClientService');
 
-        //Client services
-        Route::get('showclientservices/{company}/{service}', 'ServicesController@showClientServices')->name('clientservices');
+        //Delete Client Service
+        Route::get('delete/{clientservice}', 'ClientServicesController@deleteClientService');
 
         //Client service files
         Route::get('files/showclientservicefiles/{clientservice}/{company}/{service}/{client}', 'ClientServiceFilesController@showClientServiceFiles')->name('showclientservicefiles');

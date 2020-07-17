@@ -34,7 +34,7 @@
                 <td>
                   {{ $service->service_name }} 
                   <a href="{{ asset('/admin/services/showclientservices/'.$company->id) }}/{{$service->id}}">
-                    <span class="badgetext badge badge-danger badge-pill">{{$service->client_services->count()}} clients</span>
+                    <span class="badgetext badge badge-danger badge-pill">{{$service->client_services->count()}} <i class="fa fa-users"></i> clients</span>
                   </a>
                 </td>
                 <td>{{ $service->service_description }}</td>
