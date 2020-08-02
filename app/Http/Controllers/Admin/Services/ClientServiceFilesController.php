@@ -54,36 +54,4 @@ class ClientServiceFilesController extends Controller
         return back();
     }
 
-    public function deleteAllFiles(ClientService $clientservice)
-    {
-        $client_service = ClientService::where('id', $clientservice->id)->first();
-                
-        // Remove all files and images one at a time from server
-        foreach (json_decode($client_service->service_files) as $key=>$value){
-
-            if($value == $filename){
-                
-                $product_filename_array = json_encode(array_except(json_decode($product_pic->filename),$key));
-                
-                foreach(json_decode($product_filename_array) as $product_filename)
-                {
-     
-                    $data[] = $product_filename;
-
-                }
-
-                $product_pic->filename=json_encode($data);
-
-                $product_pic->save();
-                
-                $file = public_path('/img/buyandsell/products/'.$value);
-                    if (File::exists($file)){
-                        unlink($file);               
-                    }
-            }
-        }
-            
-        return back();
-    }
-
 }
