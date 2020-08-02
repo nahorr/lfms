@@ -134,6 +134,10 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         //Add a new Client Service
         Route::get('addclientservice/{company}/{service}', 'ClientServicesController@addClientService')->name('Client Service Form');
         Route::post('addnewclientservice/{company}/{service}', 'ClientServicesController@addNewClientService');
+        //Edit, view, and delete Client Service
+        Route::get('editclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@editClientService')->name('edit.clientservice');
+        Route::post('updateclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@updateClientService')->name('update.clientservice');
+        Route::get('viewclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@viewClientService')->name('view.clientservice');
 
         //Delete Client Service
         Route::get('delete/{clientservice}', 'ClientServicesController@deleteClientService');

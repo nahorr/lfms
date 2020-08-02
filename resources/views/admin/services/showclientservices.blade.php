@@ -27,7 +27,7 @@
                 <th>Effective Date</th>
                 <th>Assigned To</th>
                 <th>Created</th>  
-                <th>Status</th>  
+                <!--<th>Status</th>--> 
                 <th>Action</th>  
               </tr>
               </tr>
@@ -52,16 +52,19 @@
                 <td>{{ $clientservice->effective_date->toFormattedDateString() }}</td>
                 <td>{{ $clientservice->user->name}}</td>
                 <td>{{ $clientservice->created_at->toFormattedDateString()}}</td>
-                <td>
+                <!-- <td>
                     @if($clientservice->deleted_at != Null)
                       <span style="color: red">Deleted</span>
                     @else
                       <span style="color: green">Active</span>
                     @endif
-                </td>
+                </td> -->
                 <td>
-                  <a href="" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip" data-original-title="Edit">
+                  <a href="{{route('admin.services.edit.clientservice', [$company->id, $service->id, $clientservice->id])}}" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip" data-original-title="Edit">
                     <i class="fa fa-pencil text-white"></i>
+                  </a>
+                  <a href="{{route('admin.services.view.clientservice', [$company->id, $service->id, $clientservice->id])}}" class="btn btn-default btn-sm btn-success" data-toggle="tooltip" data-original-title="View Detail">
+                    <i class="fa fa-eye text-white"></i>
                   </a>
                   <a href="{{ url('/admin/services/delete/'.$clientservice->id) }}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete">
                     <i class="fa fa-trash-o text-white"></i>   {{$clientservice->id}}

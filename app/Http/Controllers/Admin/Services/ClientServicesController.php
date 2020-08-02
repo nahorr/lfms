@@ -67,7 +67,7 @@ class ClientServicesController extends Controller
                     'service_title' => $request->service_title,
                     'service_files'=>json_encode($data),
                     'service_details' => $request->service_details,
-                    'effective_date' => $request->effective_date,
+                    'effective_date' => Carbon::parse($request->effective_date)->format('Y-m-d'),
                     'user_id' => $request->user_id,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
@@ -82,7 +82,7 @@ class ClientServicesController extends Controller
                     'service_title' => $request->service_title,
                     //'service_files'=>json_encode($data),
                     'service_details' => $request->service_details,
-                    'effective_date' => $request->effective_date,
+                    'effective_date' => Carbon::parse($request->effective_date)->format('Y-m-d'),
                     'user_id' => $request->user_id,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
@@ -90,11 +90,97 @@ class ClientServicesController extends Controller
 
             }
            
-        flash('service Added!')->success();
+        flash('Client Service Added!')->success();
 
         return redirect(route('admin.services.clientservices', compact('company', 'service')));
         
    }
+
+   public function editClientService(Company $company, Service $service, ClientService $clientservice)
+    {
+        //dd($clientservice);
+
+        $companyclients = Client::where('company_id', $company->id)->get();
+
+        $companylawyers = User::where('group_id', 4)->where('company_id', $company->id)->get();
+
+        return view('admin.services.editclientservice', compact('company', 'service', 'clientservice', 'companyclients','companylawyers'));
+    }
+
+    public function updateClientService(Request $request, Company $company, Service $service, ClientService $clientservice){
+
+       $service_file_folder = preg_replace('/\..+$/', '', $company->id);
+
+           $this->validate(request(), [
+
+               'service_number' => 'required|unique:client_services,service_number,'.$clientservice->id,
+               'service_number' =>Rule::unique('client_services')->ignore($clientservice->id)->where(function($query) use($company) {
+                   return $query->where('company_id', $company->id);
+               }),   
+               'service_title' => 'required',
+               'effective_date' => 'required',
+               'service_files.*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
+           ]);
+
+           if($request->hasFile('service_files'))
+           {
+               foreach($request->file('service_files') as $file)
+               {
+                   
+                   $filename = preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
+                   $destinationPath = public_path().'/uploads/companies/services/'.$service_file_folder;
+                   $file->move($destinationPath,$filename);
+                   $data[] = $filename; 
+                   
+               }
+
+               
+               ClientService::where('id', $clientservice->id)->update([
+                   'company_id' => $company->id,
+                   'service_id' => $service->id,
+                   'client_id' => $clientservice->client_id,
+                   'service_number' => $request->service_number,
+                   'service_title' => $request->service_title,
+                   'service_files'=>json_encode(array_merge($data, json_decode($clientservice->service_files))),
+                   'service_details' => $request->service_details,
+                   'effective_date' => Carbon::parse($request->effective_date)->format('Y-m-d'),
+                   'user_id' => $request->user_id,
+                   'created_at' => date('Y-m-d H:i:s'),
+                   'updated_at' => date('Y-m-d H:i:s'),
+               ]);
+           }else{
+
+               ClientService::where('id', $clientservice->id)->update([
+                   'company_id' => $company->id,
+                   'service_id' => $service->id,
+                   'client_id' => $clientservice->client_id,
+                   'service_number' => $request->service_number,
+                   'service_title' => $request->service_title,
+                   //'service_files'=>json_encode($data),
+                   'service_details' => $request->service_details,
+                   'effective_date' => Carbon::parse($request->effective_date)->format('Y-m-d'),
+                   'user_id' => $request->user_id,
+                   'created_at' => date('Y-m-d H:i:s'),
+                   'updated_at' => date('Y-m-d H:i:s'),
+               ]);
+
+           }
+          
+       flash('Client Service Updated!')->success();
+
+       return redirect(route('admin.services.clientservices', compact('company', 'service')));
+       
+   }
+
+   public function viewClientService(Company $company, Service $service, ClientService $clientservice)
+    {
+
+        $companyclients = Client::where('company_id', $company->id)->get();
+
+        $companylawyers = User::where('group_id', 4)->where('company_id', $company->id)->get();
+
+        return view('admin.services.viewclientservice', compact('company', 'service', 'clientservice', 'companyclients','companylawyers'));
+    }
 
    public function deleteClientService(ClientService $clientservice)
     {
