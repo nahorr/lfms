@@ -66,8 +66,8 @@
                   <a href="{{route('admin.services.view.clientservice', [$company->id, $service->id, $clientservice->id])}}" class="btn btn-default btn-sm btn-success" data-toggle="tooltip" data-original-title="View Detail">
                     <i class="fa fa-eye text-white"></i>
                   </a>
-                  <a href="{{ url('/admin/services/delete/'.$clientservice->id) }}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete">
-                    <i class="fa fa-trash-o text-white"></i>   {{$clientservice->id}}
+                  <a href="{{ route('admin.services.delete.clientservice', $clientservice->id) }}" class="btn btn-default btn-sm btn-danger" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="fa fa-trash-o text-white"></i>
                   </a>
                   
                 

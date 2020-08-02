@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClientService extends Model
 {
+    use softDeletes;
+    
     protected $dates = ['effective_date'];
 
     public function company()

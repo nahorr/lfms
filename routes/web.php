@@ -138,12 +138,16 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         Route::get('editclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@editClientService')->name('edit.clientservice');
         Route::post('updateclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@updateClientService')->name('update.clientservice');
         Route::get('viewclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@viewClientService')->name('view.clientservice');
-
-        //Delete Client Service
-        Route::get('delete/{clientservice}', 'ClientServicesController@deleteClientService');
+        Route::get('deleteclientservice/{clientservice}', 'ClientServicesController@delete')->name('delete.clientservice');
+        Route::get('deleteclientservice/{clientservice}', 'ClientServicesController@delete')->name('delete.clientservice');
+        
 
         //Client service files
         Route::get('files/showclientservicefiles/{clientservice}/{company}/{service}/{client}', 'ClientServiceFilesController@showClientServiceFiles')->name('showclientservicefiles');
+        //Delete Files
+        Route::get('deleteclientservicefile/{clientservice}/{filename}', 'ClientServiceFilesController@deleteFile')->name('delete.clientservicefile');
+        Route::get('deleteallclientservicefiles/{clientservice}', 'ClientServiceFilesController@deleteAllFiles')->name('delete.all.clientservicefiles');
+        
       });
 
     

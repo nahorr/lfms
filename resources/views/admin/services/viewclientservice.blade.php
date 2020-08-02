@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane" id="tab-61">
+          <!-- <div class="tab-pane" id="tab-61">
             <ul class="widget-users row">
               <li class="col-lg-4  col-md-6 col-sm-12 col-12">
                 <div class="card">
@@ -407,7 +407,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div><!-- COL-END -->
     </div>

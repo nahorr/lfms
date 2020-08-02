@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ClientCase extends Model
 {
+    use SoftDeletes;
+    
 	protected $dates = ['court_date'];
 
 	public function company()

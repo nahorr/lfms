@@ -182,13 +182,9 @@ class ClientServicesController extends Controller
         return view('admin.services.viewclientservice', compact('company', 'service', 'clientservice', 'companyclients','companylawyers'));
     }
 
-   public function deleteClientService(ClientService $clientservice)
+   public function delete(ClientService $clientservice)
     {
-        $clientservice = ClientService::where('id', $clientservice->id)->first();
-
-        $clientservice->deleted_at = date('Y-m-d H:i:s');
-
-        $clientservice->save();
+        ClientService::where('id', $clientservice->id)->delete();
 
         flash('Client service deleted!')->error();
 
