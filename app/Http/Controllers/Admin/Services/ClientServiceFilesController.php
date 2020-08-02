@@ -10,8 +10,7 @@ use App\Service;
 use App\Client;
 use File;
 use DB;
-use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
+
 
 class ClientServiceFilesController extends Controller
 {
@@ -23,7 +22,6 @@ class ClientServiceFilesController extends Controller
     public function deleteFile(ClientService $clientservice, $filename)
     {
         $client_service = ClientService::where('id', $clientservice->id)->first();
-
                 
         // Remove selected file or image from server
         foreach (json_decode($client_service->service_files) as $key=>$value){
@@ -31,8 +29,6 @@ class ClientServiceFilesController extends Controller
             if($value == $filename){
                 
                 $clienservice_filename_array = json_encode(array_except(json_decode($client_service->service_files),$key));
-
-                dd($clienservice_filename_array);
                 
                 foreach(json_decode($clienservice_filename_array) as $service_file)
                 {
@@ -41,14 +37,17 @@ class ClientServiceFilesController extends Controller
 
                 }
 
+                $file = public_path('/uploads/companies/services/'.$client_service->company_id. "/" .$filename);
+
+                if (File::exists($file)){
+                    unlink($file);               
+                }
+
                 $client_service->service_files=json_encode($data);
 
                 $client_service->save();
                 
-                $file = public_path('/uploads/companies/services/$clientservice->company_id/'.$filename);
-                    if (File::exists($file)){
-                        unlink($file);               
-                    }
+               
             }
         }
             
