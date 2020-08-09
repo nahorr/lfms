@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\ClientCase;
 use App\Client;
 use App\Company;
+use Illuminate\Validation\Rule;
 
 
 class ClientsController extends Controller
@@ -28,7 +29,10 @@ class ClientsController extends Controller
     public function addClient(Request $request, Company $company){
 
         $this->validate(request(), [
-            'client_number' => 'required|unique:clients',
+            'client_number' => 'required',
+            'client_number' => Rule::unique('clients')->where( function($query) use($company){
+                return $query->where('company_id', $company->id);
+            }),
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:clients',

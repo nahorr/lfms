@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Template extends Model
 {
-    public function template_category()
+	use SoftDeletes;
+	
+    public function service()
     {
-    	return $this->belongsTo('App\TemplateCategory');
+    	return $this->belongsTo('App\Service');
     }
 
     public function company()

@@ -22,7 +22,7 @@ class CreateClientServicesTable extends Migration
             $table->integer('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');         
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('service_number')->unique();
+            $table->string('service_number');
             $table->string('service_title');          
             $table->longText('service_details')->nullable();
             $table->dateTime('effective_date')->nullable();

@@ -17,10 +17,12 @@ class CreateTemplatesTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->integer('template_category_id')->unsigned();
-            $table->foreign('template_category_id')->references('id')->on('template_categories')->onDelete('cascade');
+            $table->integer('service_id')->unsigned();
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('name');
+            $table->string('description')->mullable();
             $table->string('template_file')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

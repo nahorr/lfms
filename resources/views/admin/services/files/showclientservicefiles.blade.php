@@ -8,10 +8,10 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title mr-10"><i class="fa fa-file"></i> File For Service #: {{$clientservice->service_number}} - Client Name: {{$client->first_name}} {{$client->last_name}}</h3>
-        <a href="http://127.0.0.1:8000/admin/templates/category/newtemplate/2/1" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
+        <a href="{{route('admin.services.clientservices', [$company->id, $service->id])}}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
           <span>
-              <i class="fa fa-plus"></i>
-          </span> <strong>Add/Update File</strong>
+              <i class="fa fa-arrow-left"></i>
+          </span> <strong>Back</strong>
         </a>
       </div>
       <div class="card-body">
@@ -21,7 +21,7 @@
 			      <tr>
 			      	<th>#</th>
 			        <th>Files</th>
-			        <th>Action</th>  
+			        <th>Delete</th>  
 			      </tr>
 			      </tr>
 			    </thead>
@@ -31,13 +31,14 @@
 				      <tr>
 				      	<td>{{ $i + 1}}</td>
 				        <td>
-				        	<a href="#">
+				        	<a href="{{url('/uploads/companies/services/'.$company->id)}}/{{json_decode($clientservice->service_files)[$i]}}" target="_blank">
 								<i class="fa fa-download"></i> {{json_decode($clientservice->service_files)[$i]}}
 							</a>
 						</td>
 				        <td>
-				        	<a href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-				        	<a href="" class="btn btn-sm btn-success"><i class="fa fa-download"></i></a>
+				        	<a href="{{route('admin.services.delete.clientservicefile', [$clientservice->id, json_decode($clientservice->service_files)[$i]])}}" class="btn btn-sm btn-danger">
+				        		<i class="fa fa-trash"></i>
+				        	</a>
 				        </td>
 				      </tr>
 			      @endfor

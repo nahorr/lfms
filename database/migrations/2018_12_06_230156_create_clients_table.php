@@ -17,10 +17,10 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
-            $table->string('client_number')->unique();
+            $table->string('client_number');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone');
             $table->string('address')->nullable();
             $table->string('address_2')->nullable();
