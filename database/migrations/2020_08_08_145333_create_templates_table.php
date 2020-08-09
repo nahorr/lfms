@@ -20,6 +20,7 @@ class CreateTemplatesTable extends Migration
             $table->integer('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('name');
+            $table->string('description')->mullable();
             $table->string('template_file')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

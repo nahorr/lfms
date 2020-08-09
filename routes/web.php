@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         //Templates
         Route::get('templates/show/{company}', 'TemplatesController@show')->name('show.templates');
         Route::get('templates/add/{company}', 'TemplatesController@add')->name('add.template');
+        Route::post('templates/create/{company}', 'TemplatesController@create')->name('create.template');
         
       });
 

@@ -21,6 +21,7 @@
             <thead>
               <tr>
                 <th>#</th>
+                <th>Service</th>
                 <th>Template</th>
                 <th>Description</th>
                 <th>Created</th>
@@ -31,20 +32,27 @@
               @foreach($templates as $key => $template)
               <tr>
                 <td>{{ $key+1 }}</td>
+                <td>{{ $template->service->service_name }}</td>
                 <td>
-                  {{ $template->template_name }} 
-                  <a href="{{ asset('/admin/templates/template/showtemplates/'.$company->id) }}/{{$template->id}}">
-                    <span class="badgetext badge badge-danger badge-pill">{{$template->templates->count()}}</span>
+                  {{ $template->name }} 
+                  <a href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}">
+                    <span class="badgetext badge badge-danger badge-pill"><i class="mdi mdi-download"></i> {{$template->template_file}}</span>
                   </a>
                 </td>
                 <td>{{ $template->description }}</td>
-                <td>{{ $template->created_at }}</td>
+                <td>{{ $template->created_at->toFormatteddateString() }}</td>
                 <td>
-                    <a class="btn btn-light" href="{{ asset('/admin/templates/template/showtemplates/'.$template->id)}}" target="_blank" role="button" data-toggle="tooltip" data-placement="top" data-container="body" title="click on file name to view">
-                  <i class="fa fa-plus" style="color: Tomato;"></i>
-                    </a>
-                    <i class="fa fa-pencil"></i>
-                    <i class="fa fa-trash"></i>
+                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="download">
+                          <i class="mdi mdi-download" style="color: green;"></i>
+                        </a>
+
+                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
+                          <i class="mdi mdi-pencil" style="color: black;"></i>
+                        </a>
+                         
+                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
+                          <i class="mdi mdi-delete" style="color: red;"></i>
+                        </a>
                 </td>
               </tr>
               @endforeach
