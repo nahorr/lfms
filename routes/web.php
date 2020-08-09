@@ -150,6 +150,11 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         Route::get('templates/show/{company}', 'TemplatesController@show')->name('show.templates');
         Route::get('templates/add/{company}', 'TemplatesController@add')->name('add.template');
         Route::post('templates/create/{company}', 'TemplatesController@create')->name('create.template');
+        Route::get('templates/edit/{company}/{template}', 'TemplatesController@edit')->name('edit.template');
+        Route::post('templates/update/{company}/{template}', 'TemplatesController@update')->name('update.template');
+        Route::get('templates/delete/{template}', 'TemplatesController@delete')->name('delete.template');
+        Route::get('templates/restore/{template}', 'TemplatesController@restore')->name('restore.template');
+        Route::get('templates/deleteforever/{company}/{template}', 'TemplatesController@deleteForever')->name('deleteforever.template');
         
       });
 

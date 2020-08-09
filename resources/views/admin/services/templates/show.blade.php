@@ -46,13 +46,23 @@
                           <i class="mdi mdi-download" style="color: green;"></i>
                         </a>
 
-                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
+                        <a class="mr-1" href="{{ route('admin.services.edit.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
                           <i class="mdi mdi-pencil" style="color: black;"></i>
                         </a>
-                         
-                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
-                          <i class="mdi mdi-delete" style="color: red;"></i>
-                        </a>
+                        
+                        @if(!$template->deleted_at)
+                          <a class="mr-1" href="{{ route('admin.services.delete.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
+                            <i class="mdi mdi-delete" style="color: red;"></i>
+                          </a>
+                        @else
+                          <a class="mr-1" href="{{ route('admin.services.restore.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="restore">
+                            <i class="mdi mdi-backup-restore" style="color: red;"></i>
+                          </a>
+                          <a class="mr-1" href="{{ route('admin.services.deleteforever.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete forever">
+                            <i class="mdi mdi-delete-forever" style="color: black;"></i>
+                          </a>
+                        @endif
+
                 </td>
               </tr>
               @endforeach
