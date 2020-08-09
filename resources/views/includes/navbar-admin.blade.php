@@ -46,7 +46,7 @@
                     </li>
                                       
                     <li aria-haspopup="true">
-                        <a href="{{ url('/admin/templates/showcategories/'.$company->id) }}" class="">
+                        <a href="{{ route('admin.services.show.templates', $company->id) }}" class="">
                             <i class="fa fa-file"></i>
                             Templates
                         </a>

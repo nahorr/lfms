@@ -141,11 +141,14 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         Route::get('deleteclientservice/{clientservice}', 'ClientServicesController@delete')->name('delete.clientservice');
         Route::get('deleteclientservice/{clientservice}', 'ClientServicesController@delete')->name('delete.clientservice');
         
-
         //Client service files
         Route::get('files/showclientservicefiles/{clientservice}/{company}/{service}/{client}', 'ClientServiceFilesController@showClientServiceFiles')->name('showclientservicefiles');
         //Delete Files
         Route::get('deleteclientservicefile/{clientservice}/{filename}', 'ClientServiceFilesController@deleteFile')->name('delete.clientservicefile');
+
+        //Templates
+        Route::get('templates/show/{company}', 'TemplatesController@show')->name('show.templates');
+        Route::get('templates/add/{company}', 'TemplatesController@add')->name('add.template');
         
       });
 

@@ -18,4 +18,9 @@ class Service extends Model
     {
     	return $this->hasMany('App\ClientService');
     }
+
+    public function templates()
+    {
+        return $this->hasMany('App\Template');
+    }
 }
