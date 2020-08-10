@@ -46,7 +46,7 @@
             </label>
             <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn btn-primary">
-                    Register
+                    Register Company
                 </button>
             </div>
             <div class="text-center pt-3">

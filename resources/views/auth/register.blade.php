@@ -15,14 +15,20 @@
                 </ol>
             </div>
          @endif
+        
 
-        <span class="wrap-login100 p-6">@include('flash::message')</span>
-        <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+           <form class="login100-form validate-form " method="POST" action="{{ route('register') }}">
             @csrf
+            <p>
+               @include('flash::message') 
+            </p>
             <span class="login100-form-title">
-                <i class="fa fa-user mr-2" aria-hidden="true"></i>User Registration
+                <i class="fa fa-user mr-2" aria-hidden="true"></i>Enter User Information
             </span>
+
             <input type="hidden" name="company_id" value="{{ $company->id }}">
+            <input type="hidden" name="group_id" value="2">
+
             <div class="wrap-input100 validate-input">
                 <input id="name" type="text" class="input100 form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Full Name">
                 <span class="focus-input100"></span>
@@ -35,6 +41,7 @@
                     </span>
                 @endif
             </div>
+
             <div class="wrap-input100 validate-input">
                 <input id="email" type="email" class="input100 form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="Email">
                 <span class="focus-input100"></span>
@@ -47,6 +54,7 @@
                     </span>
                 @endif
             </div>
+
             <div class="wrap-input100 validate-input">
                 <input id="password" type="password" class="input100 form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Password">
                 <span class="focus-input100"></span>
@@ -54,6 +62,7 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
             </div>
+
             <div class="wrap-input100 validate-input">
                 <input id="password-confirm" type="password" class="input100 form-control" name="password_confirmation" required placeholder="Confirm Password">
                 <span class="focus-input100"></span>
@@ -61,12 +70,16 @@
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
             </div>
+
             <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn btn-primary">
                     Submit
                 </button>
             </div>
         </form>
+        </div>
+        
+        
     </div>
 </div>
 <!-- CONTAINER CLOSED -->

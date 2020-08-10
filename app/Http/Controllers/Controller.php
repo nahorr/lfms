@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Company;
 use App\ContactUs;
 use App\User;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -55,6 +56,7 @@ class Controller extends BaseController
         ]);
         
         Company::insert([
+            'company_code' => Str::uuid(),
             'company_name' => $request->company_name,
             'city' => $request->city,
             'phone' => $request->phone,
@@ -62,8 +64,8 @@ class Controller extends BaseController
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
-        $company = Company::where('phone', $request->phone)->first();
 
+        $company = Company::where('phone', $request->phone)->first();
 
         flash('Company Detials Added Successfully. Now let us omplete the Final step by entering your datails!')->success();
 

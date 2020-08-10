@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Auth;
 use File;
 use Hash;
+use Image;
 
 class ProfileController extends Controller
 {
