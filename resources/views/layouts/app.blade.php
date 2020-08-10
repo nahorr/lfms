@@ -68,7 +68,7 @@
                         <div class="d-flex">
                             @auth
                                 <a class="animated-arrow hor-toggle horizontal-navtoggle"><span></span></a>
-                                <a class="header-brand" href="{{ url('/user/home') }}">
+                                <a class="header-brand" href="{{ url('/admin/home') }}">
                                     <img src="../../assets/images/brand/logo-3.png" class="header-brand-img mobile-icon" alt="logo">
                                     <img src="../../assets/images/brand/logo.png" class="header-brand-img desktop-logo mobile-logo" alt="logo">
                                 </a>
