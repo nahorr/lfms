@@ -41,7 +41,7 @@
                   <div class="input-group-text">
                     <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
                   </div>
-                </div><input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="effective_date" required="">
+                </div><input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="date" name="effective_date" required="">
               </div>
             </div>
             <div class="form-group">

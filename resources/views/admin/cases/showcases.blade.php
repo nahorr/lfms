@@ -62,17 +62,17 @@
                     <i class="fa fa-pencil"></i>
                   </a>
 
-                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this case?');">
+                  <a href="{{ url('/admin/cases/delete/'.$case->id) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this case?');">
                     <i class="fa fa-trash-o"></i>   
                   </a>
                 @else
                   
-                  <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit">
-                    <i class="fa fa-pencil"></i>
+                  <a href="{{ url('/admin/cases/restore/'.$case->id) }}" class="btn btn-orange btn-sm" data-toggle="tooltip" data-original-title="Restore this Case">
+                    <i class="mdi mdi-restore"></i>
                   </a>
 
-                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete">
-                    <i class="fa fa-trash-o"></i>   
+                  <a href="{{ url('/admin/cases/deleteforever/'.$case->id) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="mdi mdi-delete-forever"></i>   
                   </a>
                 @endif
                 

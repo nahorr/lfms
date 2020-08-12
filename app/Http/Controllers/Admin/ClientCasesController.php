@@ -11,6 +11,7 @@ use App\Client;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Validation\Rule;
+use File;
 
 
 class ClientCasesController extends Controller
@@ -247,11 +248,41 @@ class ClientCasesController extends Controller
         return redirect(route('adminclientcases', compact('company')));
      }
 
-    public function deleteClient(Client $client)
+    public function delete(ClientCase $case)
     {
-    	Client::where('id', $client->id)->delete();
+    	ClientCase::where('id', $case->id)->delete();
 
-    	flash('Client deleted!')->warning();
+    	flash('Client case deleted!')->warning();
+
+        return back();
+    }
+
+    public function restore($id)
+    {
+        ClientCase::withTrashed()->find($id)->restore();
+
+        flash('Client case restored!')->success();
+
+        return back();
+    }
+
+    public function deleteForever($id)
+    {
+        $case = ClientCase::withTrashed()->find($id);
+
+        for ($i = 0; $i < count(json_decode($case->case_files)); $i++) {
+
+            $file = public_path('/uploads/companies/cases/'.json_decode($case->case_files)[$i]);
+
+            if (File::exists($file)) {
+
+                unlink($file);
+            } 
+        } 
+
+        $case->forceDelete();
+
+        flash('Client case has been deleted forever!')->success();
 
         return back();
     }

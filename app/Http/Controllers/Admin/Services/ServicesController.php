@@ -19,7 +19,7 @@ class ServicesController extends Controller
 {
     public function showServices(Company $company)
     {
-    	$companyservices = Service::where('company_id', $company->id)->where('deleted_at',Null)->get(); 
+    	$companyservices = Service::withTrashed()->where('company_id', $company->id)->get(); 
 
     	return view('admin.services.showservices', compact('company', 'companyservices'));
     }
@@ -84,15 +84,29 @@ class ServicesController extends Controller
         return redirect()->route('admin.services.all', compact('company'));
    }
 
-   public function deleteService(Service $service)
+   public function delete(Service $service)
     {
-        $companyservice = Service::where('id', $service->id)->first();
-
-        $companyservice->deleted_at = date('Y-m-d H:i:s');
-
-        $companyservice->save();
+        Service::where('id', $service->id)->delete();
 
         flash('service deleted!')->error();
+
+        return back();
+    }
+
+    public function restore($id)
+    {
+        Service::withTrashed()->find($id)->restore();
+
+        flash('service restored!')->success();
+
+        return back();
+    }
+
+    public function forceDelete($id)
+    {
+        Service::withTrashed()->find($id)->forceDelete();
+
+        flash('Service deleted forever!')->error();
 
         return back();
     }

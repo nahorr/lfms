@@ -12,7 +12,7 @@
         <a href="{{ url('/admin/services/addclientservice/'.Auth::user()->company_id) }}/{{$service->id}}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
           <span>
               <i class="fa fa-plus"></i>
-          </span> <strong>New Client {{$service->service_name}}</strong>
+          </span> <strong>Add a New Client to {{$service->service_name}} Service</strong>
         </a>
       </div>
       <div class="card-body">
@@ -40,7 +40,7 @@
                 <td>{{ $clientservice->client->first_name}} {{ $clientservice->client->last_name }}</td>
                 <td>
                   @if($clientservice->service_files != Null)
-                    <a href="{{ url('/admin/services/files/showclientservicefiles', [$clientservice->id, $clientservice->company_id, $clientservice->service_id, $clientservice->client_id]) }}">
+                    <a href="{{ url('/admin/services/files/showclientservicefiles', [$clientservice->id, $clientservice->company_id, $clientservice->service_id, $clientservice->client_id]) }}" class="btn-sm btn btn-outline-info" target="_blank">
                       {{ count(json_decode($clientservice->service_files)) }} <i class="fa fa-file"></i> files
                     </a>
                   @else

@@ -107,12 +107,25 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
       //Edit case
       Route::get('/admin/cases/edit/{company}/{case}', 'ClientCasesController@edit');
       Route::post('/admin/cases/update/{company}/{case}', 'ClientCasesController@update');
-
-
-
+      //Delete, restore, force delete case
+      Route::get('/admin/cases/delete/{case}', 'ClientCasesController@delete');
+      Route::get('/admin/cases/restore/{case}', 'ClientCasesController@restore');
+      Route::get('/admin/cases/deleteforever/{case}', 'ClientCasesController@deleteForever');
       //Add a new case for a client
       Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
       Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
+
+
+
+
+      //Add a new service for a client
+      Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
+      Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
+
+
+
+
+
 
       
 
@@ -120,6 +133,10 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
       //View case files
       Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 
         'CaseFilesController@showCaseFiles')->name('admin.showcasefiles');
+
+
+
+
 
       /* Services - Manage Services */
       Route::group(['prefix' => '/admin/services', 'namespace' => 'Services', 'as' => 'admin.services.'], function () {
@@ -135,8 +152,10 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         Route::get('editservice/{company}/{service}', 'ServicesController@editService')->name('edit service');
         Route::post('updateservice/{company}/{service}', 'ServicesController@updateService');
 
-        //Delete Company Service
-        Route::get('delete/{service}', 'ServicesController@deleteService');
+        //Delete, restore, delete Forever Company Service
+        Route::get('delete/{service}', 'ServicesController@delete');
+        Route::get('restore/{service}', 'ServicesController@restore');
+        Route::get('deleteforever/{service}', 'ServicesController@deleteForever');
 
         //Client Services
         Route::get('showclientservices/{company}/{service}', 'ClientServicesController@showClientServices')->name('clientservices');
