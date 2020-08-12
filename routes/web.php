@@ -58,12 +58,12 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
   	//Manage Company users
   	Route::get('admin/users/showusers/{company}', 'UsersController@showCompanyUsers')->name('companyusers');
   	Route::get('admin/users/delete/{user}', 'UsersController@deleteUser');
+    Route::get('admin/users/restore/{user}', 'UsersController@restore');
+    Route::get('admin/users/deleteforever/{user}', 'UsersController@deleteForever');
 
-      //Add new user
+      //Add and Edit user
       Route::get('/admin/users/newuser/{company}', 'UsersController@newUser')->name('NewCompanyUser');
       Route::post('/admin/users/addnewuser/{company}', 'UsersController@addNewUser');
-
-      //Edit Company user
       Route::get('/admin/users/edituser/{company}/{user}', 'UsersController@editUser')->name('editCompanyUser');
       Route::post('/admin/users/update/{company}/{user}', 'UsersController@updateUser');
 
@@ -78,12 +78,12 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
     //Manage Lawyers
     Route::get('/admin/lawyers/showlawyers/{company}', 'LawyersController@showCompanyLawyers')->name('companylawyers');
     Route::get('/admin/lawyers/delete/{lawyer}', 'LawyersController@deleteLawyer');
+    Route::get('/admin/lawyers/restore/{lawyer}', 'LawyersController@restore');
+    Route::get('/admin/lawyers/deleteforever/{lawyer}', 'LawyersController@deleteForever');
       
-      //Add New Lawyers
+      //Add and Edit Lawyer
       Route::get('/admin/lawyers/newlawyer/{company}', 'LawyersController@newLawyer')->name('NewCompanyLawyer');
       Route::post('/admin/lawyers/addnewlawyer/{company}', 'LawyersController@addNewLawyer');
-
-      //Edit Lawyer
       Route::get('/admin/lawyers/editlawyer/{company}/{lawyer}', 'LawyersController@editLawyer')->name('EditCompanyLawyer');
       Route::post('/admin/lawyers/update/{company}/{lawyer}', 'LawyersController@updateLawyer');
 
@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
   	Route::post('admin/clients/addclient/{company}', 'ClientsController@addClient');
   	//Route::post('admin/clients/editclient/{client}', 'ClientsController@editClient');
   	Route::get('/admin/clients/delete/{client}', 'ClientsController@deleteClient');
+    Route::get('/admin/clients/restore/{client}', 'ClientsController@restore');
+    Route::get('/admin/clients/deleteforever/{client}', 'ClientsController@deleteForever');
 
   	/* Cases */
   	//Manage cases

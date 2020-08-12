@@ -8,16 +8,23 @@
     @include('flash::message')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title mr-10">Employees Table</h3>
-        <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-warning btn-icon text-white mr-2" style="margin: auto;">
+        <h3 class="card-title mr-10">Company User/Employees Table</h3>
+        <a href="{{ url('/admin/users/newuser/'.Auth::user()->company_id) }}" class="btn btn-danger btn-icon text-white mr-2" style="margin: auto;">
             <span>
                 <i class="fe fe-user"></i>
-            </span> <strong>Add Employee</strong>
+            </span> <strong>Add an Employee OR a Lawyer</strong>
         </a>
       </div>
+
+      <div class="col-md-12">
+        <div class="alert alert-primary" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>This table contains all users(<span class="bg-warning">Employees, Assistants, Lawyers, etc</span>) for your company. To add a new user, click on "<span class="bg-warning">Add an Employee OR a Lawyer</span>" above.
+        </div>
+      </div>
+
       <div class="card-body">
         <div class="table-responsive">
-          <table id="exportexample" class="table table-bordered border-t0 key-buttons text-nowrap w-100" >
+          <table id="exportexample" class="datatabel table table-bordered border-t0 key-buttons text-nowrap w-100" >
             <thead>
               <tr>
                 <th>ID</th>
@@ -31,9 +38,9 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($companyusers as $user)
+              @foreach($companyusers as $key=>$user)
               <tr>
-                <td>{{ $user->id }}</td>
+                <td>{{ $key+1 }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->company->company_name }}</td>
@@ -47,20 +54,22 @@
                 </td>
                 <td>{{ $user->created_at->toFormattedDateString()}}</td>
                   <td>
-                    <a href="{{url('/admin/users/edituser/'.$user->company_id)}}/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a href="{{url('/admin/users/edituser/'.$user->company_id)}}/{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Edit User"><i class="fa fa-pencil"></i></a>
 
                     @if($user->group_id !=2)
-                      <a href="{{ url('/admin/users/delete/'.$user->id) }}" id="delete_user-{{$user->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" 
-                        onclick="
-                        return confirm('Are you sure you want to Delete this user?')
-                             event.preventDefault();
-                             document.getElementById( "delete_user-{{$user->id}} ").submit();
-                        "><i class="fa fa-trash-o"></i>
-                        
-                      </a>
-                      <form id="delete_user-{{$user->id}}" action="{{ url('/admin/users/delete/'.$user->id) }}" method="POST" style="display: none;">
-                          @csrf
-                      </form>
+                      @if($user->deleted_at === Null)
+                        <a href="{{ url('/admin/users/delete/'.$user->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Delete User">
+                          <i class="fa fa-trash-o"></i>     
+                        </a>
+                      @else
+                        <a href="{{ url('/admin/users/restore/'.$user->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Restore User">
+                          <i class="mdi mdi-restore"></i>
+                        </a>
+
+                        <a href="{{ url('/admin/users/deleteforever/'.$user->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Delete User Forever">
+                          <i class="mdi mdi-delete-forever"></i>
+                        </a>
+                      @endif
                     @endif
                      
                   </td>
@@ -75,5 +84,4 @@
   </div>
 </div>
 <!-- ROW-4 CLOSED-->
-
 @endsection

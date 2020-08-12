@@ -12,7 +12,7 @@ class LawyersController extends Controller
 {
     public function showCompanyLawyers(Company $company)
     {
-    	$companylawyers = User::where('company_id', $company->id)->where('group_id', 4)->where('deleted_at', Null)->get();
+    	$companylawyers = User::withTrashed()->where('company_id', $company->id)->where('group_id', 4)->get();
 
     	return view('admin.lawyers.showlawyers', compact('companylawyers'));
     }
@@ -47,7 +47,7 @@ class LawyersController extends Controller
        
         flash('New User created Successfully!')->success();
 
-        return redirect()->route('companyusers', compact('company'));
+        return redirect()->route('companylawyers', compact('company'));
    }
 
    public function editLawyer(Company $company, User $lawyer)
@@ -69,18 +69,32 @@ class LawyersController extends Controller
        
         flash('New User created Successfully!')->success();
 
-        return redirect()->route('companyusers', compact('company'));
+        return redirect()->route('companylawyers', compact('company'));
    }
 
-     public function deleteLawyer(User $lawyer)
+    public function deleteLawyer(User $lawyer)
     {
-        $lawyer = User::where('id', $lawyer->id)->first();
-
-        $lawyer->deleted_at = date('Y-m-d H:i:s');
-
-        $lawyer->save();
+        User::where('id', $lawyer->id)->first()->delete();
 
         flash('lawyer deleted!')->error();
+
+        return back();
+    }
+
+    public function restore($id)
+    {
+        User::withTrashed()->find($id)->restore();
+
+        flash('lawyer retored!')->success();
+
+        return back();
+    }
+
+    public function deleteForever($id)
+    {
+        User::withTrashed()->find($id)->forceDelete();
+
+        flash('lawyer Deleted!')->success();
 
         return back();
     }

@@ -27,7 +27,7 @@
               <textarea class="form-control" id="summernote" name="history" placeholder="Case Details and History"></textarea>
             </div>
             <div class="form-group">
-              <label class="form-label"><strong>Court Date</strong></label>
+              <label class="form-label"><strong>Tentative Court Date(<span class="text-danger">can be updated later when the exact date is known</span>)</strong></label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">

@@ -14,7 +14,7 @@ class ClientsController extends Controller
 {
     public function showClients(Company $company)
     {
-    	$clients = Client::where('company_id', $company->id)->get();
+    	$clients = Client::withTrashed()->where('company_id', $company->id)->get();
 
         $all_cases = ClientCase::get();
 
@@ -94,13 +94,27 @@ class ClientsController extends Controller
 
     public function deleteClient(Client $client)
     {
-        $client = Client::where('id', $client->id)->first();
-
-        $client->deleted_at = date('Y-m-d H:i:s');
-
-        $client->save();
+        Client::where('id', $client->id)->first()->delete();
 
         flash('client deleted!')->error();
+
+        return back();
+    }
+
+    public function restore($id)
+    {
+        Client::withTrashed()->find($id)->restore();
+
+        flash('client restored!')->error();
+
+        return back();
+    }
+
+    public function deleteForever($id)
+    {
+        Client::withTrashed()->find($id)->forceDelete();
+
+        flash('client Deleted Forever!')->error();
 
         return back();
     }
