@@ -12,7 +12,7 @@
         <h3 class="card-title"><i class="fa fa-user"></i> New Case Form for {{$client->first_name}} {{$client->last_name}}</h3>
       </div>
       <div class="card-body">
-          <form action="{{ url('/admin/cases/addcase/'.$company->id) }}/{{$client->id}}" method="POST">
+          <form action="{{ url('/admin/cases/addcase/'.$company->id) }}/{{$client->id}}" method="POST" enctype="multipart/form-data">
                     @csrf()
             <div class="form-group">
               <label class="form-label"><strong>Case Number</strong></label>
@@ -53,7 +53,21 @@
                 @endforeach
               </select>
             </div>
-          <button type="submit" class="btn btn-primary">Add Client</button>
+
+            <!-- Bootstrap files: add template file-->
+            <div class="form-row">
+              <div class="form-group col-md-12">
+              <label class="g-mb-5">Add Case Files if Any<span class="text-danger"><strong>(Leave empty if no files yet. You can edit this later on. You can also add more than one files at a time)</strong></span></label>               
+                <div class="form-group">
+                  <div class="file-loading">
+                      <input type="file" name="case_files[]" multiple="">
+                  </div>
+                </div>
+            </div>
+            </div>
+            <!-- Bootstrap files: add product photos -->
+
+          <button type="submit" class="btn btn-primary">Add Case</button>
         </form>
       </div>
     </div>

@@ -27,6 +27,7 @@ class CreateClientCasesTable extends Migration
             $table->string('outcome')->nullable();
             $table->longText('case_file')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
+            $table->longText('case_files')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

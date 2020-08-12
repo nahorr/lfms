@@ -38,7 +38,7 @@
                 <td>{{ $case->client->first_name}} {{ $case->client->last_name }}</td>
                 <td>
                   <a href="{{ url('/admin/cases/files/showcasefiles', [$case->id, $case->company_id, $case->client_id]) }}">
-                    {{ count(json_decode($case->case_file))}} <i class="fa fa-file"></i> files
+                    {{ count(json_decode($case->case_files))}} <i class="fa fa-file"></i> files
                   </a>
                 </td>
                 <td>{{ $case->court_date->toFormattedDateString() }}</td>

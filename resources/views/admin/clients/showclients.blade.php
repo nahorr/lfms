@@ -76,7 +76,7 @@
                       "><i class="fa fa-trash-o"></i>  
                     </a>
                     
-                    <a href="{{ url('/admin/clients/view/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="View Details">
+                    <a href="{{ url('/admin/clients/view/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="View Client Cases">
                       <i class="fa fa-eye"></i>
                     </a>
                   @else

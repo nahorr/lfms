@@ -16,7 +16,7 @@ class ClientCasesController extends Controller
 {
     public function showCases(Company $company)
     {
-        $companycases = ClientCase::where('company_id', $company->id)->get();
+        $companycases = ClientCase::withTrashed()->where('company_id', $company->id)->get();
 
     	return view('admin.cases.showcases', compact('companycases'));
     }
@@ -97,6 +97,19 @@ class ClientCasesController extends Controller
             'case_number' => 'required|unique:client_cases',
             'case_title' => 'required',
         ]);
+
+        if($request->hasFile('case_files'))
+        {
+            foreach($request->file('case_files') as $file)
+            {
+              
+                $filename = $company->id.$client->id.$request->case_number.preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path().'/uploads/companies/cases/';
+                $file->move($destinationPath,$filename);
+                $data[] = $filename; 
+                
+            }
+        }
         
         ClientCase::insert([
             'company_id' => $company->id,
@@ -108,13 +121,14 @@ class ClientCasesController extends Controller
             'court_location' => $request->court_location,
             'outcome' => $request->outcome,
             'user_id' => $request->user_id,
+            'case_files'=>json_encode($data),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
        
-        flash('Case Added!')->success();
+        flash('Client Case Added!')->success();
 
-        return redirect(route('adminclientcases', compact('company')));
+        return redirect(route('CompanyClients', compact('company')));
    }
 
    public function editCase(Request $request, ClientCase $Case)
