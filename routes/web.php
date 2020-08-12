@@ -91,7 +91,8 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
   	Route::get('admin/clients/showclients/{company}', 'ClientsController@showClients')->name('CompanyClients');
     Route::get('admin/clients/newclient/{company}', 'ClientsController@newClient')->name('newclient');
   	Route::post('admin/clients/addclient/{company}', 'ClientsController@addClient');
-  	//Route::post('admin/clients/editclient/{client}', 'ClientsController@editClient');
+  	Route::get('admin/clients/edit/{company}/{client}', 'ClientsController@edit')->name('edit.client');
+    Route::post('admin/clients/update/{company}/{client}', 'ClientsController@update')->name('update.client');
   	Route::get('/admin/clients/delete/{client}', 'ClientsController@deleteClient');
     Route::get('/admin/clients/restore/{client}', 'ClientsController@restore');
     Route::get('/admin/clients/deleteforever/{client}', 'ClientsController@deleteForever');
@@ -100,14 +101,19 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
   	//Manage cases
   	Route::get('admin/cases/showcases/{company}', 'ClientCasesController@showCases')->name('adminclientcases');
     	//Route::get('/admin/cases/showallclientcases/{client}', 'ClientCasesController@showAllClientCases');
-
       //Add a new case
       Route::get('/admin/cases/addnewcase/{company}', 'ClientCasesController@addNewCase');
     	Route::post('/admin/cases/addcase/{company}', 'ClientCasesController@addCase');
+      //Edit case
+      Route::get('/admin/cases/edit/{company}/{case}', 'ClientCasesController@edit');
+      Route::post('/admin/cases/update/{company}/{case}', 'ClientCasesController@update');
 
       //Add a new case for a client
       Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
       Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
+
+      
+
 
       //View case files
       Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 

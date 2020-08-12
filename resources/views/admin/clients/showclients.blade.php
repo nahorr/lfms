@@ -68,24 +68,24 @@
                 </td>             
                 <td>
                   @if($client->deleted_at === Null)
-                    <a href="{{ url('/admin/clients/edit/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit">
+                    <a href="{{ url('/admin/clients/edit', [Auth::user()->company_id, $client->id]) }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-original-title="Edit">
                       <i class="fa fa-pencil"></i>
                     </a>
 
-                    <a href="{{ url('/admin/clients/delete/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this client?');
+                    <a href="{{ url('/admin/clients/delete/'.$client->id) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this client?');
                       "><i class="fa fa-trash-o"></i>  
                     </a>
                     
-                    <a href="{{ url('/admin/clients/view/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="View Client Cases">
+                    <!-- <a href="{{ url('/admin/clients/view/'.$client->id) }}" class="btn btn-orange btn-sm" data-toggle="tooltip" data-original-title="View All Client Cases">
                       <i class="fa fa-eye"></i>
-                    </a>
+                    </a> -->
                   @else
-                    <a href="{{ url('/admin/clients/restore/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Restore" onclick="return confirm('Are you sure you want to Restore this client?');
-                      "><i class="fa fa-trash-o"></i>  
+                    <a href="{{ url('/admin/clients/restore/'.$client->id) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" data-original-title="Restore" onclick="return confirm('Are you sure you want to Restore this client?');
+                      "><i class="mdi mdi-restore"></i>  
                     </a>
 
-                    <a href="{{ url('/admin/clients/deleteforever/'.$client->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete Forever" onclick="return confirm('Are you sure you want to Delete this client Forever?');
-                      "><i class="fa fa-trash-o"></i>  
+                    <a href="{{ url('/admin/clients/deleteforever/'.$client->id) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete Forever" onclick="return confirm('Are you sure you want to Delete this client Forever?');
+                      "><i class="mdi mdi-delete-forever"></i>  
                     </a>
                   @endif
                 </td>

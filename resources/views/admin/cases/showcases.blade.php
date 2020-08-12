@@ -37,9 +37,14 @@
                 <td>{{ $case->case_number }}</td>
                 <td>{{ $case->client->first_name}} {{ $case->client->last_name }}</td>
                 <td>
-                  <a href="{{ url('/admin/cases/files/showcasefiles', [$case->id, $case->company_id, $case->client_id]) }}">
-                    {{ count(json_decode($case->case_files))}} <i class="fa fa-file"></i> files
-                  </a>
+                  @if($case->case_files)
+                    <a href="{{ url('/admin/cases/files/showcasefiles', [$case->id, $case->company_id, $case->client_id]) }}" class="btn-sm btn btn-outline-info" target="_blank">
+                      {{ count(json_decode($case->case_files))}} <i class="fa fa-file"></i> files
+                    </a>
+                  @else
+                    <span class="text-danger">No case File</span>
+                  @endif
+
                 </td>
                 <td>{{ $case->court_date->toFormattedDateString() }}</td>
                 <td>{{ $case->user->name}}</td>
@@ -52,14 +57,24 @@
                     @endif
                 </td>
                 <td>
-                @if(Auth::user()->group_id !=2)
-                <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i>   
-                </a>
-                <form id="delete_case-{{$case->id}}" action="{{ url('/admin/cases/delete/'.$case->id) }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                @if($case->deleted_at === Null)
+                  <a href="{{ url('/admin/cases/edit',[$company->id, $case->id]) }}" class="btn btn-blue btn-sm" data-toggle="tooltip" data-original-title="Edit">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+
+                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="fa fa-trash-o"></i>   
+                  </a>
+                @else
+                  
+                  <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+
+                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete">
+                    <i class="fa fa-trash-o"></i>   
+                  </a>
                 @endif
-                <a href="" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                 
                 </td>
               </tr>

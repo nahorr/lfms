@@ -47,44 +47,56 @@ class ClientCasesController extends Controller
 
     public function addCase(Request $request, Company $company){
 
-        $case_file_folder = preg_replace('/\..+$/', '', $request->case_number);
-
         $this->validate(request(), [
             'client_id' => 'required',
             'case_number' => 'required|unique:client_cases',
             'case_title' => 'required',
-            'case_file.*' => 'required|file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
+            'case_files*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
         ]);
 
-        if($request->hasFile('case_file'))
+        if($request->hasFile('case_files'))
         {
-            foreach($request->file('case_file') as $file)
+            foreach($request->file('case_files') as $file)
             {
                 
-                $filename = preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
-                $destinationPath = public_path().'/uploads/companies/cases/'.$case_file_folder;
+                $filename = $company->id.$request->client_id.$request->case_number.preg_replace('/\..+$/', '', $file->getClientOriginalName()) . time() . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path().'/uploads/companies/cases/';
                 $file->move($destinationPath,$filename);
                 $data[] = $filename; 
                 
             }
-        }
 
-        //dd($data);
+            ClientCase::insert([
+                'case_files'=>json_encode($data),
+                'company_id' => $company->id,
+                'client_id' => $request->client_id,
+                'case_number' => $request->case_number,
+                'case_title' => $request->case_title,
+                'history' => $request->history,
+                'court_date' => $request->court_date,
+                'court_location' => $request->court_location,
+                'outcome' => $request->outcome,
+                'user_id' => $request->user_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }else{
 
-        ClientCase::insert([
-            'company_id' => $company->id,
-            'client_id' => $request->client_id,
-            'case_number' => $request->case_number,
-            'case_title' => $request->case_title,
-            'case_file'=>json_encode($data),
-            'history' => $request->history,
-            'court_date' => $request->court_date,
-            'court_location' => $request->court_location,
-            'outcome' => $request->outcome,
-            'user_id' => $request->user_id,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+            ClientCase::insert([
+                'company_id' => $company->id,
+                'client_id' => $request->client_id,
+                'case_number' => $request->case_number,
+                'case_title' => $request->case_title,
+                'history' => $request->history,
+                'court_date' => $request->court_date,
+                'court_location' => $request->court_location,
+                'outcome' => $request->outcome,
+                'user_id' => $request->user_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+
+        }      
        
         flash('Case Added!')->success();
 
@@ -96,6 +108,7 @@ class ClientCasesController extends Controller
         $this->validate(request(), [
             'case_number' => 'required|unique:client_cases',
             'case_title' => 'required',
+            'case_files*' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
         ]);
 
         if($request->hasFile('case_files'))
@@ -109,9 +122,24 @@ class ClientCasesController extends Controller
                 $data[] = $filename; 
                 
             }
-        }
-        
-        ClientCase::insert([
+
+            ClientCase::insert([
+                'case_files'=>json_encode($data),
+                'company_id' => $company->id,
+                'client_id' => $client->id,
+                'case_number' => $request->case_number,
+                'case_title' => $request->case_title,
+                'history' => $request->history,
+                'court_date' => $request->court_date,
+                'court_location' => $request->court_location,
+                'outcome' => $request->outcome,
+                'user_id' => $request->user_id,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }else{
+
+            ClientCase::insert([
             'company_id' => $company->id,
             'client_id' => $client->id,
             'case_number' => $request->case_number,
@@ -121,17 +149,27 @@ class ClientCasesController extends Controller
             'court_location' => $request->court_location,
             'outcome' => $request->outcome,
             'user_id' => $request->user_id,
-            'case_files'=>json_encode($data),
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-       
+
+        }
+               
         flash('Client Case Added!')->success();
 
         return redirect(route('CompanyClients', compact('company')));
    }
 
-   public function editCase(Request $request, ClientCase $Case)
+   public function edit(Company $company, ClientCase $case)
+    {
+        $companyclients = Client::where('company_id', $company->id)->get();
+
+        $companylawyers = User::where('group_id', 4)->where('company_id', $company->id)->get();
+
+        return view('admin.cases.edit', compact('company', 'case', 'companylawyers', 'companyclients'));
+    }
+
+   public function update(Request $request, ClientCase $case)
     {
             $this->validate(request(), [
                 'first_name' => 'required',
@@ -140,7 +178,7 @@ class ClientCasesController extends Controller
             ]);
 
         
-        $edit_Case = ClientCase::where('id', $Case->id)->first();
+        $edit_Case = ClientCase::where('id', $case->id)->first();
 
         $edit_client->client_number = $request->client_number;
         $edit_client->first_name = $request->first_name;
