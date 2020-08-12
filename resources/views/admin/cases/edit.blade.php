@@ -12,7 +12,7 @@
         <h3 class="card-title"><i class="fa fa-user"></i> New Case Form</h3>
       </div>
       <div class="card-body">
-          <form action="{{ url('/admin/cases/addcase/'.$company->id) }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ url('/admin/cases/update',[$company->id, $case->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf()
             <div class="form-group">
               <label class="form-label"><strong>Case Number</strong></label>
@@ -90,7 +90,7 @@
             </div>
             </div>
             <!-- Bootstrap files: add product photos -->
-          <button type="submit" class="btn btn-primary">Add Client</button>
+          <button type="submit" class="btn btn-primary">Update Client Case</button>
         </form>
       </div>
     </div>

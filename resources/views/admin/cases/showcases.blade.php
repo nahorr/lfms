@@ -62,7 +62,7 @@
                     <i class="fa fa-pencil"></i>
                   </a>
 
-                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete">
+                  <a href="{{ url('/admin/users/delete/'.$case->id) }}" id="delete_case-{{$case->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick="return confirm('Are you sure you want to Delete this case?');">
                     <i class="fa fa-trash-o"></i>   
                   </a>
                 @else

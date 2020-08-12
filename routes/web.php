@@ -108,6 +108,8 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
       Route::get('/admin/cases/edit/{company}/{case}', 'ClientCasesController@edit');
       Route::post('/admin/cases/update/{company}/{case}', 'ClientCasesController@update');
 
+
+
       //Add a new case for a client
       Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
       Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
