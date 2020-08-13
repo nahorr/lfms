@@ -12,8 +12,13 @@
         <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}" class="btn btn-secondary btn-icon text-white mr-2" style="margin-left: auto">
           <span>
               <i class="fa fa-plus"></i>
-          </span> <strong>New Case</strong>
+          </span> <strong>Add a New Case</strong>
         </a>
+      </div>
+      <div class="col-md-12">
+        <div class="alert alert-primary" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>This table shows all cases for your company. To add a new case, click on "<span class="bg-warning">Add a New Case</span>" above. To show all files under a case, click on the botton showing the number of files under "# of Case Files" column. Use the "ACTION" column to add, edit, or delete a case. You can also use the search feature to search for a particular case based on Dates, Client Name, Case number, and so on.
+        </div>
       </div>
       <div class="card-body">
         <div class="table-responsive">

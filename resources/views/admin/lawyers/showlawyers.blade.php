@@ -53,21 +53,22 @@
                   @endif
                 </td>
                 <td>{{ $lawyer->created_at->toFormattedDateString()}}</td>
-                <td>
-                  <a href="{{ url('/admin/lawyers/editlawyer/'.$lawyer->company_id) }}/{{$lawyer->id}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Edit">
+                <td>    
+
+                  @if($lawyer->deleted_at === Null)
+                  <a href="{{ url('/admin/lawyers/editlawyer/'.$lawyer->company_id) }}/{{$lawyer->id}}" class="btn btn-blue btn-sm" data-toggle="tooltip" data-original-title="Edit">
                     <i class="fa fa-pencil"></i>
                   </a>
 
-                  @if($lawyer->deleted_at === Null)
-                    <a href="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick=" return confirm('Are you sure you want to Delete this lawyer?');">
+                    <a href="{{ url('/admin/lawyers/delete/'.$lawyer->id) }}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Delete" onclick=" return confirm('Are you sure you want to Delete this lawyer?');">
                       <i class="fa fa-trash-o"></i>                
                     </a>
                   @else
-                    <a href="{{ url('/admin/lawyers/restore/'.$lawyer->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Restore" onclick=" return confirm('Are you sure you want to Restore this lawyer?');">
+                    <a href="{{ url('/admin/lawyers/restore/'.$lawyer->id) }}" class="btn btn-orange btn-sm" data-toggle="tooltip" data-original-title="Restore" onclick=" return confirm('Are you sure you want to Restore this lawyer?');">
                       <i class="mdi mdi-restore"></i>                
                     </a>
 
-                    <a href="{{ url('/admin/lawyers/deleteforever/'.$lawyer->id) }}" class="btn btn-default btn-sm" data-toggle="tooltip" data-original-title="Delete Forever" onclick=" return confirm('Are you sure you want to Delete this lawyer Forever?');">
+                    <a href="{{ url('/admin/lawyers/deleteforever/'.$lawyer->id) }}" class="btn btn-dark btn-sm" data-toggle="tooltip" data-original-title="Delete Forever" onclick=" return confirm('Are you sure you want to Delete this lawyer Forever?');">
                       <i class="mdi mdi-delete-forever"></i>                
                     </a>
                   @endif

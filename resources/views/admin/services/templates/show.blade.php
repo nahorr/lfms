@@ -15,6 +15,11 @@
           </span> <strong>Add a Template</strong>
         </a>
       </div>
+      <div class="col-md-12">
+        <div class="alert alert-primary" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>This table shows all Templates for your company. To add a new Template, click on "<span class="bg-warning">Add a Template</span>" above. To downlaod template file, click on the  download button under "ACTION" column. Use the "ACTION" column to download, add, edit, or delete a case. You can also use the search feature to search for a particular template based on Template name, Dates, service type, and so on.
+        </div>
+      </div>
       <div class="card-body">
         <div class="table-responsive">
           <table id="exportexample" class="table table-bordered border-t0 key-buttons text-nowrap w-100" >
@@ -35,33 +40,33 @@
                 <td>{{ $template->service->service_name }}</td>
                 <td>
                   {{ $template->name }} 
-                  <a href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}">
-                    <span class="badgetext badge badge-danger badge-pill"><i class="mdi mdi-download"></i> {{$template->template_file}}</span>
+                  <a href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" class="btn btn-sm btn-outline-danger float-right">
+                    <i class="mdi mdi-download"></i> {{$template->template_file}}</span>
                   </a>
                 </td>
                 <td>{{ $template->description }}</td>
                 <td>{{ $template->created_at->toFormatteddateString() }}</td>
                 <td>
-                        <a class="mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="download">
-                          <i class="mdi mdi-download" style="color: green;"></i>
-                        </a>
+                               
+                    @if(!$template->deleted_at)
+                      <a class="btn btn-sm btn-green mr-1" href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" target="_blank" data-toggle="tooltip" data-placement="top" data-container="body" title="download">
+                        <i class="mdi mdi-download"></i>
+                      </a>
 
-                        <a class="mr-1" href="{{ route('admin.services.edit.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
-                          <i class="mdi mdi-pencil" style="color: black;"></i>
-                        </a>
-                        
-                        @if(!$template->deleted_at)
-                          <a class="mr-1" href="{{ route('admin.services.delete.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
-                            <i class="mdi mdi-delete" style="color: red;"></i>
-                          </a>
-                        @else
-                          <a class="mr-1" href="{{ route('admin.services.restore.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="restore">
-                            <i class="mdi mdi-backup-restore" style="color: red;"></i>
-                          </a>
-                          <a class="mr-1" href="{{ route('admin.services.deleteforever.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete forever">
-                            <i class="mdi mdi-delete-forever" style="color: black;"></i>
-                          </a>
-                        @endif
+                      <a class="btn btn-sm btn-blue mr-1" href="{{ route('admin.services.edit.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
+                        <i class="mdi mdi-pencil"></i>
+                      </a>
+                      <a class="btn btn-sm btn-danger mr-1" href="{{ route('admin.services.delete.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
+                        <i class="mdi mdi-delete"></i>
+                      </a>
+                    @else
+                      <a class="btn btn-sm btn-orange mr-1" href="{{ route('admin.services.restore.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="restore">
+                        <i class="mdi mdi-backup-restore"></i>
+                      </a>
+                      <a class="btn btn-sm btn-dark mr-1" href="{{ route('admin.services.deleteforever.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete forever">
+                        <i class="mdi mdi-delete-forever"></i>
+                      </a>
+                    @endif
 
                 </td>
               </tr>
