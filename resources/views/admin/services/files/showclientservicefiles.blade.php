@@ -31,7 +31,7 @@
 				      <tr>
 				      	<td>{{ $i + 1}}</td>
 				        <td>
-				        	<a href="{{url('/uploads/companies/services/'.$company->id)}}/{{json_decode($clientservice->service_files)[$i]}}" target="_blank">
+				        	<a href="{{url('/uploads/companies/services/'.$company->id)}}/{{json_decode($clientservice->service_files)[$i]}}" target="_blank" class="btn-sm btn btn-outline-info">
 								<i class="fa fa-download"></i> {{json_decode($clientservice->service_files)[$i]}}
 							</a>
 						</td>

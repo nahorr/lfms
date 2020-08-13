@@ -371,9 +371,46 @@
                             <div>
                                
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('adminhome')}}">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">{{\Route::current()->getName()}}</li>
                                 </ol>
+                            </div>
+                            <div class="ml-auto pageheader-btn">
+                                @if(Auth::user()->group_id == 1)
+                                <a href="{{ url('/super/companies/newcompany') }}" class="btn btn-secondary btn-icon text-white mr-2">
+                                    <span>
+                                        <i class="fa fa-building-o text-white"></i>
+                                    </span> <strong>Add Company</strong>
+                                </a>
+                                <a href="{{ url('/super/users/newuser') }}" class="btn btn-warning btn-icon text-white mr-2">
+                                    <span>
+                                        <i class="fe fe-user"></i>
+                                    </span> <strong>Add User</strong>
+                                </a>
+                                <a href="{{url('/super/subscriptions/newsubscription')}}" class="btn btn-primary btn-icon text-white">
+                                    <span>
+                                        <i class="fa fa-dollar"></i>
+                                    </span> <strong>Add Subscription</strong>
+                                </a>
+                                @elseif(Auth::user()->group_id == 2 || Auth::user()->group_id == 3)
+                                <a href="{{ url('/admin/lawyers/newlawyer/'.Auth::user()->company_id) }}" class="btn btn-warning btn-icon text-white mr-2">
+                                    <span>
+                                        <i class="fe fe-user"></i>
+                                    </span> <strong>Add Lawyer</strong>
+                                </a>
+                                    @if(Auth::user()->group_id == 2)
+                                    <a href="{{ url('/admin/users/newuser/'.Auth::user()->company_id) }}" class="btn btn-danger btn-icon text-white mr-2">
+                                        <span>
+                                            <i class="fe fe-user"></i>
+                                        </span> <strong>Add Employee</strong>
+                                    </a>
+                                    @endif
+                                <a href="{{ url('admin/clients/newclient/'.Auth::user()->company_id) }}" class="btn btn-primary btn-icon text-white mr-2">
+                                    <span>
+                                        <i class="fe fe-user"></i>
+                                    </span> Add Client
+                                </a>
+                                @endif
                             </div>
                         </div>
                         <!-- PAGE-HEADER END -->
@@ -508,7 +545,7 @@
 
         <!-- INTERNAL DATEPICKER JS-->
         <script src="{{ asset('/assets/plugins/date-picker/spectrum.js') }}"></script>
-        <!-- <script src="{{ asset('/assets/plugins/date-picker/jquery-ui.js') }}"></script> -->
+        <script src="{{ asset('/assets/plugins/date-picker/jquery-ui.js') }}"></script>
         <script src="{{ asset('/assets/plugins/input-mask/jquery.maskedinput.js') }}"></script>
 
         <!-- INTERNAL MULTI SELECT JS -->
@@ -532,12 +569,6 @@
 
         <!-- CUSTOM JS-->
         <script src="{{ asset('/assets/js/custom.js') }}"></script>
-
-        <script>
-         $(document).ready(function() {
-             $('.datatabel').DataTable();
-         } );
-      </script>
         
     </body>
 </html>

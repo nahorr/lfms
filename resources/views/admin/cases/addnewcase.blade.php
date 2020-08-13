@@ -67,7 +67,7 @@
               <label class="g-mb-5"><strong>Case Files - <span style="color: red">You can add more than one files at the same time.</span></strong></label>               
                 <div class="form-group">
                   <div class="file-loading">
-                      <input id="filename" type="file" name="case_file[]" multiple class="file" data-overwrite-initial="false" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..." required="">
+                      <input id="filename" type="file" name="case_files[]" multiple class="file" data-overwrite-initial="false" data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..." required="">
                   </div>
                 </div>
             </div>
@@ -80,16 +80,4 @@
   </div><!-- COL END -->
 </div>
 <!-- ROW-1 CLOSED -->
-<script type="text/javascript">
-    $("#filename").fileinput({
-        theme: 'fa',
-        allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif', 'svg'],
-        overwriteInitial: false,
-        maxFileSize:2000,
-        maxFilesNum: 10,
-        slugCallback: function (filename) {
-            return filename.replace('(', '_').replace(']', '_');
-        }
-    });
-</script>
 @endsection

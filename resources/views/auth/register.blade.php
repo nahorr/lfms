@@ -27,7 +27,7 @@
             </span>
 
             <input type="hidden" name="company_id" value="{{ $company->id }}">
-            <input type="hidden" name="group_id" value="2">
+            <input type="hidden" name="group_id" value="{{ env('ADMINGROUP') }}">
 
             <div class="wrap-input100 validate-input">
                 <input id="name" type="text" class="input100 form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Full Name">

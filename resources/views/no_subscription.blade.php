@@ -21,7 +21,15 @@
 			<div class="card-footer text-center">
 				<div class="row user-social-detail">
 					<div class="col text-center">
-						<a href="{{ route('ContactUs')}}" class="btn btn-danger"><strong>Contact Site Administrator</strong></a>
+						<div class="col text-center">
+							<a href="{{ route('ContactUs')}}" class="btn btn-purple"><strong>Subscribe NOW</strong></a>
+						</div>
+						<div class="col text-center">
+							<span>OR</span>
+						</div>
+						<div class="col text-center">
+							<a href="{{ route('ContactUs')}}" class="btn btn-danger"><strong>Contact Site Administrator</strong></a>
+						</div>						
 					</div>
 				</div>
 			</div>

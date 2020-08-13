@@ -9,16 +9,16 @@
     @include('super.formerror')
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title"><i class="fa fa-user"></i> New Client {{$service->service_name}} Form</h3>
+        <h3 class="card-title"><i class="fa fa-user"></i> New Service For: {{$client->first_name}} {{$client->last_name}}</h3>
       </div>
       <div class="card-body">
-          <form action="{{ url('/admin/services/addnewclientservice',[$company->id, $service->id]) }}" method="POST" enctype="multipart/form-data">
+          <form action="{{ url('/admin/services/client/create',[$company->id, $client->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf()
             <div class="form-group">
-              <label class="form-label"> Select a Client </label>
-              <select class="form-control select2-show-search" name="client_id" data-placeholder="Select a Client">
-                @foreach($companyclients as $key => $client)
-                  <option value="{{ $client->id }}">Client #: {{ $client->client_number }}; Client Name: {{ $client->first_name }}:{{ $client->last_name }}</option>
+              <label class="form-label"> Select a Service </label>
+              <select class="form-control select2-show-search" name="service_id" data-placeholder="Select a Service" required="">
+                @foreach($company_services as $key => $service)
+                  <option value="{{ $service->id }}">{{ $service->service_name }}</option>
                 @endforeach
               </select>
             </div>
@@ -64,23 +64,11 @@
             </div>
             </div>
             <!-- Bootstrap files: add product photos -->
-          <button type="submit" class="btn btn-primary">Add Client</button>
+          <button type="submit" class="btn btn-primary">Add Service for {{$client->first_name}} {{$client->last_name}}</button>
         </form>
       </div>
     </div>
   </div><!-- COL END -->
 </div>
 <!-- ROW-1 CLOSED -->
-<script type="text/javascript">
-    $("#filename").fileinput({
-        theme: 'fa',
-        allowedFileExtensions: ['jpg', 'jpeg', 'png', 'gif', 'svg'],
-        overwriteInitial: false,
-        maxFileSize:2000,
-        maxFilesNum: 10,
-        slugCallback: function (filename) {
-            return filename.replace('(', '_').replace(']', '_');
-        }
-    });
-</script>
 @endsection
