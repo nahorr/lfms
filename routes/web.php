@@ -115,20 +115,9 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
       Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
       Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
 
-
-
-
       //Add a new service for a client
       Route::get('/admin/cases/addnewcase/{company}/{client}', 'ClientCasesController@addNewClientCase');
       Route::post('/admin/cases/addcase/{company}/{client}', 'ClientCasesController@addClientCase');
-
-
-
-
-
-
-      
-
 
       //View case files
       Route::get('/admin/cases/files/showcasefiles/{case}/{company}/{client}', 
@@ -163,6 +152,11 @@ Route::group(['middleware' => ['auth','admin'] , 'namespace' => 'Admin'], functi
         //Add a new Client Service
         Route::get('addclientservice/{company}/{service}', 'ClientServicesController@addClientService')->name('Client Service Form');
         Route::post('addnewclientservice/{company}/{service}', 'ClientServicesController@addNewClientService');
+
+          //Add service for a client from Company clients Table
+          Route::get('client/add/{company}/{client}', 'ClientServicesController@add')->name('add.client.service');
+          Route::post('client/create/{company}/{client}', 'ClientServicesController@create')->name('create.client.service');
+
         //Edit, view, and delete Client Service
         Route::get('editclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@editClientService')->name('edit.clientservice');
         Route::post('updateclientservice/{company}/{service}/{clientservice}', 'ClientServicesController@updateClientService')->name('update.clientservice');

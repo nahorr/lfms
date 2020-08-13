@@ -43,15 +43,20 @@
                 <td>{{ $client->client_number }}</td>
                 <td>{{ $client->last_name }}, {{ $client->first_name }}</td>
                 <td>
-                  {{ $client->client_cases->count() }} Cases
-                  <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}/{{$client->id}}" id="delete_client-{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a case for this client">
+                  <a href="{{ url('/admin/cases/showcases/'.Auth::user()->company_id) }}" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-original-title="View Cases">
+                    {{ $client->client_cases->count() }} Cases
+                  </a>
+                  <a href="{{ url('/admin/cases/addnewcase/'.Auth::user()->company_id) }}/{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a case for this client">
                     <i class="fa fa-plus"></i>
                     
                   </a>
                 </td>
                 <td>
-                  {{ $client->client_services->count() }} Services
-                  <a href="{{ url('/admin/services/newclientservice/'.Auth::user()->company_id) }}/{{$client->id}}" id="delete_client-{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a service for this client">
+                  <a href="{{ url('/admin/services/showservices/'.Auth::user()->company_id) }}" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-original-title="View Services">
+                    {{ $client->client_services->count() }} Services
+                  </a>
+
+                  <a href="{{ url('/admin/services/client/add/'.Auth::user()->company_id) }}/{{$client->id}}" class="btn btn-danger btn-sm" data-toggle="tooltip" data-original-title="Add a service for this client">
                     <i class="fa fa-plus"></i>
                     
                   </a>
