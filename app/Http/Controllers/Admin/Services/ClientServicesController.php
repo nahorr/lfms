@@ -18,7 +18,7 @@ class ClientServicesController extends Controller
 {
     public function showClientServices(Company $company, Service $service)
     {
-    	$clientservices = ClientService::where('company_id', $company->id)->where('service_id', $service->id)->get();
+    	$clientservices = ClientService::withTrashed()->where('company_id', $company->id)->where('service_id', $service->id)->get();
 
     	return view('admin.services.showclientservices', compact('clientservices', 'company', 'service'));
     }
