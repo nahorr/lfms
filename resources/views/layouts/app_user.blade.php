@@ -356,7 +356,7 @@
                         @include('includes.navbar-super')
                     @elseif((Request::is('admin/*') && (Auth::user()->group_id == 2 || Auth::user()->group_id == 3)) || (Auth::user()->group_id == 2 || Auth::user()->group_id == 3)) 
                         @include('includes.navbar-admin')
-                    @elseif((Request::is('admin/*') && Auth::user()->group_id == 4) || Request::is('admin/*'))
+                    @elseif((Request::is('lawyer/*') && Auth::user()->group_id == 4) || Request::is('lawyer/*'))
                         @include('includes.navbar-lawyer')
                     @endif
 

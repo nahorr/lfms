@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $company = Company::where('id', Auth::user()->company_id)->first();
-
+        
         return view('/lawyer/home', compact('company'));
     }
 }

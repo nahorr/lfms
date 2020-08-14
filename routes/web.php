@@ -41,10 +41,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //Private Area - Lawyers
-Route::group(['middleware' => ['auth', 'lawyer']], function () {
+Route::group(['middleware' => ['auth', 'lawyer'], 'namespace' => 'Lawyer', 'prefix' => 'lawyer', 'as' => 'lawyer.'], function () {
 
 	//Home page when loged in 
-	Route::get('/lawyer/home', 'Lawyer\HomeController@index')->name('lawyerhome');
+	Route::get('/home', 'HomeController@index')->name('home');
+
+  //Your Cases
+  Route::get('/cases/show/{company}', 'CasesController@show')->name('show.cases');
 	
 
 });
