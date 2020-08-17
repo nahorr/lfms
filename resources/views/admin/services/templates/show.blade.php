@@ -27,8 +27,8 @@
               <tr>
                 <th>#</th>
                 <th>Service</th>
-                <th>Template</th>
-                <th>Description</th>
+                <th>Name</th>
+                <th>File</th>
                 <th>Created</th>
                 <th>Action</th>
               </tr>
@@ -39,12 +39,13 @@
                 <td>{{ $key+1 }}</td>
                 <td>{{ $template->service->service_name }}</td>
                 <td>
-                  {{ $template->name }} 
-                  <a href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" class="btn btn-sm btn-outline-danger float-right">
+                  {{ $template->name }}   
+                </td>
+                <td>
+                  <a href="{{ asset('/uploads/companies/templates/'.$company->id) }}/{{$template->template_file}}" class="btn btn-sm btn-outline-danger float-left">
                     <i class="mdi mdi-download"></i> {{$template->template_file}}</span>
                   </a>
                 </td>
-                <td>{{ $template->description }}</td>
                 <td>{{ $template->created_at->toFormatteddateString() }}</td>
                 <td>
                                
@@ -56,15 +57,15 @@
                       <a class="btn btn-sm btn-blue mr-1" href="{{ route('admin.services.edit.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="edit">
                         <i class="mdi mdi-pencil"></i>
                       </a>
-                      <a class="btn btn-sm btn-danger mr-1" href="{{ route('admin.services.delete.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete">
+                      <a class="btn btn-sm btn-danger mr-1" href="{{ route('admin.services.delete.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete" onclick="return confirm('Are you sure you want to delete this template?');">
                         <i class="mdi mdi-delete"></i>
                       </a>
                     @else
-                      <a class="btn btn-sm btn-orange mr-1" href="{{ route('admin.services.restore.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="restore">
+                      <a class="btn btn-sm btn-orange mr-1" href="{{ route('admin.services.restore.template', $template->id) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="restore" onclick="return confirm('Are you sure you want to restore this template?');">
                         <i class="mdi mdi-backup-restore"></i>
                       </a>
-                      <a class="btn btn-sm btn-dark mr-1" href="{{ route('admin.services.deleteforever.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete forever">
-                        <i class="mdi mdi-delete-forever"></i>
+                      <a class="btn btn-sm btn-dark mr-1" href="{{ route('admin.services.deleteforever.template', [$company->id, $template->id]) }}" data-toggle="tooltip" data-placement="top" data-container="body" title="delete forever" onclick="return confirm('Are you sure you want to delete this template forever?');">
+                        <i class="mdi mdi-delete-forever" ></i>
                       </a>
                     @endif
 

@@ -52,7 +52,7 @@
 
                 </td>
                 <td>{{ $case->court_date->toFormattedDateString() }}</td>
-                <td>{{ $case->user->name}}</td>
+                <td>{{ @$case->user->name}}</td>
                 <td>{{ $case->created_at->toFormattedDateString()}}</td>
                 <td>
                     @if($case->deleted_at != Null)

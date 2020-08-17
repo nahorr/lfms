@@ -50,7 +50,7 @@
                   @endif
                 </td>
                 <td>{{ $clientservice->effective_date->toFormattedDateString() }}</td>
-                <td>{{ $clientservice->user->name}}</td>
+                <td>{{ @$clientservice->user->name}}</td>
                 <td>{{ $clientservice->created_at->toFormattedDateString()}}</td>
                 <td>
                     @if($clientservice->deleted_at != Null)

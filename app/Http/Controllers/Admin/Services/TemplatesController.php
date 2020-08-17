@@ -76,12 +76,9 @@ class TemplatesController extends Controller
     	$this->validate(request(), [
 
     		'service_id' => 'required',
-    		'name' => 'required',
-    		'name' => Rule::unique('templates')->where(function ($query) use ($template) {
-                return $query->where('id', $template->id);
-            	}),
-            'name' => Rule::unique('templates')->where(function ($query) use ($company) {
-                return $query->where('company_id', $company->id);
+    		'name' => 'required|unique:templates,name,'.$template->id,
+            'name' => Rule::unique('templates')->where(function ($query) use ($company, $template) {
+                return $query->where('company_id', $company->id)->where('id', '!=', $template->id);
             	}),
             'template_file' => 'file|mimes:jpeg,png,jpg,zip,pdf,ppt, pptx, xlx, xlsx,docx,doc,gif,webm,mp4,mpeg,odt,ods,odp,|max:10000'
 
